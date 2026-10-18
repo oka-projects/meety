@@ -5,7 +5,7 @@ export const strings = {
     "meta.desc": "Meety grava a chamada e a sua voz, transcreve com o chip do próprio Mac, separa quem falou e escreve a ata. Grátis, código aberto, nada sai do seu computador.",
     "nav.how": "Como funciona",
     "nav.features": "Recursos",
-    "nav.summaries": "Resumos",
+    "nav.summaries": "Especificações",
     "nav.download": "Baixar",
     "nav.by": "by Oka",
 
@@ -158,7 +158,7 @@ export const strings = {
     "meta.desc": "Meety records the call and your voice, transcribes on your Mac's own chip, tells speakers apart and writes the minutes. Free, open source, nothing leaves your computer.",
     "nav.how": "How it works",
     "nav.features": "Features",
-    "nav.summaries": "Summaries",
+    "nav.summaries": "Specifications",
     "nav.download": "Download",
     "nav.by": "by Oka",
 
