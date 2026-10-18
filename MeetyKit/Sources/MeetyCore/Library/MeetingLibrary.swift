@@ -25,7 +25,9 @@ public struct MeetingFolder: Sendable {
 @Observable
 public final class MeetingLibrary {
     public private(set) var meetings: [Meeting] = []
+    public private(set) var projects: [Project] = []
     public let root: URL
+    var projectsFile: URL { root.appendingPathComponent("projects.json") }
 
     public static func defaultRoot() -> URL {
         AppPaths.applicationSupport.appendingPathComponent("Library", isDirectory: true)
@@ -52,6 +54,51 @@ public final class MeetingLibrary {
             list.append(m)
         }
         meetings = list.sorted { $0.createdAt > $1.createdAt }
+        if let data = try? Data(contentsOf: projectsFile), let list = try? JSON.decoder.decode([Project].self, from: data) {
+            projects = list.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+        }
+    }
+
+    // MARK: - Projetos
+
+    public func project(id: String?) -> Project? {
+        guard let id else { return nil }
+        return projects.first { $0.id == id }
+    }
+
+    public func meetings(in project: Project) -> [Meeting] { meetings.filter { $0.projectID == project.id } }
+    public var unassignedMeetings: [Meeting] { meetings.filter { $0.projectID == nil } }
+
+    @discardableResult
+    public func createProject(name: String) throws -> Project {
+        let used = Set(projects.map(\.colorIndex))
+        let color = (1...7).first { !used.contains($0) } ?? (projects.count % 7) + 1
+        let p = Project(name: name.trimmingCharacters(in: .whitespaces), colorIndex: color)
+        projects.append(p)
+        try saveProjects()
+        return p
+    }
+
+    public func updateProject(_ id: String, _ change: (inout Project) -> Void) {
+        guard let i = projects.firstIndex(where: { $0.id == id }) else { return }
+        change(&projects[i])
+        try? saveProjects()
+    }
+
+    /// Apaga o projeto; as reuniões ficam, sem projeto.
+    public func deleteProject(_ project: Project) throws {
+        for m in meetings(in: project) { update(m.id) { $0.projectID = nil } }
+        projects.removeAll { $0.id == project.id }
+        try saveProjects()
+    }
+
+    public func assign(_ meetingID: String, to projectID: String?) {
+        update(meetingID) { $0.projectID = projectID }
+    }
+
+    func saveProjects() throws {
+        projects.sort { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
+        try JSON.encoder.encode(projects).write(to: projectsFile, options: .atomic)
     }
 
     // MARK: - Criar

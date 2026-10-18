@@ -14,8 +14,29 @@ public final class AppModel {
     public let recorder = Recorder()
     public let settings = MeetySettings.shared
 
-    public var selectedMeetingID: String?
+    public var selectedMeetingID: String? { didSet { if selectedMeetingID != nil { selectedProjectID = nil } } }
     public var searchText = ""
+    /// A barra lateral mostra as gravações ou os projetos.
+    public var sidebarMode: SidebarMode {
+        didSet {
+            UserDefaults.standard.set(sidebarMode.rawValue, forKey: "sidebarMode")
+            if sidebarMode == .projects { selectedMeetingID = nil } else { selectedProjectID = nil }
+        }
+    }
+    /// Projeto aberto no detalhe (modo Projetos). Selecionar uma reunião limpa isto.
+    public var selectedProjectID: String?
+
+    public enum SidebarMode: String, CaseIterable, Identifiable, Sendable {
+        case recordings, projects
+        public var id: String { rawValue }
+        public var title: String {
+            switch self {
+            case .recordings: return String(localized: "Recordings", bundle: .module)
+            case .projects: return String(localized: "Projects", bundle: .module)
+            }
+        }
+        public var systemIcon: String { self == .recordings ? "waveform" : "folder" }
+    }
     /// Reunião em gravação (pasta já criada).
     public var recordingMeetingID: String?
     public var showWelcome = false
@@ -34,9 +55,32 @@ public final class AppModel {
         library = MeetingLibrary()
         models = ModelManager()
         queue = TranscriptionQueue(library: library, models: models)
+        sidebarMode = SidebarMode(rawValue: UserDefaults.standard.string(forKey: "sidebarMode") ?? "") ?? .recordings
         showWelcome = !settings.welcomeDone
         engineMissing = EngineRunner.bundled() == nil
         Task { await checkEngine() }
+        applyDebugState()
+    }
+
+    /// Só no Debug: variáveis de ambiente para abrir o app num estado (prints e testes).
+    /// MEETY_SELECT=<trecho do título>  MEETY_SHOW=welcome|settings
+    func applyDebugState() {
+        #if DEBUG
+        let env = ProcessInfo.processInfo.environment
+        if env["MEETY_MODE"] == "projects" { sidebarMode = .projects }
+        if let t = env["MEETY_PROJECT"], let p = library.projects.first(where: { $0.name.localizedCaseInsensitiveContains(t) }) { sidebarMode = .projects; openProject(p) }
+        if let t = env["MEETY_SELECT"], let m = library.meetings.first(where: { $0.title.localizedCaseInsensitiveContains(t) }) { selectedMeetingID = m.id }
+        if env["MEETY_SHOW"] == "welcome" { showWelcome = true }
+        if env["MEETY_SHOW"] == "settings" {
+            Task {
+                try? await Task.sleep(for: .seconds(1))
+                NSApp.activate(ignoringOtherApps: true)
+                if let item = NSApp.mainMenu?.items.first?.submenu?.items.first(where: { $0.keyEquivalent == "," }), let action = item.action {
+                    NSApp.sendAction(action, to: item.target, from: item)
+                }
+            }
+        }
+        #endif
     }
 
     public var selectedMeeting: Meeting? {
@@ -45,6 +89,23 @@ public final class AppModel {
     }
 
     public var filteredMeetings: [Meeting] { library.search(searchText) }
+    public var selectedProject: Project? { library.project(id: selectedProjectID) }
+
+    public func openProject(_ project: Project) {
+        selectedMeetingID = nil
+        selectedProjectID = project.id
+    }
+
+    public func createProject(named name: String) {
+        guard !name.trimmingCharacters(in: .whitespaces).isEmpty else { return }
+        do { let p = try library.createProject(name: name); sidebarMode = .projects; openProject(p) }
+        catch { alert = AlertMessage(title: String(localized: "Couldn't create the project", bundle: .module), message: error.localizedDescription) }
+    }
+
+    public func deleteProject(_ project: Project) {
+        do { try library.deleteProject(project); if selectedProjectID == project.id { selectedProjectID = nil } }
+        catch { alert = AlertMessage(title: String(localized: "Couldn't delete the project", bundle: .module), message: error.localizedDescription) }
+    }
 
     func checkEngine() async {
         guard let engine = EngineRunner.bundled() else { return }

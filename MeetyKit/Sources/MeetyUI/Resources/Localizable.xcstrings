@@ -2,9 +2,30 @@
   "sourceLanguage": "en",
   "strings": {
     "": {},
-    "%1$@ / %2$@": {},
-    "%1$@ · %2$@": {},
+    "%1$@ of %2$@": {
+      "extractionState": "stale",
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ de %2$@"
+          }
+        }
+      }
+    },
+    "%1$lld h %2$@ min": {
+      "extractionState": "stale",
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld h %2$@ min"
+          }
+        }
+      }
+    },
     "%1$lld%% · about %2$@ left": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -14,33 +35,72 @@
         }
       }
     },
-    "%@ / %@": {
+    "%@ of %@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "new",
-            "value": "%1$@ / %2$@"
+            "value": "%1$@ of %2$@"
           }
         }
       }
     },
-    "%@ · %@": {
+    "%@ · stored on this Mac, used offline": {
       "localizations": {
-        "en": {
+        "pt-BR": {
           "stringUnit": {
-            "state": "new",
-            "value": "%1$@ · %2$@"
+            "state": "translated",
+            "value": "%@ · guardados neste Mac, usados sem internet"
           }
         }
       }
     },
-    "%@×": {},
-    "%lld%% · about %@ left": {
+    "%lld h %@ min": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "new",
-            "value": "%1$lld%% · about %2$@ left"
+            "value": "%1$lld h %2$@ min"
+          }
+        }
+      }
+    },
+    "%lld meetings": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld reuniões"
+          }
+        }
+      }
+    },
+    "%lld min": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min"
+          }
+        }
+      }
+    },
+    "%lld s": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld s"
+          }
+        }
+      }
+    },
+    "A client, a course, a team: anything you want to keep together.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um cliente, um curso, uma equipe: o que você quiser manter junto."
           }
         }
       }
@@ -85,6 +145,46 @@
         }
       }
     },
+    "Add meetings": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adicionar reuniões"
+          }
+        }
+      }
+    },
+    "Add meetings with the button above, or drag recordings onto the project in the sidebar.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adicione reuniões pelo botão acima, ou arraste gravações para o projeto na barra lateral."
+          }
+        }
+      }
+    },
+    "Add to project": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alocar a um projeto"
+          }
+        }
+      }
+    },
+    "All set. The models are ready.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tudo pronto. Os modelos estão instalados."
+          }
+        }
+      }
+    },
     "Allow microphone": {
       "localizations": {
         "pt-BR": {
@@ -115,6 +215,16 @@
         }
       }
     },
+    "Audio or video: m4a, mp3, wav, mp4, mov and more.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Áudio ou vídeo: m4a, mp3, wav, mp4, mov e outros."
+          }
+        }
+      }
+    },
     "Back": {
       "localizations": {
         "pt-BR": {
@@ -135,6 +245,16 @@
         }
       }
     },
+    "Cancel download": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar download"
+          }
+        }
+      }
+    },
     "Choose audio or video files to transcribe": {
       "localizations": {
         "pt-BR": {
@@ -151,6 +271,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Claude e ChatGPT neste Mac"
+          }
+        }
+      }
+    },
+    "Click to rename": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clique para renomear"
           }
         }
       }
@@ -195,12 +325,32 @@
         }
       }
     },
+    "Couldn't create the project": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não deu para criar o projeto"
+          }
+        }
+      }
+    },
     "Couldn't delete": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Não foi possível apagar"
+          }
+        }
+      }
+    },
+    "Couldn't delete the project": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não deu para apagar o projeto"
           }
         }
       }
@@ -225,6 +375,16 @@
         }
       }
     },
+    "Create": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Criar"
+          }
+        }
+      }
+    },
     "Default": {
       "localizations": {
         "pt-BR": {
@@ -235,12 +395,42 @@
         }
       }
     },
+    "Delete project": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar projeto"
+          }
+        }
+      }
+    },
     "Delete this model": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Apagar este modelo"
+          }
+        }
+      }
+    },
+    "Delete this project?": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar este projeto?"
+          }
+        }
+      }
+    },
+    "Delete this summary": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar este resumo"
           }
         }
       }
@@ -295,6 +485,26 @@
         }
       }
     },
+    "Every meeting is already here": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas as reuniões já estão aqui"
+          }
+        }
+      }
+    },
+    "Everything stays on this Mac. Nothing leaves it unless you choose a cloud summary.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tudo fica neste Mac. Nada sai daqui, a não ser que você escolha um resumo na nuvem."
+          }
+        }
+      }
+    },
     "Export": {
       "localizations": {
         "pt-BR": {
@@ -336,6 +546,7 @@
       }
     },
     "Format": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -395,6 +606,16 @@
         }
       }
     },
+    "Group your meetings by client, course or team. Drag a recording onto a project to file it.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agrupe as reuniões por cliente, curso ou equipe. Arraste uma gravação para um projeto para alocá-la."
+          }
+        }
+      }
+    },
     "Import": {
       "localizations": {
         "pt-BR": {
@@ -421,6 +642,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Deixe em automático, a não ser que a detecção erre."
+          }
+        }
+      }
+    },
+    "Leaves your Mac": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sai do seu Mac"
           }
         }
       }
@@ -475,6 +706,16 @@
         }
       }
     },
+    "Meety": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meety"
+          }
+        }
+      }
+    },
     "Meety can't open .%@ files yet. Convert the file to MP4, M4A, MP3 or WAV and try again.": {
       "localizations": {
         "pt-BR": {
@@ -495,7 +736,18 @@
         }
       }
     },
+    "Meety picked the right sizes for this Mac (%lld GB of memory). Everything is stored on this Mac and works offline afterwards.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Meety escolheu os tamanhos certos para este Mac (%lld GB de memória). Tudo fica guardado aqui e funciona sem internet depois."
+          }
+        }
+      }
+    },
     "Meety picked the right sizes for this Mac (%lld GB of memory). This happens once; after that, everything works offline.": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -506,6 +758,7 @@
       }
     },
     "Meety transcribes on your Mac. Your audio never leaves your computer.": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -605,6 +858,26 @@
         }
       }
     },
+    "New project": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novo projeto"
+          }
+        }
+      }
+    },
+    "New project…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novo projeto…"
+          }
+        }
+      }
+    },
     "No audio reached Meety. Check the microphone and the system audio permission.": {
       "localizations": {
         "pt-BR": {
@@ -615,7 +888,58 @@
         }
       }
     },
+    "No meetings in this project": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma reunião neste projeto"
+          }
+        }
+      }
+    },
+    "No meetings yet": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma reunião ainda"
+          }
+        }
+      }
+    },
+    "No project": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem projeto"
+          }
+        }
+      }
+    },
+    "No projects yet": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum projeto ainda"
+          }
+        }
+      }
+    },
+    "No summary yet": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum resumo ainda"
+          }
+        }
+      }
+    },
     "No summary yet. Pick what you need above and press Generate.": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -655,12 +979,42 @@
         }
       }
     },
+    "Nothing found": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada encontrado"
+          }
+        }
+      }
+    },
+    "Nothing saved yet.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada guardado ainda."
+          }
+        }
+      }
+    },
     "Nothing was recorded": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Nada foi gravado"
+          }
+        }
+      }
+    },
+    "One time only. You can keep using Meety while it downloads.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Só uma vez. Você pode continuar usando o Meety enquanto baixa."
           }
         }
       }
@@ -735,6 +1089,46 @@
         }
       }
     },
+    "Pick what you need on the left and press Generate.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolha o que precisa à esquerda e clique em Gerar."
+          }
+        }
+      }
+    },
+    "Project": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Projeto"
+          }
+        }
+      }
+    },
+    "Project name": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nome do projeto"
+          }
+        }
+      }
+    },
+    "Projects": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Projetos"
+          }
+        }
+      }
+    },
     "Provider": {
       "localizations": {
         "pt-BR": {
@@ -785,6 +1179,16 @@
         }
       }
     },
+    "Recording": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gravando"
+          }
+        }
+      }
+    },
     "Recording · %@": {
       "localizations": {
         "pt-BR": {
@@ -801,6 +1205,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gravando. Clique em parar quando a reunião terminar."
+          }
+        }
+      }
+    },
+    "Recordings": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gravações"
+          }
+        }
+      }
+    },
+    "Remove from project": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tirar do projeto"
           }
         }
       }
@@ -835,6 +1259,16 @@
         }
       }
     },
+    "Running on this Mac's chip. You can keep using Meety meanwhile.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rodando no chip deste Mac. Você pode continuar usando o Meety enquanto isso."
+          }
+        }
+      }
+    },
     "Save key": {
       "localizations": {
         "pt-BR": {
@@ -851,6 +1285,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Salva nas suas Chaves"
+          }
+        }
+      }
+    },
+    "Saved on this Mac as it records. Transcription starts when you stop.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salvo neste Mac enquanto grava. A transcrição começa quando você parar."
           }
         }
       }
@@ -946,11 +1390,22 @@
       }
     },
     "So Meety can hear the other people in the call. macOS groups this under \"Screen & System Audio Recording\". Meety never records your screen, only the sound.\n\nAfter turning it on, macOS may ask you to quit and reopen Meety.": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Para o Meety ouvir as outras pessoas da chamada. O macOS agrupa isso em \"Gravação de Tela e Áudio do Sistema\". O Meety nunca grava a sua tela, só o som.\n\nDepois de ligar, o macOS pode pedir para encerrar e abrir o Meety de novo."
+          }
+        }
+      }
+    },
+    "So Meety can hear the other people in the call. macOS groups this under Screen & System Audio Recording. Meety never records your screen.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para o Meety ouvir as outras pessoas da chamada. O macOS agrupa isso em Gravação de Tela e Áudio do Sistema. O Meety nunca grava a sua tela."
           }
         }
       }
@@ -1011,6 +1466,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Começar a usar o Meety"
+          }
+        }
+      }
+    },
+    "Stays on your Mac": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fica no seu Mac"
           }
         }
       }
@@ -1085,6 +1550,16 @@
         }
       }
     },
+    "The audio is saved. Transcribe it whenever you like; it runs on this Mac.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O áudio está salvo. Transcreva quando quiser; roda neste Mac."
+          }
+        }
+      }
+    },
     "The audio, the transcript and the summaries go together.": {
       "localizations": {
         "pt-BR": {
@@ -1095,7 +1570,18 @@
         }
       }
     },
+    "The meetings stay in your library, just without a project.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As reuniões continuam na biblioteca, só sem projeto."
+          }
+        }
+      }
+    },
     "The transcription didn't finish": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -1131,6 +1617,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Título"
+          }
+        }
+      }
+    },
+    "Today, %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hoje, %@"
           }
         }
       }
@@ -1185,6 +1681,16 @@
         }
       }
     },
+    "Transcribing…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transcrevendo…"
+          }
+        }
+      }
+    },
     "Transcript": {
       "localizations": {
         "pt-BR": {
@@ -1201,6 +1707,36 @@
           "stringUnit": {
             "state": "translated",
             "value": "Transcrição"
+          }
+        }
+      }
+    },
+    "Transcription didn't finish": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A transcrição não terminou"
+          }
+        }
+      }
+    },
+    "Try another word. The search looks at titles and transcripts.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tente outra palavra. A busca olha títulos e transcrições."
+          }
+        }
+      }
+    },
+    "Turn Meety on in the list that opens. macOS may ask you to quit and reopen Meety afterwards.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ligue o Meety na lista que abrir. O macOS pode pedir para fechar e reabrir o Meety depois."
           }
         }
       }
@@ -1226,11 +1762,22 @@
       }
     },
     "Version": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Versão"
+          }
+        }
+      }
+    },
+    "Version %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versão %@"
           }
         }
       }
@@ -1285,6 +1832,16 @@
         }
       }
     },
+    "Yesterday, %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ontem, %@"
+          }
+        }
+      }
+    },
     "You": {
       "localizations": {
         "pt-BR": {
@@ -1296,11 +1853,22 @@
       }
     },
     "You can keep using Meety while this downloads, and change models later in Settings.": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Você pode continuar usando o Meety enquanto baixa, e trocar os modelos depois nos Ajustes."
+          }
+        }
+      }
+    },
+    "Your recordings and imported files will show up here.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As suas gravações e os arquivos importados aparecem aqui."
           }
         }
       }
@@ -1315,7 +1883,58 @@
         }
       }
     },
+    "about %@ left": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "faltam cerca de %@"
+          }
+        }
+      }
+    },
+    "imported from %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "importado de %@"
+          }
+        }
+      }
+    },
+    "last on %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "última em %@"
+          }
+        }
+      }
+    },
+    "leaves your Mac": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sai do seu Mac"
+          }
+        }
+      }
+    },
+    "macOS will ask you to confirm.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O macOS vai pedir a sua confirmação."
+          }
+        }
+      }
+    },
     "not ready": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -1325,9 +1944,46 @@
         }
       }
     },
-    "·": {},
-    "· %@": {},
-    "•": {}
+    "on this Mac": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "neste Mac"
+          }
+        }
+      }
+    },
+    "started at %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "começou às %@"
+          }
+        }
+      }
+    },
+    "transcribing": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "transcrevendo"
+          }
+        }
+      }
+    },
+    "transcription failed": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a transcrição falhou"
+          }
+        }
+      }
+    }
   },
   "version": "1.0"
 }

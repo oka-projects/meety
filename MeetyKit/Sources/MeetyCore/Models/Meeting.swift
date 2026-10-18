@@ -56,15 +56,18 @@ public struct Meeting: Codable, Identifiable, Equatable, Sendable {
     public var originalFileName: String?
     /// Os falantes já foram separados (gravação com duas trilhas ou diarização).
     public var hasSpeakers: Bool
+    /// Projeto ao qual a reunião foi alocada (ver `Project`).
+    public var projectID: String?
 
     public init(id: String, title: String, createdAt: Date, duration: Double? = nil, source: MeetingSource,
                 status: MeetingStatus = .recorded, language: String? = nil, modelID: String? = nil,
                 speakerNames: [String: String] = [:], error: String? = nil, originalFileName: String? = nil,
-                hasSpeakers: Bool = false) {
+                hasSpeakers: Bool = false, projectID: String? = nil) {
         self.id = id; self.title = title; self.createdAt = createdAt; self.duration = duration
         self.source = source; self.status = status; self.language = language; self.modelID = modelID
         self.speakerNames = speakerNames; self.error = error; self.originalFileName = originalFileName
         self.hasSpeakers = hasSpeakers
+        self.projectID = projectID
     }
 
     public func displayName(for speakerID: String) -> String {

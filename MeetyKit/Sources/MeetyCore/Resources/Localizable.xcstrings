@@ -2,6 +2,7 @@
   "sourceLanguage": "en",
   "strings": {
     "%1$@ failed (code %2$d). %3$@": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -12,6 +13,7 @@
       }
     },
     "%1$@ is installed but its command line tool wasn't found. Open %2$@ once so it finishes setting up.": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -22,6 +24,7 @@
       }
     },
     "%1$@ isn't downloaded yet (%2$@).": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -32,6 +35,7 @@
       }
     },
     "%1$@ isn't signed in. Open %2$@, sign in and try again.": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -252,6 +256,7 @@
       }
     },
     "Download failed (HTTP %1$lld) for %2$@. Check your connection and try again.": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -452,6 +457,7 @@
       }
     },
     "Read part %1$lld of %2$lld…": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -652,6 +658,7 @@
       }
     },
     "The speech engine stopped unexpectedly (code %1$d). %2$@": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -732,6 +739,7 @@
       }
     },
     "Unexpected answer from %1$@ (HTTP %2$lld).": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {
@@ -752,6 +760,7 @@
       }
     },
     "Uses your %1$@ account. The transcript is sent to %2$@.": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {

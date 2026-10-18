@@ -26,6 +26,26 @@ public struct ModelInfo: Codable, Identifiable, Hashable, Sendable {
     /// Arquivos do repositório que não precisam ser baixados (pacotes não compilados, gráficos).
     public var excludePrefixes: [String]?
     public var excludeExtensions: [String]?
+    /// Nome e descrição em outros idiomas, por código ("pt-BR"). O inglês é o padrão.
+    public var localized: [String: LocalizedText]?
+
+    public struct LocalizedText: Codable, Hashable, Sendable {
+        public var name: String?
+        public var description: String?
+    }
+
+    /// Nome no idioma do app.
+    public var displayName: String { localizedText?.name ?? name }
+    /// Descrição no idioma do app.
+    public var displayDescription: String { localizedText?.description ?? description }
+    var localizedText: LocalizedText? {
+        guard let localized else { return nil }
+        for code in Locale.preferredLanguages {
+            if let t = localized[code] { return t }
+            if let base = code.split(separator: "-").first, let t = localized.first(where: { $0.key.hasPrefix(base) })?.value { return t }
+        }
+        return nil
+    }
 
     public func wants(file path: String) -> Bool {
         if path.hasPrefix(".git") { return false }

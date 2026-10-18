@@ -1,62 +1,87 @@
 import MeetyCore
 import SwiftUI
 
-/// O botão de gravar, com os medidores das duas fontes e o tempo. Fica no topo da barra lateral.
+/// O bloco de gravar no topo da barra lateral: botão, estado, medidores e microfone.
 struct RecordBar: View {
     @Bindable var model: AppModel
     var settings: Bindable<MeetySettings> { Bindable(model.settings) }
     @State private var microphones: [Permissions.Microphone] = []
 
+    var recording: Bool { model.recorder.isRecording }
+    var busy: Bool { model.recorder.phase == .starting || model.recorder.phase == .finishing }
+
     var body: some View {
-        VStack(spacing: 10) {
-            HStack(spacing: 12) {
-                Button { model.toggleRecording() } label: {
-                    ZStack {
-                        Circle().fill(model.recorder.isRecording ? Color.red.opacity(0.15) : Color.red).frame(width: 44, height: 44)
-                        if model.recorder.isRecording {
-                            RoundedRectangle(cornerRadius: 4).fill(.red).frame(width: 18, height: 18)
-                        } else if model.recorder.phase == .starting || model.recorder.phase == .finishing {
-                            ProgressView().controlSize(.small)
+        Card(padding: 14) {
+            VStack(spacing: 12) {
+                HStack(spacing: 14) {
+                    RecordButton(recording: recording, busy: busy) { model.toggleRecording() }
+                        .keyboardShortcut("r", modifiers: [.command, .shift])
+                    VStack(alignment: .leading, spacing: 3) {
+                        if recording {
+                            Text(TranscriptExporter.clock(model.recorder.elapsed)).font(MeetyFont.timeBlock)
+                            HStack(spacing: 6) {
+                                Circle().fill(Color.meety.recordFill).frame(width: 7, height: 7)
+                                Text(String(localized: "Recording", bundle: .module)).foregroundStyle(Color.meety.recordText)
+                            }
+                            .font(MeetyFont.body)
                         } else {
-                            Circle().fill(.white).frame(width: 16, height: 16)
+                            Text(String(localized: "Record", bundle: .module)).font(MeetyFont.headline)
+                            Text(String(localized: "Your voice and the call audio", bundle: .module))
+                                .font(MeetyFont.callout).foregroundStyle(Color.meety.textSecondary).lineLimit(2)
                         }
                     }
+                    Spacer(minLength: 4)
+                    if !recording {
+                        Menu {
+                            Picker(String(localized: "Microphone", bundle: .module), selection: settings.microphoneID) {
+                                Text(String(localized: "Default", bundle: .module)).tag(String?.none)
+                                ForEach(microphones) { m in Text(m.name).tag(Optional(m.id)) }
+                            }
+                            .pickerStyle(.inline)
+                        } label: { Image(systemName: "mic") }
+                        .menuStyle(.button).menuIndicator(.hidden).fixedSize().controlSize(.small)
+                        .help(String(localized: "Microphone", bundle: .module))
+                        .onAppear { microphones = Permissions.microphones() }
+                    }
                 }
-                .buttonStyle(.plain)
-                .disabled(model.recorder.phase == .starting || model.recorder.phase == .finishing)
-                .help(model.recorder.isRecording ? String(localized: "Stop recording", bundle: .module) : String(localized: "Start recording", bundle: .module))
-                .keyboardShortcut("r", modifiers: [.command, .shift])
-
-                VStack(alignment: .leading, spacing: 4) {
-                    if model.recorder.isRecording {
-                        Text(TranscriptExporter.clock(model.recorder.elapsed)).font(.title3.monospacedDigit().weight(.semibold))
+                if recording {
+                    VStack(spacing: 8) {
                         LevelMeter(level: model.recorder.micLevel, label: String(localized: "You", bundle: .module))
                         LevelMeter(level: model.recorder.systemLevel, label: String(localized: "Others", bundle: .module))
-                    } else {
-                        Text(String(localized: "Record", bundle: .module)).font(.headline)
-                        Text(String(localized: "Your voice and the call audio", bundle: .module)).font(.caption).foregroundStyle(.secondary)
+                    }
+                    if !model.recorder.microphoneGranted {
+                        Label(String(localized: "Microphone off: recording only the other participants.", bundle: .module), systemImage: "mic.slash")
+                            .font(MeetyFont.callout).foregroundStyle(Color.meety.warning).frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
-                Spacer()
-                if !model.recorder.isRecording {
-                    Menu {
-                        Picker(String(localized: "Microphone", bundle: .module), selection: settings.microphoneID) {
-                            Text(String(localized: "Default", bundle: .module)).tag(String?.none)
-                            ForEach(microphones) { m in Text(m.name).tag(Optional(m.id)) }
-                        }
-                        .pickerStyle(.inline)
-                    } label: { Image(systemName: "mic") }
-                    .menuStyle(.borderlessButton).frame(width: 24)
-                    .onAppear { microphones = Permissions.microphones() }
-                }
-            }
-            if model.recorder.isRecording, !model.recorder.microphoneGranted {
-                Label(String(localized: "Microphone off: recording only the other participants.", bundle: .module), systemImage: "mic.slash")
-                    .font(.caption).foregroundStyle(.orange)
             }
         }
-        .padding(12)
-        .background(.quaternary.opacity(0.4))
+        .padding(.horizontal, 10).padding(.top, 2).padding(.bottom, 6)
+    }
+}
+
+/// O botão redondo vermelho: ponto branco em repouso, quadrado branco ao gravar.
+struct RecordButton: View {
+    var recording: Bool
+    var busy: Bool
+    var action: () -> Void
+    var body: some View {
+        Button(action: action) {
+            ZStack {
+                Circle().fill(Color.meety.recordTint).frame(width: 44, height: 44)
+                Circle().fill(Color.meety.recordFill).frame(width: 36, height: 36)
+                if busy {
+                    ProgressView().controlSize(.small).tint(.white)
+                } else if recording {
+                    RoundedRectangle(cornerRadius: 3).fill(.white).frame(width: 14, height: 14)
+                } else {
+                    Circle().fill(.white).frame(width: 16, height: 16)
+                }
+            }
+        }
+        .buttonStyle(.plain)
+        .disabled(busy)
+        .help(recording ? String(localized: "Stop recording", bundle: .module) : String(localized: "Start recording", bundle: .module))
     }
 }
 
@@ -64,15 +89,15 @@ struct LevelMeter: View {
     var level: Float
     var label: String
     var body: some View {
-        HStack(spacing: 6) {
-            Text(label).font(.caption2).foregroundStyle(.secondary).frame(width: 44, alignment: .leading)
+        HStack(spacing: 10) {
+            Text(label).font(MeetyFont.callout).foregroundStyle(Color.meety.textSecondary).frame(width: 50, alignment: .leading)
             GeometryReader { g in
                 ZStack(alignment: .leading) {
-                    Capsule().fill(.quaternary)
-                    Capsule().fill(level > 0.85 ? Color.orange : Color.green).frame(width: max(2, g.size.width * CGFloat(level)))
+                    Capsule().fill(Color.meety.fillStrong)
+                    Capsule().fill(level > 0.9 ? Color.meety.warning : Color.meety.accent).frame(width: max(3, g.size.width * CGFloat(level)))
                 }
             }
-            .frame(height: 5)
+            .frame(height: 4)
             .animation(.linear(duration: 0.15), value: level)
         }
     }

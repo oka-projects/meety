@@ -25,6 +25,8 @@ never leave your computer unless you choose otherwise.
 - **Get the summary**: a short recap, meeting minutes with decisions and next steps, an action list,
   or your own question about the meeting.
 - **Search everything** you ever recorded.
+- **File meetings into projects** (a client, a course, a team): switch the sidebar to Projects, drag
+  recordings onto a project, and each recording shows its project tag.
 - **Export** to text, Markdown, subtitles (SRT/VTT) or JSON, or copy with one click.
 - **Private by design**: no account, no cloud, no tracking.
 
@@ -87,6 +89,8 @@ do computador, a não ser que você escolha isso.
 - Gerar um resumo curto, uma ata com decisões e próximos passos, uma lista de tarefas, ou perguntar o
   que quiser sobre a reunião.
 - Buscar em tudo que você já gravou.
+- Organizar as reuniões em projetos (um cliente, um curso, uma equipe): troque a barra lateral para
+  Projetos, arraste as gravações para dentro, e cada gravação mostra a etiqueta do projeto.
 - Exportar em texto, Markdown, legendas (SRT/VTT) ou JSON.
 - Sem conta, sem nuvem, sem rastreamento.
 
@@ -131,7 +135,7 @@ Uma hora de áudio leva poucos minutos num Mac com chip M. Os arquivos ficam num
   | whisper-small (MLX) | 0.5 GB | small or 8 GB Macs |
   | Qwen3 4B Instruct 4-bit (MLX) | 2.3 GB | local summaries (8 to 16 GB Macs) |
   | Qwen3 8B 4-bit (MLX) | 4.6 GB | local summaries (24 GB or more) |
-  | speaker-diarization-coreml | 70 MB | telling speakers apart |
+  | speaker-diarization-coreml | 45 MB | telling speakers apart |
 
 - **Speakers**: recordings keep the microphone and the system audio as separate tracks. Each sentence
   is attributed by comparing the energy of the two tracks, so your lines are always "You". The system
@@ -143,9 +147,13 @@ Uma hora de áudio leva poucos minutos num Mac com chip M. Os arquivos ficam num
   transcript on stdin. If none works, "Send to app" copies the prompt and opens the app.
 - **Data layout**: one folder per meeting in `~/Library/Application Support/Meety/Library/` with
   `audio.m4a` (mixed), `mic.m4a` and `system.m4a` (recordings only), `transcript.json`, `meta.json`
-  and `summary-*.md`. No database.
+  and `summary-*.md`. Projects live in `Library/projects.json`; each meeting's `meta.json` carries its
+  `projectID`. No database.
 - **Privacy**: no analytics. The network is used only for model downloads, update checks and the
   cloud summary options you explicitly enable.
+- **Design**: the identity, the palette (light and dark, eight speaker colors) and every screen were
+  made in Claude Design; the tokens are in [`docs/design/tokens.json`](docs/design/tokens.json) and
+  applied in `MeetyKit/Sources/MeetyUI/Theme.swift`. The boards are in `docs/design/boards/`.
 - **Building from source**: `brew install xcodegen`, copy `Config/Local.xcconfig.example` to
   `Config/Local.xcconfig` with your team, then `scripts/build-mac.sh` (builds the engine the first
   time, then the app). Tests: `cd MeetyKit && swift test`. Release: `scripts/release.sh 1.0.0`.

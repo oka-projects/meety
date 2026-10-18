@@ -27,14 +27,12 @@ struct SummaryView: View {
     }
 
     var body: some View {
-        HSplitView {
-            VStack(alignment: .leading, spacing: 0) {
-                controls
-                Divider()
-                output
-            }
-            .frame(minWidth: 420)
-            savedList.frame(minWidth: 200, idealWidth: 230, maxWidth: 300)
+        HStack(spacing: 0) {
+            controls.frame(width: 300)
+            Divider().overlay(Color.meety.separator)
+            output
+            Divider().overlay(Color.meety.separator)
+            savedList.frame(width: 220)
         }
         .task { await loadProviders(); reloadSaved() }
         .alert(String(localized: "Send the transcript to the cloud?", bundle: .module), isPresented: $showCloudConsent) {
@@ -47,62 +45,68 @@ struct SummaryView: View {
 
     var selectedRow: ProviderRow? { providers.first { $0.id == selectedProviderID } }
 
+    // MARK: - Coluna da esquerda
+
     var controls: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .top, spacing: 16) {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(String(localized: "What do you need", bundle: .module)).font(.caption).foregroundStyle(.secondary)
-                    Picker("", selection: $template) {
-                        ForEach(SummaryTemplate.allCases) { t in Label(t.title, systemImage: t.systemIcon).tag(t) }
-                    }
-                    .labelsHidden().frame(width: 200)
-                }
-                VStack(alignment: .leading, spacing: 6) {
-                    Text(String(localized: "Written by", bundle: .module)).font(.caption).foregroundStyle(.secondary)
-                    Picker("", selection: $selectedProviderID) {
-                        ForEach(providers) { row in
-                            HStack {
-                                Label(row.provider.title, systemImage: row.provider.systemIcon)
-                                if !row.availability.isAvailable { Text("·").foregroundStyle(.secondary); Text(String(localized: "not ready", bundle: .module)).foregroundStyle(.secondary) }
-                            }.tag(row.id)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                SectionLabel(String(localized: "What do you need", bundle: .module))
+                VStack(spacing: 2) {
+                    ForEach(SummaryTemplate.allCases) { t in
+                        Button { template = t } label: {
+                            HStack(spacing: 10) {
+                                Image(systemName: t.systemIcon).frame(width: 18)
+                                    .foregroundStyle(template == t ? Color.meety.accentText : Color.meety.textSecondary)
+                                Text(t.title).font(.system(size: 14))
+                                    .foregroundStyle(template == t ? Color.meety.accentText : Color.meety.textPrimary)
+                                Spacer()
+                            }
+                            .padding(.horizontal, 10).frame(height: 32)
+                            .background(template == t ? Color.meety.accentTint : .clear, in: RoundedRectangle(cornerRadius: MeetyRadius.row, style: .continuous))
+                            .contentShape(Rectangle())
                         }
+                        .buttonStyle(.plain)
+                        .help(t.subtitle)
                     }
-                    .labelsHidden().frame(width: 240)
-                    .onChange(of: selectedProviderID) { _, v in model.settings.summaryProviderID = v }
                 }
-                Spacer()
+                .padding(.top, 10)
+                if template == .custom {
+                    TextField(String(localized: "Ask something about this meeting…", bundle: .module), text: $customPrompt, axis: .vertical)
+                        .textFieldStyle(.roundedBorder).lineLimit(2...5).padding(.top, 8)
+                }
+
+                SectionLabel(String(localized: "Written by", bundle: .module)).padding(.top, 24)
+                VStack(spacing: 8) {
+                    ForEach(providers) { row in ProviderCard(row: row, selected: row.id == selectedProviderID, action: actionButton) { selectedProviderID = row.id } }
+                }
+                .padding(.top, 10)
+                .onChange(of: selectedProviderID) { _, v in model.settings.summaryProviderID = v }
+
                 Button {
                     if generating { task?.cancel() } else { generate(force: false) }
                 } label: {
-                    if generating { Label(String(localized: "Stop", bundle: .module), systemImage: "stop.fill") }
-                    else { Label(String(localized: "Generate", bundle: .module), systemImage: "sparkles") }
+                    Group {
+                        if generating { Label(String(localized: "Stop", bundle: .module), systemImage: "stop.fill") }
+                        else { Label(String(localized: "Generate", bundle: .module), systemImage: "sparkles") }
+                    }
+                    .labelStyle(.titleAndIcon).frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.borderedProminent).controlSize(.large)
                 .disabled(transcript == nil || (!generating && !(selectedRow?.availability.isAvailable ?? false)))
                 .keyboardShortcut(.return, modifiers: .command)
-            }
-            if template == .custom {
-                TextField(String(localized: "Ask something about this meeting…", bundle: .module), text: $customPrompt, axis: .vertical)
-                    .textFieldStyle(.roundedBorder).lineLimit(2...4)
-            }
-            if let row = selectedRow {
-                HStack(spacing: 6) {
-                    Image(systemName: row.provider.isCloud ? "cloud" : "lock").foregroundStyle(.secondary)
-                    switch row.availability {
-                    case .available(let detail):
-                        Text(row.provider.subtitle + (detail.map { " (\($0))" } ?? "")).foregroundStyle(.secondary)
-                    case .unavailable(let reason, let action):
-                        Text(reason).foregroundStyle(.orange)
-                        if let action { actionButton(action) }
-                    }
+                .padding(.top, 20)
+
+                if transcript == nil {
+                    Label(String(localized: "Transcribe the meeting first.", bundle: .module), systemImage: "info.circle")
+                        .font(MeetyFont.callout).foregroundStyle(Color.meety.textSecondary).padding(.top, 10)
+                } else if let row = selectedRow {
+                    PrivacyLine(cloud: row.provider.isCloud,
+                                text: row.provider.isCloud ? String(localized: "Leaves your Mac", bundle: .module) : String(localized: "Stays on your Mac", bundle: .module))
+                        .padding(.top, 10)
                 }
-                .font(.callout)
             }
-            if transcript == nil {
-                Label(String(localized: "Transcribe the meeting first.", bundle: .module), systemImage: "info.circle").foregroundStyle(.secondary).font(.callout)
-            }
+            .padding(20)
         }
-        .padding(16)
     }
 
     @ViewBuilder
@@ -118,59 +122,91 @@ struct SummaryView: View {
                 if let u = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleID) { NSWorkspace.shared.openApplication(at: u, configuration: .init()) }
             }
         case .openSettingsSection(let s):
-            if s.hasPrefix("x-apple") { Button(String(localized: "Open System Settings", bundle: .module)) { if let u = URL(string: s) { NSWorkspace.shared.open(u) } } }
+            if s.hasPrefix("x-apple") { Button(String(localized: "Open Settings", bundle: .module)) { if let u = URL(string: s) { NSWorkspace.shared.open(u) } } }
             else { SettingsLink { Text(String(localized: "Open Settings", bundle: .module)) } }
         case .enterAPIKey:
             SettingsLink { Text(String(localized: "Add key", bundle: .module)) }
         }
     }
 
+    // MARK: - Centro
+
     var output: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 10) {
-                if generating {
-                    HStack { ProgressView().controlSize(.small); Text(partial.isEmpty ? String(localized: "Thinking…", bundle: .module) : String(localized: "Writing…", bundle: .module)).foregroundStyle(.secondary) }
+            VStack(alignment: .leading, spacing: 12) {
+                if let error {
+                    Label(error, systemImage: "exclamationmark.triangle").foregroundStyle(Color.meety.warning)
                 }
-                if let error { Label(error, systemImage: "exclamationmark.triangle").foregroundStyle(.orange) }
-                if generating, !partial.isEmpty {
-                    MarkdownText(partial)
+                if generating {
+                    HStack(spacing: 8) {
+                        ProgressView().controlSize(.small)
+                        Text(partial.isEmpty ? String(localized: "Thinking…", bundle: .module) : String(localized: "Writing…", bundle: .module))
+                            .foregroundStyle(Color.meety.textSecondary)
+                    }
+                    .font(MeetyFont.body)
+                    if !partial.isEmpty { MarkdownText(partial) }
                 } else if let doc = selectedDoc {
-                    HStack {
-                        Text(doc.title).font(.headline)
-                        Text(doc.createdAt, format: .dateTime.day().month().hour().minute()).foregroundStyle(.secondary).font(.caption)
-                        Text("· \(doc.provider)").foregroundStyle(.secondary).font(.caption)
+                    HStack(spacing: 12) {
+                        Text(verbatim: "\(doc.title) · \(doc.provider) · \(MeetyFormat.dayAndTime(doc.createdAt))")
+                            .font(.system(size: 14)).foregroundStyle(Color.meety.textSecondary).lineLimit(1)
                         Spacer()
                         Button { copy(docText) } label: { Image(systemName: "doc.on.doc") }.help(String(localized: "Copy", bundle: .module))
-                        Button(role: .destructive) { deleteDoc(doc) } label: { Image(systemName: "trash") }
+                        Button(role: .destructive) { deleteDoc(doc) } label: { Image(systemName: "trash") }.help(String(localized: "Delete this summary", bundle: .module))
                     }
-                    .buttonStyle(.borderless)
+                    .buttonStyle(.borderless).foregroundStyle(Color.meety.textPrimary)
                     TextEditor(text: $docText)
-                        .font(.body).scrollContentBackground(.hidden).frame(minHeight: 300)
+                        .font(.system(size: 14)).lineSpacing(4).scrollContentBackground(.hidden).scrollDisabled(true)
+                        .frame(minHeight: 320)
                         .onChange(of: docText) { _, t in try? model.library.updateSummary(doc, text: t, of: meeting) }
-                } else if !generating, saved.isEmpty {
-                    Text(String(localized: "No summary yet. Pick what you need above and press Generate.", bundle: .module)).foregroundStyle(.secondary)
+                } else if saved.isEmpty {
+                    VStack(spacing: 0) {
+                        Spacer(minLength: 60)
+                        HeroIcon(systemName: "text.alignleft", size: 72)
+                        Text(String(localized: "No summary yet", bundle: .module)).font(MeetyFont.sectionTitle).padding(.top, 18)
+                        Text(String(localized: "Pick what you need on the left and press Generate.", bundle: .module))
+                            .font(.system(size: 14)).foregroundStyle(Color.meety.textSecondary).padding(.top, 6)
+                    }
+                    .frame(maxWidth: .infinity)
                 }
             }
-            .padding(16)
+            .padding(28)
             .frame(maxWidth: .infinity, alignment: .leading)
             .textSelection(.enabled)
         }
+        .frame(maxWidth: .infinity)
     }
 
+    // MARK: - Direita
+
     var savedList: some View {
-        List(selection: $selectedDoc) {
-            Section(String(localized: "Saved summaries", bundle: .module)) {
-                ForEach(saved) { doc in
-                    VStack(alignment: .leading) {
-                        Text(doc.title).lineLimit(1)
-                        Text(doc.createdAt, format: .dateTime.day().month().hour().minute()).font(.caption).foregroundStyle(.secondary)
+        VStack(alignment: .leading, spacing: 0) {
+            SectionLabel(String(localized: "Saved summaries", bundle: .module))
+            if saved.isEmpty {
+                Text(String(localized: "Nothing saved yet.", bundle: .module)).font(MeetyFont.callout).foregroundStyle(Color.meety.textSecondary).padding(.top, 10)
+            }
+            ScrollView {
+                VStack(spacing: 2) {
+                    ForEach(saved) { doc in
+                        Button { selectedDoc = doc } label: {
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text(doc.title).font(.system(size: 13, weight: .medium)).lineLimit(1)
+                                Text(MeetyFormat.dayAndTime(doc.createdAt)).font(MeetyFont.callout).foregroundStyle(Color.meety.textSecondary)
+                            }
+                            .padding(.horizontal, 10).padding(.vertical, 8).frame(maxWidth: .infinity, alignment: .leading)
+                            .background(selectedDoc == doc ? Color.meety.accentTint : .clear, in: RoundedRectangle(cornerRadius: MeetyRadius.row, style: .continuous))
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .tag(doc)
                 }
+                .padding(.top, 10)
             }
         }
+        .padding(20)
         .onChange(of: selectedDoc) { _, d in if let d { docText = model.library.summaryText(d, of: meeting) } }
     }
+
+    // MARK: - Dados
 
     func reloadSaved() {
         saved = model.library.summaries(of: meeting)
@@ -220,6 +256,45 @@ struct SummaryView: View {
     func copy(_ s: String) { NSPasteboard.general.clearContents(); NSPasteboard.general.setString(s, forType: .string) }
 }
 
+/// Cartão de um provedor de resumo: ícone, nome, estado e ação quando não está pronto.
+struct ProviderCard<Action: View>: View {
+    let row: SummaryView.ProviderRow
+    let selected: Bool
+    @ViewBuilder let action: (ProviderAction) -> Action
+    let select: () -> Void
+
+    var body: some View {
+        Button(action: select) {
+            HStack(spacing: 12) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8, style: .continuous).fill(Color.meety.fill)
+                    Image(systemName: row.provider.isCloud ? "cloud" : row.provider.systemIcon)
+                        .font(.system(size: 15)).foregroundStyle(selected ? Color.meety.accentText : Color.meety.textSecondary)
+                }
+                .frame(width: 36, height: 36)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(row.provider.title).font(.system(size: 14)).foregroundStyle(Color.meety.textPrimary)
+                    switch row.availability {
+                    case .available(let detail):
+                        Text(detail ?? (row.provider.isCloud ? String(localized: "leaves your Mac", bundle: .module) : String(localized: "on this Mac", bundle: .module)))
+                            .font(MeetyFont.callout).foregroundStyle(Color.meety.textSecondary).lineLimit(2)
+                    case .unavailable(let reason, _):
+                        Text(reason).font(MeetyFont.callout).foregroundStyle(Color.meety.warning).lineLimit(2)
+                    }
+                }
+                Spacer(minLength: 4)
+                if case .unavailable(_, let a?) = row.availability { action(a) }
+            }
+            .padding(10)
+            .background(Color.meety.elevated, in: RoundedRectangle(cornerRadius: MeetyRadius.card, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: MeetyRadius.card, style: .continuous)
+                .stroke(selected ? Color.meety.accent : Color.meety.separator, lineWidth: selected ? 2 : 1))
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+    }
+}
+
 /// Markdown simples: títulos, listas e ênfase em linha. Suficiente para atas.
 struct MarkdownText: View {
     let text: String
@@ -231,22 +306,23 @@ struct MarkdownText: View {
                 lineView(line)
             }
         }
+        .font(.system(size: 14)).lineSpacing(4)
     }
 
     @ViewBuilder
     func lineView(_ raw: String) -> some View {
         let line = raw.trimmingCharacters(in: .whitespaces)
-        if line.hasPrefix("### ") { inline(String(line.dropFirst(4))).font(.headline).padding(.top, 6) }
-        else if line.hasPrefix("## ") { inline(String(line.dropFirst(3))).font(.title3.weight(.semibold)).padding(.top, 8) }
-        else if line.hasPrefix("# ") { inline(String(line.dropFirst(2))).font(.title2.weight(.semibold)).padding(.top, 8) }
+        if line.hasPrefix("### ") { inline(String(line.dropFirst(4))).font(MeetyFont.headline).padding(.top, 6) }
+        else if line.hasPrefix("## ") { SectionLabel(String(line.dropFirst(3))).padding(.top, 10) }
+        else if line.hasPrefix("# ") { inline(String(line.dropFirst(2))).font(MeetyFont.sectionTitle).padding(.top, 8) }
         else if line.hasPrefix("- [ ] ") || line.hasPrefix("- [x] ") {
             HStack(alignment: .firstTextBaseline, spacing: 6) {
-                Image(systemName: line.hasPrefix("- [x] ") ? "checkmark.square" : "square").foregroundStyle(.secondary)
+                Image(systemName: line.hasPrefix("- [x] ") ? "checkmark.square" : "square").foregroundStyle(Color.meety.textSecondary)
                 inline(String(line.dropFirst(6)))
             }
         }
         else if line.hasPrefix("- ") || line.hasPrefix("* ") {
-            HStack(alignment: .firstTextBaseline, spacing: 6) { Text("•"); inline(String(line.dropFirst(2))) }.padding(.leading, 8)
+            HStack(alignment: .firstTextBaseline, spacing: 8) { Text(verbatim: "•"); inline(String(line.dropFirst(2))) }.padding(.leading, 8)
         }
         else if line.isEmpty { Spacer().frame(height: 2) }
         else { inline(line) }

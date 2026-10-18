@@ -3,18 +3,24 @@ import SwiftUI
 
 /// Lista de modelos com estado, download, progresso e remoção.
 struct ModelsListView: View {
+    enum Style { case settings, welcome }
     @Bindable var model: AppModel
     var modelsToShow: [ModelInfo]
-    var compact = false
+    var style: Style = .settings
 
     var body: some View {
-        VStack(spacing: 0) {
-            ForEach(modelsToShow) { m in
-                row(m)
-                if m.id != modelsToShow.last?.id { Divider() }
+        if style == .welcome {
+            Card {
+                VStack(spacing: 0) {
+                    ForEach(modelsToShow) { m in
+                        row(m)
+                        if m.id != modelsToShow.last?.id { Divider().overlay(Color.meety.separator) }
+                    }
+                }
             }
+        } else {
+            ForEach(modelsToShow) { m in row(m) }
         }
-        .background(.quaternary.opacity(0.3), in: RoundedRectangle(cornerRadius: 8))
     }
 
     @ViewBuilder
@@ -22,40 +28,48 @@ struct ModelsListView: View {
         let installed = model.models.isInstalled(m)
         let dl = model.models.downloads[m.id]
         HStack(spacing: 12) {
-            Image(systemName: icon(m.kind)).frame(width: 22).foregroundStyle(.secondary)
-            VStack(alignment: .leading, spacing: 2) {
-                HStack(spacing: 6) {
-                    Text(m.name).fontWeight(.medium)
-                    if let tag = m.tagTitle { Text(tag).font(.caption2).padding(.horizontal, 5).padding(.vertical, 1).background(.tint.opacity(0.15), in: Capsule()) }
-                    if m.minMemoryGB > ModelCatalog.physicalMemoryGB { Text(String(localized: "Needs \(m.minMemoryGB) GB", bundle: .module)).font(.caption2).foregroundStyle(.orange) }
-                }
-                if !compact { Text(m.description).font(.caption).foregroundStyle(.secondary) }
-                if let dl {
-                    if let e = dl.error { Text(e).font(.caption).foregroundStyle(.orange).lineLimit(2) }
-                    else {
-                        ProgressView(value: dl.fraction).controlSize(.small)
-                        Text("\(ByteCountFormatter.string(fromByteCount: dl.receivedBytes, countStyle: .file)) / \(ByteCountFormatter.string(fromByteCount: dl.totalBytes, countStyle: .file))").font(.caption2).foregroundStyle(.secondary).monospacedDigit()
+            if style == .welcome {
+                Text(m.kind.title).foregroundStyle(Color.meety.textSecondary).frame(width: 110, alignment: .leading)
+            }
+            VStack(alignment: .leading, spacing: 3) {
+                HStack(spacing: 8) {
+                    Text(m.displayName).font(.system(size: style == .welcome ? 15 : 13, weight: style == .welcome ? .regular : .medium))
+                    if let tag = m.tagTitle { Badge(text: tag, style: m.isRecommended ? .accent : .neutral) }
+                    if m.minMemoryGB > ModelCatalog.physicalMemoryGB {
+                        Badge(text: String(localized: "Needs \(m.minMemoryGB) GB", bundle: .module), style: .warning)
                     }
                 }
+                if style == .settings { Text(m.displayDescription).font(MeetyFont.callout).foregroundStyle(Color.meety.textSecondary) }
+                if let dl, let e = dl.error { Text(e).font(MeetyFont.callout).foregroundStyle(Color.meety.warning).lineLimit(2) }
             }
-            Spacer()
-            Text(m.sizeText).font(.caption).foregroundStyle(.secondary).monospacedDigit()
-            if let dl {
-                if dl.error != nil { Button(String(localized: "Retry", bundle: .module)) { model.models.retry(m) } }
-                Button { model.models.cancelDownload(m) } label: { Image(systemName: "xmark.circle") }.buttonStyle(.borderless)
-            } else if installed {
-                Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
-                if !compact {
-                    Button { try? model.models.delete(m) } label: { Image(systemName: "trash") }.buttonStyle(.borderless).help(String(localized: "Delete this model", bundle: .module))
+            Spacer(minLength: 8)
+            if let dl, dl.error == nil {
+                VStack(alignment: .trailing, spacing: 4) {
+                    ProgressView(value: dl.fraction).progressViewStyle(.linear).tint(Color.meety.accent).frame(width: 120)
+                    Text(String(localized: "\(ByteCountFormatter.string(fromByteCount: dl.receivedBytes, countStyle: .file)) of \(ByteCountFormatter.string(fromByteCount: dl.totalBytes, countStyle: .file))", bundle: .module))
+                        .font(MeetyFont.caption).foregroundStyle(Color.meety.textSecondary).monospacedDigit()
                 }
+                Button { model.models.cancelDownload(m) } label: { Image(systemName: "xmark").font(.system(size: 12, weight: .semibold)) }
+                    .buttonStyle(.borderless).help(String(localized: "Cancel download", bundle: .module))
+            } else if let dl, dl.error != nil {
+                Button(String(localized: "Retry", bundle: .module)) { model.models.retry(m) }
+                Button { model.models.cancelDownload(m) } label: { Image(systemName: "xmark").font(.system(size: 12, weight: .semibold)) }.buttonStyle(.borderless)
             } else {
-                Button(String(localized: "Download", bundle: .module)) { model.models.download(m) }
+                Text(m.sizeText).font(.system(size: 13)).foregroundStyle(Color.meety.textSecondary).monospacedDigit()
+                if installed {
+                    ZStack {
+                        Circle().fill(Color.meety.successTint).frame(width: 24, height: 24)
+                        Image(systemName: "checkmark").font(.system(size: 11, weight: .bold)).foregroundStyle(Color.meety.success)
+                    }
+                    if style == .settings {
+                        Button { try? model.models.delete(m) } label: { Image(systemName: "trash") }
+                            .buttonStyle(.borderless).help(String(localized: "Delete this model", bundle: .module))
+                    }
+                } else {
+                    Button(String(localized: "Download", bundle: .module)) { model.models.download(m) }
+                }
             }
         }
-        .padding(.horizontal, 12).padding(.vertical, 10)
-    }
-
-    func icon(_ k: ModelKind) -> String {
-        switch k { case .transcription: return "waveform"; case .summary: return "text.alignleft"; case .speakers: return "person.2" }
+        .padding(.horizontal, style == .welcome ? 14 : 0).padding(.vertical, style == .welcome ? 12 : 4)
     }
 }
