@@ -27,7 +27,7 @@
   --nav: rgba(8, 24, 44, 0.92);
   --shadow-glass: inset 1px 1px 0 rgba(255, 255, 255, 0.85), inset -1px -1px 0 rgba(255, 255, 255, 0.30), inset 0 0 28px rgba(255, 255, 255, 0.22), 0 0 0 1px rgba(13, 40, 70, 0.07), 0 18px 40px -20px rgba(10, 40, 80, 0.40);
   --display: "Manrope", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-  --sans: "Schibsted Grotesk", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  --sans: "Figtree", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
   --mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --r: 12px;
   --gutter: clamp(16px, 5vw, 64px);
