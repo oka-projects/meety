@@ -33,7 +33,7 @@ export const strings = {
     "st.h2": "Próximos pontos",
     "st.onMac": "escrita no seu Mac",
 
-    "how.title": "Três passos, nenhum manual.",
+    "how.title": "Como funciona",
     "step1.t": "Grave",
     "step1.d": "Um clique na janela ou na barra de menus. Zoom, Meet, Teams, o que estiver tocando no Mac. O seu microfone e o áudio da reunião são gravados em duas trilhas separadas, e a trilha da reunião é dividida por pessoa pela separação de falantes.",
     "step2.t": "Transcreva",
@@ -64,7 +64,7 @@ export const strings = {
     "ui.sumL2": "Ana fecha os números (amanhã).",
     "ui.sumL3": "Você envia o contrato anterior para o Bruno (hoje).",
 
-    "features.title": "Feito para quem vive em reunião.",
+    "features.title": "Transcrição com produtividade",
     "f1.t": "Quem falou",
     "f1.d": "A sua voz e a chamada são gravadas em trilhas separadas, então as suas frases são sempre suas. Os outros são separados no Neural Engine.",
     "f2.t": "Falantes sob controle",
@@ -186,7 +186,7 @@ export const strings = {
     "st.h2": "Next steps",
     "st.onMac": "written on your Mac",
 
-    "how.title": "Three steps, no manual.",
+    "how.title": "How it works",
     "step1.t": "Record",
     "step1.d": "One click in the window or the menu bar. Zoom, Meet, Teams, anything playing on your Mac. Your microphone and the meeting audio are recorded as two separate tracks, and the meeting track is split per person by speaker separation.",
     "step2.t": "Transcribe",
@@ -217,7 +217,7 @@ export const strings = {
     "ui.sumL2": "Ana closes the numbers (tomorrow).",
     "ui.sumL3": "You send the previous contract to Bruno (today).",
 
-    "features.title": "Made for people who live in meetings.",
+    "features.title": "Transcription with productivity",
     "f1.t": "Who said what",
     "f1.d": "Your voice and the call are recorded as separate tracks, so your lines are always yours. The others are told apart on the Neural Engine.",
     "f2.t": "Speakers under control",
