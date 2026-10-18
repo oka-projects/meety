@@ -2,8 +2,13 @@ import FluidAudio
 import Foundation
 import OSLog
 
-/// Separa falantes com o FluidAudio (Core ML, no Neural Engine). Os modelos (~50 MB) são baixados
+/// Separa falantes com o FluidAudio (Core ML, no Neural Engine). Os modelos (~13 MB) são baixados
 /// uma vez pelo gerenciador de modelos para `Models/speaker-diarization-coreml`.
+///
+/// Usa o `DiarizerManager` (segmentação pyannote + embeddings WeSpeaker + agrupamento por cosseno).
+/// O pipeline offline com VBx foi testado em 17/10/2026 e é instável em chamadas comprimidas: junta
+/// tudo num falante ou explode em dezenas conforme Fa/Fb. O online, com limiar 0,6, achou 5 falantes
+/// onde o pyannote achou 6.
 public actor Diarizer {
     public static let shared = Diarizer()
 
@@ -11,30 +16,34 @@ public actor Diarizer {
         AppPaths.models.appendingPathComponent("speaker-diarization-coreml", isDirectory: true)
     }
 
+    static var segmentationModel: URL { modelsFolder.appendingPathComponent("pyannote_segmentation.mlmodelc") }
+    static var embeddingModel: URL { modelsFolder.appendingPathComponent("wespeaker_v2.mlmodelc") }
+
     public static var isInstalled: Bool {
-        // O pipeline offline usa estes quatro modelos (mais plda-parameters.json).
-        let f = modelsFolder
-        return ["Segmentation", "Embedding", "FBank", "PldaRho"].allSatisfy {
-            FileManager.default.fileExists(atPath: f.appendingPathComponent("\($0).mlmodelc/coremldata.bin").path)
-        } && FileManager.default.fileExists(atPath: f.appendingPathComponent("plda-parameters.json").path)
+        FileManager.default.fileExists(atPath: segmentationModel.appendingPathComponent("coremldata.bin").path)
+            && FileManager.default.fileExists(atPath: embeddingModel.appendingPathComponent("coremldata.bin").path)
     }
 
-    private var manager: OfflineDiarizerManager?
-    private var managerSpeakers: Int?
-
-    /// Distância de corte do agrupamento (0...2): maior junta mais vozes numa só. O padrão do
-    /// FluidAudio (0,6, paridade com o pyannote) tende a juntar demais em chamadas comprimidas.
-    public static var clusteringThreshold: Double = {
-        if let s = ProcessInfo.processInfo.environment["MEETY_DIARIZER_THRESHOLD"], let d = Double(s) { return d }
+    /// Limiar de agrupamento (cosseno, 0...1): maior junta mais vozes numa só. 0,7 (padrão do
+    /// FluidAudio) deixou 2 falantes onde havia 6; 0,6 achou 5. Ajustável para testes por variável.
+    public static var clusteringThreshold: Float = {
+        if let s = ProcessInfo.processInfo.environment["MEETY_DIARIZER_THRESHOLD"], let d = Float(s) { return d }
         return 0.6
     }()
 
-    /// Diariza amostras a 16 kHz. `expectedSpeakers` (opcional) orienta o agrupamento.
+    private var models: DiarizerModels?
+
+    /// Diariza amostras a 16 kHz. `expectedSpeakers` (opcional) só orienta: com muitos participantes
+    /// o limiar aperta um pouco para não juntar vozes parecidas.
     public func diarize(_ samples: [Float], expectedSpeakers: Int? = nil) async throws -> [SpeakerAttribution.LabeledSpan] {
         MeetyLog.speakers.info("diarize: \(samples.count) samples, expected \(expectedSpeakers ?? -1)")
-        let manager = try await prepared(expectedSpeakers: expectedSpeakers)
-        MeetyLog.speakers.info("models ready")
-        let result = try await manager.process(audio: samples)
+        let models = try await loadedModels()
+        var config = DiarizerConfig()
+        config.clusteringThreshold = Self.clusteringThreshold
+        if let n = expectedSpeakers, n >= 4 { config.clusteringThreshold = min(config.clusteringThreshold, 0.55) }
+        let manager = DiarizerManager(config: config)
+        manager.initialize(models: models)
+        let result = try manager.performCompleteDiarization(samples)
         MeetyLog.speakers.info("done: \(result.segments.count) segments")
         var spans = result.segments.map {
             SpeakerAttribution.LabeledSpan(start: Double($0.startTimeSeconds), end: Double($0.endTimeSeconds), label: $0.speakerId)
@@ -43,21 +52,10 @@ public actor Diarizer {
         return spans
     }
 
-    private func prepared(expectedSpeakers: Int?) async throws -> OfflineDiarizerManager {
-        if let manager, managerSpeakers == expectedSpeakers { return manager }
-        var config = OfflineDiarizerConfig()
-        config.clustering.threshold = Self.clusteringThreshold
-        let env = ProcessInfo.processInfo.environment
-        if let fa = env["MEETY_DIARIZER_FA"].flatMap(Double.init) { config.clustering.warmStartFa = fa }
-        if let fb = env["MEETY_DIARIZER_FB"].flatMap(Double.init) { config.clustering.warmStartFb = fb }
-        if env["MEETY_DIARIZER_MIN2"] == "1" { config.clustering.minSpeakers = 2 }
-        config.clustering.numSpeakers = expectedSpeakers
-        let m = OfflineDiarizerManager(config: config)
-        managerSpeakers = expectedSpeakers
-        // Os pesos ficam em Models/speaker-diarization-coreml; o FluidAudio procura por esse nome
-        // dentro da pasta dada e só baixa se faltar.
-        try await m.prepareModels(directory: AppPaths.models)
-        manager = m
+    private func loadedModels() async throws -> DiarizerModels {
+        if let models { return models }
+        let m = try await DiarizerModels.load(localSegmentationModel: Self.segmentationModel, localEmbeddingModel: Self.embeddingModel)
+        models = m
         return m
     }
 }

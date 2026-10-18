@@ -24,7 +24,7 @@ struct OnlineDiarizerTests {
         print("online threshold \(threshold): \(result.segments.count) segments in \(Date().timeIntervalSince(t0))s")
         let labels = Set(result.segments.map(\.speakerId)).sorted()
         print("online labels:", labels)
-        for s in result.segments.prefix(30) { print(String(format: "[%6.1f-%6.1f] %@", s.startTimeSeconds, s.endTimeSeconds, s.speakerId)) }
+        for s in result.segments { print(String(format: "[%6.1f-%6.1f] %@", s.startTimeSeconds, s.endTimeSeconds, s.speakerId)) }
         #expect(!result.segments.isEmpty)
     }
 }
