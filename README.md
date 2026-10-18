@@ -61,6 +61,13 @@ Cloud options are off until you pick them, and Meety asks before anything leaves
 
 <p align="center"><img src="docs/screenshots/summary.png" width="900" alt="Summary"></p>
 
+## Projects
+
+Switch the sidebar from Recordings to Projects to group meetings by client, course or team. Drag a
+recording onto a project, or use the project menu on any meeting. Each recording shows its project tag.
+
+<p align="center"><img src="docs/screenshots/projects.png" width="900" alt="Projects"></p>
+
 ## FAQ
 
 - **Does it work with Zoom, Meet, Teams?** Yes. It records whatever your Mac plays, so it works with

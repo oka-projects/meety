@@ -63,11 +63,11 @@ public final class AppModel {
     }
 
     /// Só no Debug: variáveis de ambiente para abrir o app num estado (prints e testes).
-    /// MEETY_SELECT=<trecho do título>  MEETY_SHOW=welcome|settings
+    /// MEETY_SELECT=<trecho do título>  MEETY_PROJECT=<nome>  MEETY_MODE=recordings|projects  MEETY_SHOW=welcome|settings|export
     func applyDebugState() {
         #if DEBUG
         let env = ProcessInfo.processInfo.environment
-        if env["MEETY_MODE"] == "projects" { sidebarMode = .projects }
+        if let m = env["MEETY_MODE"].flatMap(SidebarMode.init(rawValue:)) { sidebarMode = m }
         if let t = env["MEETY_PROJECT"], let p = library.projects.first(where: { $0.name.localizedCaseInsensitiveContains(t) }) { sidebarMode = .projects; openProject(p) }
         if let t = env["MEETY_SELECT"], let m = library.meetings.first(where: { $0.title.localizedCaseInsensitiveContains(t) }) { selectedMeetingID = m.id }
         if env["MEETY_SHOW"] == "welcome" { showWelcome = true }
