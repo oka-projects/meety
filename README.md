@@ -2,6 +2,7 @@
 <h1 align="center">Meety</h1>
 <p align="center"><b>Record, transcribe and summarize your meetings. Entirely on your Mac.</b></p>
 <p align="center">
+  <a href="https://meety.oka.dev.br"><b>meety.oka.dev.br</b></a> ·
   <a href="https://github.com/oka-projects/meety/releases/latest"><b>Download for Mac</b></a> ·
   macOS 15+ · Apple Silicon · Free and open source
 </p>

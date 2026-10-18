@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2C8E86"/>
+      <stop offset="1" stop-color="#0C4A46"/>
+    </linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="14"/>
+      <feOffset dy="14" result="o"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.28"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="bubbleShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="10"/>
+      <feOffset dy="12" result="o"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.22"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <rect x="100" y="100" width="824" height="824" rx="186" fill="url(#bg)"/>
+    <rect x="100" y="100" width="824" height="824" rx="186" fill="url(#gloss)"/>
+    <rect x="101.5" y="101.5" width="821" height="821" rx="185" fill="none" stroke="#FFFFFF" stroke-opacity="0.10" stroke-width="3"/>
+  </g>
+  <g filter="url(#bubbleShadow)">
+    <rect x="244" y="236" width="536" height="392" rx="118" fill="#FFFFFF"/>
+    <path d="M318 596 Q300 672 268 736 Q350 690 446 628 Z" fill="#FFFFFF"/>
+  </g>
+  <g fill="#146C66">
+    <rect x="332" y="382" width="52" height="100" rx="26"/>
+    <rect x="418" y="332" width="52" height="200" rx="26"/>
+    <rect x="504" y="296" width="52" height="272" rx="26"/>
+    <rect x="590" y="342" width="52" height="180" rx="26"/>
+    <rect x="676" y="392" width="52" height="80" rx="26"/>
+  </g>
+</svg>

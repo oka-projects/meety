@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meety · Grave, transcreva e resuma reuniões no seu Mac</title>
+  <meta name="description" content="Meety grava a chamada e a sua voz, transcreve com o chip do próprio Mac, separa quem falou e escreve a ata. Grátis, código aberto, nada sai do seu computador.">
+  <meta name="theme-color" content="#0F1414">
+  <meta name="color-scheme" content="dark">
+  <link rel="canonical" href="https://meety.oka.dev.br/">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Meety">
+  <meta property="og:url" content="https://meety.oka.dev.br/">
+  <meta property="og:title" content="Meety · Grave, transcreva e resuma reuniões no seu Mac">
+  <meta property="og:description" content="Meety grava a chamada e a sua voz, transcreve com o chip do próprio Mac, separa quem falou e escreve a ata. Grátis, código aberto, nada sai do seu computador.">
+  <meta property="og:image" content="https://meety.oka.dev.br/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=DM+Sans:opsz,wght@9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="main.js"></script>
+</head>
+<body>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="glow glow-a" aria-hidden="true"></div>
+  <div class="glow glow-b" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#top">
+      <img src="icon.svg" width="28" height="28" alt="">
+      <span class="brand-name">Meety</span>
+      <span class="brand-by" data-i18n="nav.by">by Oka</span>
+    </a>
+    <nav class="nav-links" aria-label="Seções">
+      <a href="#local" data-i18n="nav.local">Privacidade</a>
+      <a href="#how" data-i18n="nav.how">Como funciona</a>
+      <a href="#features" data-i18n="nav.features">Recursos</a>
+      <a href="#summaries" data-i18n="nav.summaries">Resumos</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Idioma" data-i18n-attr="aria-label:lang.label">
+        <button type="button" data-lang="pt-BR" aria-pressed="true">PT</button>
+        <span class="lang-sep" aria-hidden="true">|</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn btn-primary btn-sm" href="https://github.com/oka-projects/meety/releases/latest" data-i18n="nav.download">Baixar</a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- 1. Hero -->
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow" data-reveal data-i18n="hero.eyebrow">macOS 15 ou mais novo · Apple Silicon · Grátis e código aberto</p>
+          <h1 data-reveal>
+            <span data-i18n="hero.title1">Grave, transcreva e resuma</span>
+            <em data-i18n="hero.title2">as suas reuniões.</em>
+          </h1>
+          <p class="lede" data-reveal data-i18n="hero.lede">Tudo no seu Mac. O Meety grava a chamada e a sua voz, transcreve com o chip do próprio computador, separa quem falou e escreve a ata. Nenhuma conversa sai da sua máquina, a não ser que você peça.</p>
+          <div class="cta" data-reveal>
+            <a class="btn btn-primary btn-lg" href="https://github.com/oka-projects/meety/releases/latest">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+              <span data-i18n="hero.download">Baixar para Mac</span>
+            </a>
+            <a class="btn btn-ghost btn-lg" href="https://github.com/oka-projects/meety">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
+              <span data-i18n="hero.github">Ver no GitHub</span>
+            </a>
+          </div>
+          <p class="fine" data-reveal data-i18n="hero.fine">Versão 1.0.0 · DMG assinado e notarizado pela Apple · Licença MIT</p>
+        </div>
+
+        <div class="hero-visual" data-reveal>
+          <div class="wave" id="wave" aria-hidden="true"></div>
+          <figure class="window window-hero">
+            <div class="titlebar"><span></span><span></span><span></span></div>
+            <img src="img/main.webp" width="1600" height="1018" alt="" data-i18n-attr="alt:hero.caption" loading="eager" fetchpriority="high">
+          </figure>
+          <div class="chip-tag" aria-hidden="true">
+            <span class="dot"></span><span class="mono">M-series · on-device</span>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-hint" aria-hidden="true"><span></span></div>
+    </section>
+
+    <!-- 2. Roda no seu Mac -->
+    <section class="section local" id="local">
+      <div class="inner">
+        <p class="label" data-reveal data-i18n="local.label">Privacidade</p>
+        <h2 class="display" data-reveal data-i18n="local.title">Nada sai do seu Mac.</h2>
+        <p class="section-text" data-reveal data-i18n="local.text">A transcrição roda na GPU do chip Apple, a separação de falantes roda no Neural Engine e a sua biblioteca é uma pasta sua. Sem servidor no meio, sem conta, sem fila.</p>
+
+        <div class="flow" data-reveal aria-hidden="true">
+          <div class="node node-in">
+            <div class="node-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 12v1"/><path d="M8 8v8"/><path d="M12 5v14"/><path d="M16 8v8"/><path d="M20 11v2"/></svg>
+            </div>
+            <div class="node-t" data-i18n="flow.audio">Áudio da reunião</div>
+            <div class="node-s" data-i18n="flow.audioSub">sua voz + a chamada</div>
+          </div>
+          <div class="link link-a"><i class="pkt"></i><i class="pkt"></i><i class="pkt"></i></div>
+          <div class="node node-chip">
+            <div class="chip">
+              <div class="chip-core"><span>M</span></div>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <div class="node-t" data-i18n="flow.chip">Chip do seu Mac</div>
+            <div class="node-s" data-i18n="flow.chipSub">GPU + Neural Engine</div>
+          </div>
+          <div class="link link-b"><i class="pkt"></i><i class="pkt"></i><i class="pkt"></i></div>
+          <div class="node node-out">
+            <div class="node-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 4h9l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/><path d="M14 4v5h5"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>
+            </div>
+            <div class="node-t" data-i18n="flow.out">Transcrição e ata</div>
+            <div class="node-s" data-i18n="flow.outSub">na sua pasta</div>
+          </div>
+          <div class="cloud-line">
+            <div class="cloud">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 18h10a4 4 0 0 0 .5-8 6 6 0 0 0-11.3 1.5A3.3 3.3 0 0 0 7 18Z"/><path d="m4 4 16 16"/></svg>
+              <div><div class="node-t" data-i18n="flow.cloud">Internet</div><div class="node-s mono" data-i18n="flow.cloudSub">0 bytes enviados</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pillars">
+          <article class="card" data-reveal>
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/><path d="m3 3 18 18"/></svg></div>
+            <h3 data-i18n="pillar1.t">Sem conta</h3>
+            <p data-i18n="pillar1.d">Baixe, arraste para Aplicativos e use. Não existe cadastro, login nem plano.</p>
+          </article>
+          <article class="card" data-reveal>
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 18h10a4 4 0 0 0 .5-8 6 6 0 0 0-11.3 1.5A3.3 3.3 0 0 0 7 18Z"/><path d="m4 4 16 16"/></svg></div>
+            <h3 data-i18n="pillar2.t">Sem nuvem</h3>
+            <p data-i18n="pillar2.d">Os modelos são baixados uma vez (cerca de 4 GB) e depois trabalham offline. Desligue o Wi-Fi e o Meety continua igual.</p>
+          </article>
+          <article class="card" data-reveal>
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <h3 data-i18n="pillar3.t">Sem rastreamento</h3>
+            <p data-i18n="pillar3.d">Nenhuma telemetria. A rede só é usada para baixar modelos, checar atualizações e, se você escolher, para um resumo na nuvem.</p>
+          </article>
+        </div>
+        <p class="note" data-reveal data-i18n="local.note">Quer um resumo com o Claude ou o ChatGPT? Pode. Mas é você quem escolhe, e o Meety avisa antes de qualquer coisa sair do Mac.</p>
+      </div>
+    </section>
+
+    <!-- 3. Como funciona -->
+    <section class="section how" id="how">
+      <div class="inner">
+        <p class="label" data-reveal data-i18n="how.label">Como funciona</p>
+        <h2 class="display" data-reveal data-i18n="how.title">Três passos, nenhum manual.</h2>
+
+        <div class="steps">
+          <article class="step" data-reveal>
+            <div class="step-ui ui-record" id="ui-record" aria-hidden="true">
+              <div class="rec-row">
+                <div class="rec-btn"><i></i></div>
+                <div class="rec-text">
+                  <div class="rec-time mono" id="rec-time">00:00:00</div>
+                  <div class="rec-live"><span class="live-dot"></span><span data-i18n="ui.recording">Gravando</span></div>
+                </div>
+              </div>
+              <div class="meters">
+                <div class="meter"><span data-i18n="ui.you">Você</span><div class="bar"><i id="meter-you"></i></div></div>
+                <div class="meter"><span data-i18n="ui.others">Outros</span><div class="bar"><i id="meter-others"></i></div></div>
+              </div>
+            </div>
+            <div class="step-n mono">01</div>
+            <h3 data-i18n="step1.t">Grave</h3>
+            <p data-i18n="step1.d">Um clique na janela ou na barra de menus. Zoom, Meet, Teams, o que estiver tocando no Mac, com a sua voz numa trilha separada. Ou solte um arquivo de áudio ou vídeo que você já tem.</p>
+          </article>
+
+          <article class="step" data-reveal>
+            <div class="step-ui ui-transcript" id="ui-transcript" aria-hidden="true">
+              <div class="chips">
+                <span class="chip-sp s1"><i></i><span data-i18n="ui.you">Você</span></span>
+                <span class="chip-sp s2"><i></i><span data-i18n="ui.ana">Ana</span></span>
+                <span class="chip-sp s3"><i></i><span data-i18n="ui.bruno">Bruno</span></span>
+              </div>
+              <div class="lines">
+                <div class="line" data-line><b class="s1" data-i18n="ui.you">Você</b><span class="mono t">00:12</span><p data-i18n="ui.t1">Então a proposta fica pronta até sexta?</p></div>
+                <div class="line" data-line><b class="s2" data-i18n="ui.ana">Ana</b><span class="mono t">00:15</span><p data-i18n="ui.t2">Fica. Eu fecho os números amanhã e mando para revisão.</p></div>
+                <div class="line" data-line><b class="s3" data-i18n="ui.bruno">Bruno</b><span class="mono t">00:21</span><p data-i18n="ui.t3">Só preciso do contrato do ano passado para comparar.</p></div>
+                <div class="line" data-line><b class="s1" data-i18n="ui.you">Você</b><span class="mono t">00:24</span><p data-i18n="ui.t4">Te mando hoje à noite.</p></div>
+              </div>
+            </div>
+            <div class="step-n mono">02</div>
+            <h3 data-i18n="step2.t">Transcreva</h3>
+            <p data-i18n="step2.d">Ao parar, o Meety transcreve sozinho e separa quem falou. Você é sempre "Você"; os outros ganham nomes que você pode trocar, juntar ou corrigir.</p>
+          </article>
+
+          <article class="step" data-reveal>
+            <div class="step-ui ui-summary" id="ui-summary" aria-hidden="true">
+              <div class="sum-head">
+                <span class="sum-title" data-i18n="ui.sumTitle">Ata</span>
+                <span class="sum-by"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span data-i18n="ui.sumBy">escrita no seu Mac</span></span>
+              </div>
+              <div class="sum-body">
+                <div class="sum-h" data-line data-i18n="ui.sumH1">Decisões</div>
+                <div class="sum-l" data-line data-i18n="ui.sumL1">Proposta final até sexta, revisada pela equipe.</div>
+                <div class="sum-h" data-line data-i18n="ui.sumH2">Próximos passos</div>
+                <div class="sum-l" data-line data-i18n="ui.sumL2">Ana fecha os números (amanhã).</div>
+                <div class="sum-l" data-line data-i18n="ui.sumL3">Você envia o contrato anterior para o Bruno (hoje).</div>
+                <span class="caret" data-line></span>
+              </div>
+            </div>
+            <div class="step-n mono">03</div>
+            <h3 data-i18n="step3.t">Resuma</h3>
+            <p data-i18n="step3.d">Resumo curto, ata com decisões e próximos passos, lista de ações ou a sua própria pergunta. Clique em qualquer frase para ouvir aquele trecho.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Recursos -->
+    <section class="section features" id="features">
+      <div class="inner">
+        <p class="label" data-reveal data-i18n="features.label">Recursos</p>
+        <h2 class="display" data-reveal data-i18n="features.title">Feito para quem vive em reunião.</h2>
+
+        <div class="bento">
+          <article class="card" data-reveal>
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17.5" cy="9" r="2.5"/><path d="M15.5 14.5a5 5 0 0 1 6 5"/></svg></div>
+            <h3 data-i18n="f1.t">Quem falou</h3>
+            <p data-i18n="f1.d">A sua trilha e a da chamada são gravadas separadas, por isso o Meety sempre sabe quais frases são suas. Os outros são separados no Neural Engine.</p>
+          </article>
+          <article class="card" data-reveal>
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3 20a5 5 0 0 1 9-3 5 5 0 0 1 9 3"/></svg></div>
+            <h3 data-i18n="f2.t">Falantes sob controle</h3>
+            <p data-i18n="f2.d">Dois "falantes" que são a mesma pessoa? Junte. Uma fala atribuída à pessoa errada? Clique com o botão direito e corrija.</p>
+          </article>
+          <figure class="shot" data-reveal>
+            <div class="window"><div class="titlebar"><span></span><span></span><span></span></div><img src="img/projects.webp" width="1600" height="1018" alt="" loading="lazy" data-i18n-attr="alt:features.shot1"></div>
+            <figcaption data-i18n="features.shot1">Projetos: arraste uma gravação e ela ganha a etiqueta.</figcaption>
+          </figure>
+          <article class="card" data-reveal>
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg></div>
+            <h3 data-i18n="f3.t">Projetos</h3>
+            <p data-i18n="f3.d">Agrupe reuniões por cliente, curso ou equipe. Arraste gravações para um projeto e cada uma ganha a etiqueta.</p>
+          </article>
+          <article class="card" data-reveal>
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg></div>
+            <h3 data-i18n="f4.t">Busca em tudo</h3>
+            <p data-i18n="f4.d">Procure uma palavra em todas as reuniões que você já gravou e abra no momento certo do áudio.</p>
+          </article>
+          <figure class="shot" data-reveal>
+            <div class="window"><div class="titlebar"><span></span><span></span><span></span></div><img src="img/summary.webp" width="1600" height="1018" alt="" loading="lazy" data-i18n-attr="alt:features.shot2"></div>
+            <figcaption data-i18n="features.shot2">Resumo: modelo, quem escreve e o texto pronto para editar.</figcaption>
+          </figure>
+          <article class="card" data-reveal>
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 16V4"/><path d="m7 9 5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></div>
+            <h3 data-i18n="f5.t">Arquivos que você já tem</h3>
+            <p data-i18n="f5.d">Solte memos de voz, entrevistas, aulas, vídeos. m4a, mp3, wav, aiff, mp4, mov e mais.</p>
+          </article>
+          <article class="card" data-reveal>
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 4v12"/><path d="m17 11-5 5-5-5"/><path d="M4 20h16"/></svg></div>
+            <h3 data-i18n="f6.t">Exporte do seu jeito</h3>
+            <p data-i18n="f6.d">Texto, Markdown, legendas SRT e VTT ou JSON. Ou copie com um clique.</p>
+            <div class="formats mono"><span>.txt</span><span>.md</span><span>.srt</span><span>.vtt</span><span>.json</span></div>
+          </article>
+          <article class="card card-note" data-reveal>
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg></div>
+            <p data-i18n="features.langs">Cerca de 100 idiomas, detectados sozinhos. Português e inglês com os melhores resultados. Interface em português e inglês, tema claro e escuro.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Resumos -->
+    <section class="section summaries" id="summaries">
+      <div class="inner">
+        <p class="label" data-reveal data-i18n="summaries.label">Resumos</p>
+        <h2 class="display" data-reveal data-i18n="summaries.title">Escolha quem escreve o resumo.</h2>
+        <p class="section-text" data-reveal data-i18n="summaries.text">Local por padrão. A nuvem só se você escolher, e com aviso antes.</p>
+
+        <ul class="providers">
+          <li class="provider is-local" data-reveal>
+            <span class="badge" data-i18n="badge.local">Local</span>
+            <h3 data-i18n="prov1.t">Apple Intelligence</h3>
+            <p data-i18n="prov1.d">No seu Mac · macOS 26 com Apple Intelligence ligada</p>
+          </li>
+          <li class="provider is-local" data-reveal>
+            <span class="badge" data-i18n="badge.local">Local</span>
+            <h3 data-i18n="prov2.t">Modelo local (MLX)</h3>
+            <p data-i18n="prov2.d">No seu Mac · um download único dentro do app</p>
+          </li>
+          <li class="provider" data-reveal>
+            <span class="badge" data-i18n="badge.cloud">Nuvem</span>
+            <h3 data-i18n="prov3.t">Claude</h3>
+            <p data-i18n="prov3.d">Nuvem da Anthropic · o app do Claude ou o Claude Code, já logado</p>
+          </li>
+          <li class="provider" data-reveal>
+            <span class="badge" data-i18n="badge.cloud">Nuvem</span>
+            <h3 data-i18n="prov4.t">ChatGPT (Codex)</h3>
+            <p data-i18n="prov4.d">Nuvem da OpenAI · o app do ChatGPT ou o Codex CLI, já logado</p>
+          </li>
+          <li class="provider" data-reveal>
+            <span class="badge" data-i18n="badge.cloud">Nuvem</span>
+            <h3 data-i18n="prov5.t">Chave de API</h3>
+            <p data-i18n="prov5.d">Anthropic ou OpenAI · a sua própria chave, guardada nas Chaves do macOS</p>
+          </li>
+        </ul>
+        <p class="note mono" data-reveal data-i18n="summaries.templates">Resumo curto · Ata com decisões e próximos passos · Lista de ações · Pergunta livre</p>
+      </div>
+    </section>
+
+    <!-- 6. Download -->
+    <section class="section download" id="download">
+      <div class="inner">
+        <div class="dl-grid">
+          <div class="dl-copy">
+            <p class="label" data-reveal data-i18n="download.label">Baixar</p>
+            <h2 class="display" data-reveal data-i18n="download.title">Comece em quatro passos.</h2>
+            <ol class="dl-steps">
+              <li data-reveal><span class="mono">1</span><p data-i18n="d1">Baixe o Meety.dmg e arraste o Meety para Aplicativos.</p></li>
+              <li data-reveal><span class="mono">2</span><p data-i18n="d2">Abra e dê as duas permissões: Microfone e Gravação de Tela e Áudio do Sistema. O Meety não grava a tela; o macOS só agrupa as duas.</p></li>
+              <li data-reveal><span class="mono">3</span><p data-i18n="d3">Clique em Baixar os recomendados. O Meety escolhe os modelos certos para a memória do seu Mac (cerca de 4 GB, uma vez só).</p></li>
+              <li data-reveal><span class="mono">4</span><p data-i18n="d4">Aperte Gravar, ou solte um arquivo na janela. Pronto.</p></li>
+            </ol>
+            <div class="cta" data-reveal>
+              <a class="btn btn-primary btn-lg" href="https://github.com/oka-projects/meety/releases/latest">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+                <span data-i18n="download.btn">Baixar o Meety 1.0.0</span>
+              </a>
+              <a class="btn btn-ghost btn-lg" href="https://github.com/oka-projects/meety" data-i18n="download.src">Código fonte e versões</a>
+            </div>
+            <p class="fine" data-reveal data-i18n="download.req">Mac com chip Apple (M1 ou mais novo) · macOS 15 Sequoia ou mais novo · cerca de 8 GB livres</p>
+          </div>
+          <figure class="shot dl-shot" data-reveal>
+            <div class="window"><div class="titlebar"><span></span><span></span><span></span></div><img src="img/welcome.webp" width="1600" height="1018" alt="" loading="lazy" data-i18n-attr="alt:download.shot"></div>
+          </figure>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="inner">
+      <div class="foot-brand">
+        <img src="icon.svg" width="22" height="22" alt="">
+        <span>Meety</span>
+        <span class="foot-made"><span data-i18n="footer.made">Feito pela</span> <a href="https://oka.dev.br">Oka</a></span>
+      </div>
+      <p class="foot-license" data-i18n="footer.license">Código aberto sob licença MIT. Os modelos mantêm as próprias licenças.</p>
+      <nav class="foot-links">
+        <a href="https://github.com/oka-projects/meety" data-i18n="footer.github">GitHub</a>
+        <a href="https://github.com/oka-projects/meety/releases" data-i18n="footer.releases">Versões</a>
+        <a href="https://github.com/oka-projects/meety#technical-details" data-i18n="footer.readme">Detalhes técnicos</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
