@@ -80,6 +80,8 @@ if [[ $UPLOAD -eq 1 ]]; then
   NOTES="docs/releases/$VERSION.md"
   [[ -f "$NOTES" ]] || { echo "Meety $VERSION" > "$OUT/notes.md"; NOTES="$OUT/notes.md"; }
   git tag -f "v$VERSION" && git push -f origin "v$VERSION"
-  gh release create "v$VERSION" "$DMG" "$OUT/appcast.xml" --repo "$REPO" --title "Meety $VERSION" --notes-file "$NOTES"
+  # Meety.dmg é a cópia com nome fixo: o site aponta para releases/latest/download/Meety.dmg
+  cp "$DMG" "$OUT/Meety.dmg"
+  gh release create "v$VERSION" "$DMG" "$OUT/Meety.dmg" "$OUT/appcast.xml" --repo "$REPO" --title "Meety $VERSION" --notes-file "$NOTES"
 fi
 echo "pronto: $DMG"
