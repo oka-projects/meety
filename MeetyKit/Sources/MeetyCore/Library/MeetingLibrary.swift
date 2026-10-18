@@ -152,6 +152,36 @@ public final class MeetingLibrary {
 
     public func save(transcript: Transcript, for meeting: Meeting) throws {
         try JSON.encoder.encode(transcript).write(to: folder(for: meeting).transcript, options: .atomic)
+        transcriptRevision += 1
+    }
+
+    /// Sobe a cada transcrição regravada; as telas observam para recarregar.
+    public private(set) var transcriptRevision = 0
+
+    // MARK: - Falantes
+
+    /// Junta dois falantes: toda fala de `from` passa a ser de `into`, e o nome de `from` some.
+    public func mergeSpeaker(_ from: String, into: String, of meeting: Meeting) throws {
+        guard from != into, var t = transcript(of: meeting) else { return }
+        for i in t.segments.indices where t.segments[i].speaker == from { t.segments[i].speaker = into }
+        try save(transcript: t, for: meeting)
+        update(meeting.id) { $0.speakerNames.removeValue(forKey: from) }
+    }
+
+    /// Troca o falante das frases indicadas.
+    public func setSpeaker(_ speaker: String, forSegments ids: Set<Int>, of meeting: Meeting) throws {
+        guard var t = transcript(of: meeting) else { return }
+        for i in t.segments.indices where ids.contains(t.segments[i].id) { t.segments[i].speaker = speaker }
+        try save(transcript: t, for: meeting)
+    }
+
+    /// Um identificador de falante ainda não usado nesta transcrição ("p3" numa gravação, "s3" num arquivo).
+    public func newSpeakerID(for meeting: Meeting) -> String {
+        let ids = transcript(of: meeting)?.speakerIDs ?? []
+        let prefix = ids.contains(where: { $0.hasPrefix("p") }) ? "p" : "s"
+        var n = 1
+        while ids.contains("\(prefix)\(n)") { n += 1 }
+        return "\(prefix)\(n)"
     }
 
     public func delete(_ meeting: Meeting) throws {

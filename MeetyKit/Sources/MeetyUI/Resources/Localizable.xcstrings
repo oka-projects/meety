@@ -35,6 +35,16 @@
         }
       }
     },
+    "%@ is the same person as": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ é a mesma pessoa que"
+          }
+        }
+      }
+    },
     "%@ of %@": {
       "localizations": {
         "en": {
@@ -285,6 +295,16 @@
         }
       }
     },
+    "Click to rename. Right-click to change who said this.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clique para renomear. Botão direito para trocar quem disse isto."
+          }
+        }
+      }
+    },
     "Continue": {
       "localizations": {
         "pt-BR": {
@@ -481,6 +501,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Solte para transcrever"
+          }
+        }
+      }
+    },
+    "Every line by %1$@ becomes %2$@. This can't be undone.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas as falas de %1$@ passam a ser de %2$@. Não dá para desfazer."
+          }
+        }
+      }
+    },
+    "Every line by %@ becomes %@. This can't be undone.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Every line by %1$@ becomes %2$@. This can't be undone."
           }
         }
       }
@@ -784,6 +824,36 @@
           "stringUnit": {
             "state": "translated",
             "value": "Memória"
+          }
+        }
+      }
+    },
+    "Merge": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Juntar"
+          }
+        }
+      }
+    },
+    "Merge speakers?": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Juntar os falantes?"
+          }
+        }
+      }
+    },
+    "Merge this speaker into another one. All their lines move over.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Junta este falante a outro. Todas as falas dele passam para o outro."
           }
         }
       }
@@ -1239,6 +1309,16 @@
         }
       }
     },
+    "Rename %@…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renomear %@…"
+          }
+        }
+      }
+    },
     "Rename this speaker": {
       "localizations": {
         "pt-BR": {
@@ -1265,6 +1345,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rodando no chip deste Mac. Você pode continuar usando o Meety enquanto isso."
+          }
+        }
+      }
+    },
+    "Said by": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dito por"
+          }
+        }
+      }
+    },
+    "Same person as…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mesma pessoa que…"
           }
         }
       }
@@ -1416,6 +1516,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Para o Meety ouvir você. A sua voz é gravada numa trilha própria, e é assim que o Meety sabe quais falas são suas."
+          }
+        }
+      }
+    },
+    "Someone else (new speaker)": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outra pessoa (novo falante)"
           }
         }
       }

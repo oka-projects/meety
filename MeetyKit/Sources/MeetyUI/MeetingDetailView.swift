@@ -37,6 +37,7 @@ struct MeetingDetailView: View {
         .onAppear { load() }
         .onChange(of: meeting.status) { _, _ in load() }
         .onChange(of: meeting.speakerNames) { _, _ in transcript = model.library.transcript(of: meeting) }
+        .onChange(of: model.library.transcriptRevision) { _, _ in transcript = model.library.transcript(of: meeting) }
         .onDisappear { player.unload() }
         .sheet(isPresented: $showExport) {
             if let transcript { ExportSheet(meeting: meeting, transcript: transcript) }
@@ -55,6 +56,7 @@ struct MeetingDetailView: View {
         let env = ProcessInfo.processInfo.environment
         if env["MEETY_TAB"] == "summary" { tab = .summary }
         if env["MEETY_SHOW"] == "export" { showExport = true }
+        if let sp = env["MEETY_RENAME"] { Task { try? await Task.sleep(for: .seconds(1)); renaming = sp } }
         #endif
     }
 

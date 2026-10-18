@@ -115,3 +115,31 @@ import Testing
         #expect(big.contains { $0.id == "qwen3-8b" })
     }
 }
+
+@Suite struct SpeakerEditing {
+    @MainActor
+    @Test func mergeAndReassignSpeakers() throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("meety-test-\(UUID().uuidString)")
+        let lib = MeetingLibrary(root: root)
+        var m = try lib.create(title: "Teste", source: .imported)
+        lib.update(m.id) { $0.speakerNames["s2"] = "Ayrton"; $0.hasSpeakers = true }
+        m = lib.meetings[0]
+        let t = Transcript(language: "pt", segments: [
+            TranscriptSegment(id: 0, start: 0, end: 1, text: "a", speaker: "s1"),
+            TranscriptSegment(id: 1, start: 1, end: 2, text: "b", speaker: "s2"),
+            TranscriptSegment(id: 2, start: 2, end: 3, text: "c", speaker: "s3"),
+        ])
+        try lib.save(transcript: t, for: m)
+        #expect(lib.newSpeakerID(for: m) == "s4")
+
+        try lib.mergeSpeaker("s2", into: "s1", of: m)
+        let merged = try #require(lib.transcript(of: m))
+        #expect(merged.segments.map(\.speaker) == ["s1", "s1", "s3"])
+        #expect(lib.meetings[0].speakerNames["s2"] == nil)
+
+        try lib.setSpeaker("s9", forSegments: [2], of: m)
+        #expect(lib.transcript(of: m)?.segments[2].speaker == "s9")
+        #expect(lib.transcriptRevision == 3)
+        try? FileManager.default.removeItem(at: root)
+    }
+}

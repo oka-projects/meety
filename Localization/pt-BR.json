@@ -268,5 +268,15 @@
   "Recordings": "Gravações",
   "Remove from project": "Tirar do projeto",
   "The meetings stay in your library, just without a project.": "As reuniões continuam na biblioteca, só sem projeto.",
-  "last on %@": "última em %@"
+  "last on %@": "última em %@",
+  "Click to rename. Right-click to change who said this.": "Clique para renomear. Botão direito para trocar quem disse isto.",
+  "Said by": "Dito por",
+  "Someone else (new speaker)": "Outra pessoa (novo falante)",
+  "Rename %@…": "Renomear %@…",
+  "%@ is the same person as": "%@ é a mesma pessoa que",
+  "Same person as…": "Mesma pessoa que…",
+  "Merge this speaker into another one. All their lines move over.": "Junta este falante a outro. Todas as falas dele passam para o outro.",
+  "Merge speakers?": "Juntar os falantes?",
+  "Merge": "Juntar",
+  "Every line by %1$@ becomes %2$@. This can't be undone.": "Todas as falas de %1$@ passam a ser de %2$@. Não dá para desfazer."
 }

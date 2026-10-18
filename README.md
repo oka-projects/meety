@@ -19,7 +19,8 @@ never leave your computer unless you choose otherwise.
 - **Record any call** with one click, from the window or the menu bar. Meety captures your voice and
   the other participants on separate tracks, so it always knows which lines are yours.
 - **Tell participants apart.** The other voices are separated on the Neural Engine, and you can give
-  each one a name.
+  each one a name. Got two "speakers" that are the same person? Merge them. A line attributed to the
+  wrong person? Right-click the name and pick who said it.
 - **Transcribe files** you drag in: voice memos, interviews, lectures, videos.
 - **Read along.** Click any sentence to jump to that moment in the audio.
 - **Get the summary**: a short recap, meeting minutes with decisions and next steps, an action list,
@@ -90,7 +91,8 @@ do computador, a não ser que você escolha isso.
 
 - Gravar qualquer chamada com um clique, pela janela ou pela barra de menus. A sua voz e a dos outros
   participantes ficam em trilhas separadas, então o Meety sempre sabe quais falas são suas.
-- Separar os participantes entre si (no Neural Engine) e dar um nome a cada um.
+- Separar os participantes entre si (no Neural Engine) e dar um nome a cada um. Dois "falantes" que são a
+  mesma pessoa? Junte os dois. Uma fala atribuída à pessoa errada? Botão direito no nome e escolha quem disse.
 - Transcrever arquivos arrastados para a janela: memos de voz, entrevistas, aulas, vídeos.
 - Clicar numa frase para ouvir aquele momento.
 - Gerar um resumo curto, uma ata com decisões e próximos passos, uma lista de tarefas, ou perguntar o

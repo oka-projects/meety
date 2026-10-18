@@ -9,6 +9,7 @@ struct TranscriptView: View {
     @Bindable var player: AudioPlayer
     @Binding var renaming: String?
     @State private var newName = ""
+    @State private var mergeInto: String?
 
     struct Block: Identifiable {
         let id: Int
@@ -43,7 +44,8 @@ struct TranscriptView: View {
                                     Button { renaming = sp } label: {
                                         Text(meeting.displayName(for: sp)).font(MeetyFont.headline).foregroundStyle(Color.meety.speaker(id: sp))
                                     }
-                                    .buttonStyle(.plain).help(String(localized: "Rename this speaker", bundle: .module))
+                                    .buttonStyle(.plain).help(String(localized: "Click to rename. Right-click to change who said this.", bundle: .module))
+                                    .contextMenu { blockMenu(block, speaker: sp) }
                                 }
                                 Button(TranscriptExporter.clock(block.start)) { player.seek(to: block.start, andPlay: true) }
                                     .buttonStyle(.plain).font(MeetyFont.timeInline).foregroundStyle(Color.meety.textSecondary)
@@ -68,10 +70,52 @@ struct TranscriptView: View {
             renamePopover
         }
         .onChange(of: renaming) { _, sp in if let sp { newName = meeting.speakerNames[sp] ?? "" } }
+        .alert(String(localized: "Merge speakers?", bundle: .module), isPresented: Binding(get: { mergeInto != nil }, set: { if !$0 { mergeInto = nil } })) {
+            Button(String(localized: "Merge", bundle: .module)) { commitMerge() }
+            Button(String(localized: "Cancel", bundle: .module), role: .cancel) { mergeInto = nil }
+        } message: {
+            if let from = renaming, let into = mergeInto {
+                Text(String(localized: "Every line by \(meeting.displayName(for: from)) becomes \(meeting.displayName(for: into)). This can't be undone.", bundle: .module))
+            }
+        }
     }
 
     var currentBlockID: Int? {
         blocks.last { $0.start <= player.currentTime }?.id
+    }
+
+    /// Menu de um bloco: trocar quem disse aquelas frases, renomear, mesclar.
+    @ViewBuilder
+    func blockMenu(_ block: Block, speaker sp: String) -> some View {
+        Menu(String(localized: "Said by", bundle: .module)) {
+            ForEach(transcript.speakerIDs, id: \.self) { other in
+                Button {
+                    try? model.library.setSpeaker(other, forSegments: Set(block.segments.map(\.id)), of: meeting)
+                } label: {
+                    Text(meeting.displayName(for: other))
+                    if other == sp { Image(systemName: "checkmark") }
+                }
+            }
+            Divider()
+            Button(String(localized: "Someone else (new speaker)", bundle: .module)) {
+                let id = model.library.newSpeakerID(for: meeting)
+                try? model.library.setSpeaker(id, forSegments: Set(block.segments.map(\.id)), of: meeting)
+            }
+        }
+        Button(String(localized: "Rename \(meeting.displayName(for: sp))…", bundle: .module)) { renaming = sp }
+        if transcript.speakerIDs.count > 1 {
+            Menu(String(localized: "\(meeting.displayName(for: sp)) is the same person as", bundle: .module)) {
+                ForEach(transcript.speakerIDs.filter { $0 != sp }, id: \.self) { other in
+                    Button(meeting.displayName(for: other)) { renaming = sp; mergeInto = other }
+                }
+            }
+        }
+    }
+
+    func commitMerge() {
+        guard let from = renaming, let into = mergeInto else { return }
+        try? model.library.mergeSpeaker(from, into: into, of: meeting)
+        mergeInto = nil; renaming = nil
     }
 
     var renamePopover: some View {
@@ -83,6 +127,17 @@ struct TranscriptView: View {
             TextField(renaming.map { Speaker.defaultName(for: $0) } ?? "", text: $newName)
                 .textFieldStyle(.roundedBorder).frame(width: 260)
                 .onSubmit { commitRename() }
+            if let sp = renaming, transcript.speakerIDs.count > 1 {
+                Menu {
+                    ForEach(transcript.speakerIDs.filter { $0 != sp }, id: \.self) { other in
+                        Button(meeting.displayName(for: other)) { mergeInto = other }
+                    }
+                } label: {
+                    Label(String(localized: "Same person as…", bundle: .module), systemImage: "person.2")
+                }
+                .menuStyle(.borderlessButton).fixedSize()
+                .help(String(localized: "Merge this speaker into another one. All their lines move over.", bundle: .module))
+            }
             HStack {
                 Spacer()
                 Button(String(localized: "Cancel", bundle: .module)) { renaming = nil }
