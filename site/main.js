@@ -69,8 +69,8 @@ function player() {
   };
 }
 const clock = (s) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
-const SPEAKER_COLOR = { you: "#146C66", ana: "#4453C8", bruno: "#8F5A00", carla: "#8A3C9E", p1: "#4453C8", p2: "#8F5A00" };
-const GRAY = "#7B8787";
+const SPEAKER_COLOR = { you: "#0d7a68", ana: "#4a42d6", bruno: "#0b6f8c", carla: "#b0246a", p1: "#4a42d6", p2: "#0b6f8c" };
+const GRAY = "#8a97a6";
 
 // Monta as barras de uma trilha a partir de quem fala em cada coluna.
 function buildLane(lane, who, kind) {
@@ -325,15 +325,16 @@ const panelPlayers = {
   },
   1(panel) { // juntar falantes
     const p = player();
-    const chip2 = $("#chip-2", panel), chip3 = $("#chip-3", panel), note = $("#chip-note", panel), line3 = $("#line-3", panel);
+    const chip2 = $("#chip-2", panel), chip3 = $("#chip-3", panel), note = $("#chip-note", panel), line2 = $("#line-2", panel), line3 = $("#line-3", panel);
     const label2 = $("span", chip2);
-    const restore = () => { label2.textContent = t("fp.sp2"); line3.textContent = t("fp.sp3"); line3.className = "s4"; chip3.style.opacity = "1"; chip3.style.translate = ""; chip3.style.scale = ""; chip2.style.scale = ""; note.style.opacity = "0"; };
+    // depois de juntar, as duas pessoas viram uma só, em todas as falas
+    const restore = () => { label2.textContent = t("fp.sp2"); line2.textContent = t("fp.sp2"); line3.textContent = t("fp.sp3"); line3.className = "s4"; chip3.style.opacity = "1"; chip3.style.translate = ""; chip3.style.scale = ""; chip2.style.scale = ""; note.style.opacity = "0"; };
     restore();
     p.after(1.1, async () => {
       const dx = chip2.getBoundingClientRect().left - chip3.getBoundingClientRect().left + chip2.offsetWidth * 0.35;
       p.add(animate(chip3, { x: [0, dx], scale: [1, 0.6], opacity: [1, 0] }, { duration: 0.8, ease: [0.5, 0, 0.2, 1] }));
       p.after(0.7, () => {
-        label2.textContent = t("fp.merged"); line3.textContent = t("fp.merged"); line3.className = "s3";
+        label2.textContent = t("fp.merged"); line2.textContent = t("fp.merged"); line3.textContent = t("fp.merged"); line3.className = "s3";
         p.add(animate(chip2, { scale: [1, 1.12, 1] }, { duration: 0.5 }));
         p.add(animate(note, { opacity: [0, 1], x: [-6, 0] }, { duration: 0.4, delay: 0.2 }));
       });
