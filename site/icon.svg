@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2C8E86"/>
-      <stop offset="1" stop-color="#0C4A46"/>
+      <stop offset="0" stop-color="#2B86DC"/>
+      <stop offset="1" stop-color="#08467F"/>
     </linearGradient>
     <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.16"/>
@@ -30,7 +30,7 @@
     <rect x="244" y="236" width="536" height="392" rx="118" fill="#FFFFFF"/>
     <path d="M318 596 Q300 672 268 736 Q350 690 446 628 Z" fill="#FFFFFF"/>
   </g>
-  <g fill="#146C66">
+  <g fill="#0B5CAD">
     <rect x="332" y="382" width="52" height="100" rx="26"/>
     <rect x="418" y="332" width="52" height="200" rx="26"/>
     <rect x="504" y="296" width="52" height="272" rx="26"/>
