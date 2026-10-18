@@ -217,7 +217,7 @@ function stageController(stage) {
 const SCENE1 = expand([["you", 7], ["ana", 11], ["you", 4], ["bruno", 10], ["carla", 9], ["ana", 6], ["you", 5], ["carla", 4]]);
 function playRecord(demo) {
   const p = player();
-  const STEP = 0.07;
+  const STEP = 0.05;
   const time = $("#rec-time", demo);
   const tiles = $$(".tile", demo);
   $$(".lane", demo).forEach((lane) => buildLane(lane, SCENE1, lane.dataset.lane));
@@ -245,7 +245,7 @@ function playRecord(demo) {
       b.style.background = SPEAKER_COLOR[lane];
       p.add(animate(b, { opacity: [0, 1], y: [-6, 0] }, { duration: 0.3, delay: t1 + 0.5 + i * STEP * 0.6 }));
     }));
-    p.after(t1 + 0.5 + SCENE1.length * STEP * 0.6 + 2.6, run);
+    p.after(t1 + 0.5 + SCENE1.length * STEP * 0.6 + 2.0, run);
   }
   run();
   return () => p.stop();
@@ -270,7 +270,7 @@ function playSummary(el) {
 function deckController(deck) {
   const pages = $$(".page", deck), segs = $$("#deck-progress button", deck);
   const demos = [() => playRecord($("#ui-record")), () => playTranscript($("#ui-transcript")), () => playSummary($("#ui-summary"))];
-  const DUR = [12, 9, 8];
+  const DUR = [8, 6, 6];
   let idx = 0, elapsed = 0, last = null, raf = null, running = false, paused = false, stopDemo = null, switching = false;
   const seg = (i) => $("i", segs[i]);
   function paint() { segs.forEach((_, j) => seg(j).style.setProperty("--p", j < idx ? 1 : j > idx ? 0 : elapsed / DUR[idx])); }
@@ -299,10 +299,6 @@ function deckController(deck) {
   $("#deck-prev", deck).addEventListener("click", () => show((idx + pages.length - 1) % pages.length, -1));
   $("#deck-next", deck).addEventListener("click", () => show((idx + 1) % pages.length, 1));
   segs.forEach((b, j) => b.addEventListener("click", () => show(j, j > idx ? 1 : -1)));
-  deck.addEventListener("pointerenter", () => (paused = true));
-  deck.addEventListener("pointerleave", () => (paused = false));
-  deck.addEventListener("focusin", () => (paused = true));
-  deck.addEventListener("focusout", () => (paused = false));
   return {
     start: () => { running = true; last = null; stopDemo?.(); stopDemo = demos[idx](); raf = requestAnimationFrame(tick); },
     stop: () => { running = false; cancelAnimationFrame(raf); stopDemo?.(); stopDemo = null; },
@@ -398,7 +394,7 @@ const panelPlayers = {
 };
 function featuresController(root) {
   const items = $$("#feat-list li", root), panels = $$(".fp", root);
-  const DUR = 7;
+  const DUR = 5;
   let idx = 0, elapsed = 0, last = null, raf = null, running = false, paused = false, stopPanel = null, switching = false;
   const prog = (i) => $(".feat-prog", items[i]);
   function paint() { prog(idx).style.setProperty("--p", elapsed / DUR); }
@@ -427,8 +423,6 @@ function featuresController(root) {
     last = now; raf = requestAnimationFrame(tick);
   }
   items.forEach((li, i) => $("button", li).addEventListener("click", () => show(i)));
-  root.addEventListener("pointerenter", () => (paused = true));
-  root.addEventListener("pointerleave", () => (paused = false));
   return {
     start: () => { running = true; last = null; panels[idx].classList.add("is-active"); stopPanel?.(); stopPanel = panelPlayers[idx](panels[idx]); raf = requestAnimationFrame(tick); },
     stop: () => { running = false; cancelAnimationFrame(raf); stopPanel?.(); stopPanel = null; },

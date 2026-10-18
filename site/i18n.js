@@ -13,7 +13,6 @@ export const strings = {
     "hero.t2": ". Sua ferramenta para reuniões, rodando na sua máquina.",
     "hero.lede": "O Meety grava a chamada e a sua voz, transcreve com o chip do próprio computador, separa quem falou e escreve a ata. Nenhuma conversa sai da sua máquina, a não ser que você peça.",
     "hero.download": "Baixar para Mac",
-    "hero.github": "Ver no GitHub",
 
     "st.tabRec": "Gravações",
     "st.tabProj": "Projetos",
@@ -51,6 +50,7 @@ export const strings = {
     "ui.mic": "Seu microfone",
     "ui.meeting": "Áudio da reunião",
     "ui.diar": "Separação de falantes",
+    "ui.ai": "IA",
     "ui.recording": "Gravando",
     "ui.t1": "Então a proposta fica pronta até sexta?",
     "ui.t2": "Fica. Eu fecho os números amanhã e mando para revisão.",
@@ -166,7 +166,6 @@ export const strings = {
     "hero.t2": ". Your meeting tool, running on your own machine.",
     "hero.lede": "Meety records the call and your voice, transcribes on your computer's own chip, tells speakers apart and writes the minutes. No conversation leaves your machine unless you ask for it.",
     "hero.download": "Download for Mac",
-    "hero.github": "View on GitHub",
 
     "st.tabRec": "Recordings",
     "st.tabProj": "Projects",
@@ -204,6 +203,7 @@ export const strings = {
     "ui.mic": "Your microphone",
     "ui.meeting": "Meeting audio",
     "ui.diar": "Speaker separation",
+    "ui.ai": "AI",
     "ui.recording": "Recording",
     "ui.t1": "So the proposal is ready by Friday?",
     "ui.t2": "It is. I close the numbers tomorrow and send it for review.",
