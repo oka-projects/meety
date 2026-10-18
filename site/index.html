@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Meety · Grave, transcreva e resuma reuniões no seu Mac</title>
   <meta name="description" content="Meety grava a chamada e a sua voz, transcreve com o chip do próprio Mac, separa quem falou e escreve a ata. Grátis, código aberto, nada sai do seu computador.">
-  <meta name="theme-color" content="#F4F6F6">
+  <meta name="theme-color" content="#F7F3EC">
   <meta name="color-scheme" content="light">
   <link rel="canonical" href="https://meety.oka.dev.br/">
   <link rel="icon" type="image/png" href="favicon.png">
@@ -25,7 +25,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Schibsted+Grotesk:ital,wght@0,400..700;1,400..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script type="module" src="main.js"></script>
 </head>
@@ -35,7 +35,7 @@
   <header class="nav" id="nav">
     <a class="brand" href="#top">
       <img src="icon.svg" width="26" height="26" alt="">
-      <span class="brand-name">Meety</span>
+      <span class="brand-name" data-name>Meety</span>
       <span class="brand-by" data-i18n="nav.by">by Oka</span>
     </a>
     <nav class="nav-links" aria-label="Seções">
@@ -58,7 +58,7 @@
     <section class="hero" id="hero">
       <div class="hero-inner">
         <div class="hero-copy">
-          <h1 data-reveal data-i18n="hero.title">Grave, transcreva e resuma as suas reuniões. Tudo no seu Mac.</h1>
+          <h1 data-reveal><span data-i18n="hero.t1">Conheça o</span> <span class="name" data-name>Meety</span><span data-i18n="hero.t2">. Sua ferramenta para reuniões, rodando na sua máquina.</span></h1>
           <p class="lede" data-reveal data-i18n="hero.lede">O Meety grava a chamada e a sua voz, transcreve com o chip do próprio computador, separa quem falou e escreve a ata. Nenhuma conversa sai da sua máquina, a não ser que você peça.</p>
           <div class="cta" data-reveal>
             <a class="btn btn-primary btn-lg" href="https://github.com/oka-projects/meety/releases/latest">
@@ -348,46 +348,24 @@
       </div>
     </section>
 
-    <!-- 4. Resumos -->
+    <!-- 4. Resumos e requisitos, lado a lado -->
     <section class="section summaries" id="summaries">
       <div class="inner">
-        <div class="section-head">
-          <h2 data-reveal data-i18n="summaries.title">Escolha quem escreve o resumo.</h2>
-          <p class="section-text" data-reveal data-i18n="summaries.text">Local por padrão. A nuvem só se você escolher, e com aviso antes. Você pede um resumo curto, uma ata com decisões e próximos passos, uma lista de ações, ou faz a sua própria pergunta sobre a reunião.</p>
-        </div>
-        <div class="table-wrap" data-reveal>
-          <table class="providers">
-            <thead><tr><th data-i18n="th.who">Quem escreve</th><th data-i18n="th.where">Onde roda</th><th data-i18n="th.need">O que você precisa</th></tr></thead>
-            <tbody>
-              <tr class="is-local"><td data-i18n="prov1.t">Apple Intelligence</td><td data-i18n="prov1.where">No seu Mac</td><td data-i18n="prov1.need">macOS 26 com Apple Intelligence ligada</td></tr>
-              <tr class="is-local"><td data-i18n="prov2.t">Modelo local (MLX)</td><td data-i18n="prov2.where">No seu Mac</td><td data-i18n="prov2.need">Um download único dentro do app</td></tr>
-              <tr><td data-i18n="prov3.t">Claude</td><td data-i18n="prov3.where">Nuvem da Anthropic</td><td data-i18n="prov3.need">O app do Claude ou o Claude Code, já logado</td></tr>
-              <tr><td data-i18n="prov4.t">ChatGPT (Codex)</td><td data-i18n="prov4.where">Nuvem da OpenAI</td><td data-i18n="prov4.need">O app do ChatGPT ou o Codex CLI, já logado</td></tr>
-              <tr><td data-i18n="prov5.t">Chave de API</td><td data-i18n="prov5.where">Nuvem da Anthropic ou da OpenAI</td><td data-i18n="prov5.need">A sua própria chave, guardada nas Chaves do macOS</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. Baixar -->
-    <section class="section download" id="download">
-      <div class="inner">
-        <div class="dl-grid">
-          <div class="dl-copy">
-            <h2 data-reveal data-i18n="download.title">Comece em quatro passos.</h2>
-            <ol class="dl-steps">
-              <li data-reveal><span class="mono">1</span><p data-i18n="d1">Baixe o Meety.dmg e arraste o Meety para Aplicativos.</p></li>
-              <li data-reveal><span class="mono">2</span><p data-i18n="d2">Abra e dê as duas permissões: Microfone e Gravação de Tela e Áudio do Sistema. O Meety não grava a tela; o macOS só agrupa as duas.</p></li>
-              <li data-reveal><span class="mono">3</span><p data-i18n="d3">Clique em Baixar os recomendados. O Meety escolhe os modelos certos para a memória do seu Mac (cerca de 4 GB, uma vez só).</p></li>
-              <li data-reveal><span class="mono">4</span><p data-i18n="d4">Aperte Gravar, ou solte um arquivo na janela. Pronto.</p></li>
-            </ol>
-            <div class="cta" data-reveal>
-              <a class="btn btn-primary btn-lg" href="https://github.com/oka-projects/meety/releases/latest">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-                <span data-i18n="download.btn">Baixar o Meety 1.0.0</span>
-              </a>
-              <a class="btn btn-ghost btn-lg" href="https://github.com/oka-projects/meety" data-i18n="download.src">Código fonte e versões</a>
+        <div class="two">
+          <div>
+            <h2 data-reveal data-i18n="summaries.title">Escolha quem escreve o resumo.</h2>
+            <p class="section-text" data-reveal data-i18n="summaries.text">Local por padrão. A nuvem só se você escolher, e com aviso antes. Você pede um resumo curto, uma ata com decisões e próximos passos, uma lista de ações, ou faz a sua própria pergunta sobre a reunião.</p>
+            <div class="table-wrap" data-reveal>
+              <table class="providers">
+                <thead><tr><th data-i18n="th.who">Quem escreve</th><th data-i18n="th.where">Onde roda</th><th data-i18n="th.need">O que você precisa</th></tr></thead>
+                <tbody>
+                  <tr class="is-local"><td data-i18n="prov1.t">Apple Intelligence</td><td data-i18n="prov1.where">No seu Mac</td><td data-i18n="prov1.need">macOS 26 com Apple Intelligence ligada</td></tr>
+                  <tr class="is-local"><td data-i18n="prov2.t">Modelo local (MLX)</td><td data-i18n="prov2.where">No seu Mac</td><td data-i18n="prov2.need">Um download único dentro do app</td></tr>
+                  <tr><td data-i18n="prov3.t">Claude</td><td data-i18n="prov3.where">Nuvem da Anthropic</td><td data-i18n="prov3.need">O app do Claude ou o Claude Code, já logado</td></tr>
+                  <tr><td data-i18n="prov4.t">ChatGPT (Codex)</td><td data-i18n="prov4.where">Nuvem da OpenAI</td><td data-i18n="prov4.need">O app do ChatGPT ou o Codex CLI, já logado</td></tr>
+                  <tr><td data-i18n="prov5.t">Chave de API</td><td data-i18n="prov5.where">Nuvem da Anthropic ou da OpenAI</td><td data-i18n="prov5.need">A sua própria chave, guardada nas Chaves do macOS</td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
           <aside class="req" data-reveal>
@@ -403,20 +381,55 @@
         </div>
       </div>
     </section>
+
+    <!-- 5. Comece a usar -->
+    <section class="section download" id="download">
+      <div class="inner">
+        <div class="dl-grid">
+          <div class="dl-copy">
+            <h2 data-reveal data-i18n="download.title">Comece a usar.</h2>
+            <ol class="dl-steps">
+              <li data-reveal><span class="mono">1</span><p data-i18n="d1">Baixe o Meety.dmg e arraste o Meety para Aplicativos.</p></li>
+              <li data-reveal><span class="mono">2</span><p data-i18n="d2">Abra e dê as duas permissões: Microfone e Gravação de Tela e Áudio do Sistema. O Meety não grava a tela; o macOS só agrupa as duas.</p></li>
+              <li data-reveal><span class="mono">3</span><p data-i18n="d3">Clique em Baixar os recomendados. O Meety escolhe os modelos certos para a memória do seu Mac (cerca de 4 GB, uma vez só).</p></li>
+              <li data-reveal><span class="mono">4</span><p data-i18n="d4">Aperte Gravar, ou solte um arquivo na janela. Pronto.</p></li>
+            </ol>
+          </div>
+          <div class="dl-cta" data-reveal>
+            <a class="btn btn-primary btn-xl" href="https://github.com/oka-projects/meety/releases/latest">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+              <span data-i18n="download.btn">Baixar o Meety 1.0.0</span>
+            </a>
+            <a class="btn btn-ghost btn-lg" href="https://github.com/oka-projects/meety" data-i18n="download.src">Código fonte e versões</a>
+            <p class="fine" data-i18n="hero.fine">Grátis e de código aberto. Versão 1.0.0, assinada e notarizada pela Apple.</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
     <div class="inner">
       <div class="foot-brand">
         <img src="icon.svg" width="20" height="20" alt="">
-        <span>Meety</span>
-        <span class="foot-made"><span data-i18n="footer.made">Feito pela</span> <a href="https://oka.dev.br">Oka</a></span>
+        <span data-name>Meety</span>
       </div>
-      <p class="foot-license" data-i18n="footer.license">Código aberto sob licença MIT. Os modelos mantêm as próprias licenças.</p>
+      <a class="foot-made" href="https://oka.dev.br">
+        <span data-i18n="footer.made">Feito pela</span>
+        <svg class="oka" viewBox="0 0 250 100" fill="currentColor" role="img" aria-label="Oka" data-i18n-attr="aria-label:footer.oka">
+          <g transform="translate(0,5) scale(0.54) translate(-116.5,-98.25)">
+            <polygon points="265.82 164.17 145.82 164.43 135.72 145.83 279.52 145.52 265.82 164.17"/>
+            <polygon points="117.25 227.4 245.84 98.25 264.2 116.54 116.5 264.89 117.25 227.4"/>
+            <polygon points="300.28 263.47 154.62 118.43 170.86 102.13 298.3 229.01 300.28 263.47"/>
+            <ellipse cx="207.92" cy="219.64" rx="22.43" ry="22.63"/>
+          </g>
+          <g transform="translate(115,22) scale(0.61) translate(-98.08,-166.72)">
+            <path d="M301.79,181.06c-4.15-4.68-8.3-9.36-12.45-14.04h-53.98l-1.09,1.78c-2.25,3.68-4.79,7.12-7.59,10.25-6.19,6.94-13.51,12.29-21.48,15.73.33-.84.65-1.68.95-2.53,1.06-2.9,2.03-5.88,2.88-8.85,1.05-3.65,1.97-7.44,2.71-11.25l1-5.14h-16.99l-.69,3.18c-.77,3.53-1.71,7.03-2.8,10.41-2.27,7.07-5.24,13.85-8.83,20.19l-.16.29c-1.79,3.11-3.73,6.15-5.82,9.04-.14-2.89-.52-5.75-1.13-8.55,0-.03,0-.06-.02-.09l-.02-.11c-1.9-8.59-5.89-16.33-11.53-22.39-6.21-6.66-13.9-10.78-22.25-11.93-3.11-.43-6.3-.43-9.41-.01-1.13.16-2.28.38-3.42.65-3.51.85-6.91,2.25-10.09,4.17-3.18,1.91-6.12,4.3-8.73,7.12-8.12,8.71-12.77,21.04-12.77,33.82s4.37,24.54,12.33,33.35c.18.19.36.39.54.59,2.56,2.71,5.4,5.04,8.44,6.89.05.03.09.06.13.07,3.41,2.06,7.05,3.53,10.83,4.36,2.44.54,4.94.81,7.44.81s5.01-.27,7.45-.81c1.86-.41,3.7-.98,5.48-1.69l.79-.32.02-.02c2.3-.98,4.52-2.23,6.64-3.69,2.92-1.75,5.78-3.67,8.52-5.73,6.18-4.61,11.98-10.04,17.22-16.14,2.96-3.43,5.75-7.07,8.32-10.87,13.5,3.92,25.55,13.1,34.12,26.03.95,1.44,1.85,2.91,2.69,4.4,1.06,1.86,2.07,3.83,2.99,5.85l1.02,2.24h16.35c-1.09-7-5.31-16.12-12.15-26.17-3.19-4.69-6.41-8.79-8.88-11.76-.03-.03-.05-.06-.08-.08-3.73-3.73-7.73-7.01-11.95-9.83,6.98-3.71,13.43-8.58,19.25-14.56-.58,1.22-1.12,2.47-1.64,3.73-.88,2.19-1.66,4.45-2.33,6.77,1.3,1.41,7.63,8.43,14.03,17.81,2.2,3.22,4.15,6.35,5.87,9.38h51.76c-.24,2.9-.69,5.76-1.37,8.53-.85,3.51-2.04,6.85-3.52,9.93l-3.02,6.26h17.71l.94-2.57c1.35-3.71,2.42-7.6,3.17-11.57.96-4.99,1.45-10.16,1.45-15.36,0-18.52-6.27-36.05-16.88-47.6ZM160.9,214.45c-.44,8.46-4.37,16.25-10.52,20.88-1.86,1.12-3.77,2.15-5.69,3.1-.6.22-1.22.41-1.85.57-3.27.85-6.77.85-10.07,0-1.59-.41-3.15-1.02-4.65-1.83-2.48-1.34-4.73-3.16-6.67-5.41-4.36-5.07-6.77-11.8-6.77-18.95,0-10.63,5.43-20.27,13.83-24.57,1.96-.99,4.01-1.67,6.12-2,1.04-.17,2.1-.25,3.16-.25h.02c1.05,0,2.11.08,3.15.25,7.6,1.21,14.18,6.72,17.58,14.76.56,1.31,1.03,2.68,1.39,4.11.55,2.11.87,4.31.95,6.56.02.41.02.79.02,1.15,0,.53-.02,1.07-.05,1.64ZM245.55,214.04c4.25-15.85,15.22-27.17,28.04-27.17s23.78,11.32,28.03,27.17h-56.07Z"/>
+          </g>
+        </svg>
+      </a>
       <nav class="foot-links">
         <a href="https://github.com/oka-projects/meety" data-i18n="footer.github">GitHub</a>
-        <a href="https://github.com/oka-projects/meety/releases" data-i18n="footer.releases">Versões</a>
-        <a href="https://github.com/oka-projects/meety#technical-details" data-i18n="footer.readme">Detalhes técnicos</a>
       </nav>
     </div>
   </footer>

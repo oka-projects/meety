@@ -9,7 +9,8 @@ export const strings = {
     "nav.download": "Baixar",
     "nav.by": "by Oka",
 
-    "hero.title": "Grave, transcreva e resuma as suas reuniões. Tudo no seu Mac.",
+    "hero.t1": "Conheça o",
+    "hero.t2": ". Sua ferramenta para reuniões, rodando na sua máquina.",
     "hero.lede": "O Meety grava a chamada e a sua voz, transcreve com o chip do próprio computador, separa quem falou e escreve a ata. Nenhuma conversa sai da sua máquina, a não ser que você peça.",
     "hero.download": "Baixar para Mac",
     "hero.github": "Ver no GitHub",
@@ -129,7 +130,7 @@ export const strings = {
     "prov5.where": "Nuvem da Anthropic ou da OpenAI",
     "prov5.need": "A sua própria chave, guardada nas Chaves do macOS",
 
-    "download.title": "Comece em quatro passos.",
+    "download.title": "Comece a usar.",
     "d1": "Baixe o Meety.dmg e arraste o Meety para Aplicativos.",
     "d2": "Abra e dê as duas permissões: Microfone e Gravação de Tela e Áudio do Sistema. O Meety não grava a tela; o macOS só agrupa as duas.",
     "d3": "Clique em Baixar os recomendados. O Meety escolhe os modelos certos para a memória do seu Mac (cerca de 4 GB, uma vez só).",
@@ -149,10 +150,8 @@ export const strings = {
     "req.netV": "Só para baixar os modelos e checar atualizações",
 
     "footer.made": "Feito pela",
-    "footer.license": "Código aberto sob licença MIT. Os modelos mantêm as próprias licenças.",
     "footer.github": "GitHub",
-    "footer.releases": "Versões",
-    "footer.readme": "Detalhes técnicos",
+    "footer.oka": "Oka",
     "lang.label": "Idioma"
   },
 
@@ -165,7 +164,8 @@ export const strings = {
     "nav.download": "Download",
     "nav.by": "by Oka",
 
-    "hero.title": "Record, transcribe and summarize your meetings. Entirely on your Mac.",
+    "hero.t1": "Meet",
+    "hero.t2": ". Your meeting tool, running on your own machine.",
     "hero.lede": "Meety records the call and your voice, transcribes on your computer's own chip, tells speakers apart and writes the minutes. No conversation leaves your machine unless you ask for it.",
     "hero.download": "Download for Mac",
     "hero.github": "View on GitHub",
@@ -285,7 +285,7 @@ export const strings = {
     "prov5.where": "Anthropic or OpenAI cloud",
     "prov5.need": "Your own key, kept in the macOS Keychain",
 
-    "download.title": "Start in four steps.",
+    "download.title": "Get started.",
     "d1": "Download Meety.dmg and drag Meety to Applications.",
     "d2": "Open it and grant the two permissions: Microphone, and Screen & System Audio Recording. Meety never records your screen; macOS just groups both together.",
     "d3": "Click Download recommended. Meety picks the right models for your Mac's memory (about 4 GB, one time only).",
@@ -305,10 +305,8 @@ export const strings = {
     "req.netV": "Only to download the models and check for updates",
 
     "footer.made": "Made by",
-    "footer.license": "Open source under the MIT license. Models keep their own licenses.",
     "footer.github": "GitHub",
-    "footer.releases": "Releases",
-    "footer.readme": "Technical details",
+    "footer.oka": "Oka",
     "lang.label": "Language"
   }
 };
