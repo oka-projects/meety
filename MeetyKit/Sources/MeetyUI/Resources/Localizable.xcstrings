@@ -385,6 +385,16 @@
         }
       }
     },
+    "Couldn't merge the speakers": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não deu para juntar os falantes"
+          }
+        }
+      }
+    },
     "Couldn't start recording": {
       "localizations": {
         "pt-BR": {
@@ -506,6 +516,7 @@
       }
     },
     "Every line by %1$@ becomes %2$@. This can't be undone.": {
+      "extractionState": "stale",
       "localizations": {
         "pt-BR": {
           "stringUnit": {

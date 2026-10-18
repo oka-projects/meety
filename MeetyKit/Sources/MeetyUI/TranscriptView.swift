@@ -9,7 +9,8 @@ struct TranscriptView: View {
     @Bindable var player: AudioPlayer
     @Binding var renaming: String?
     @State private var newName = ""
-    @State private var mergeInto: String?
+    /// Pedido de junção pendente (origem, destino); o popover pode fechar antes da confirmação.
+    @State private var merge: (from: String, into: String)?
 
     struct Block: Identifiable {
         let id: Int
@@ -70,12 +71,12 @@ struct TranscriptView: View {
             renamePopover
         }
         .onChange(of: renaming) { _, sp in if let sp { newName = meeting.speakerNames[sp] ?? "" } }
-        .alert(String(localized: "Merge speakers?", bundle: .module), isPresented: Binding(get: { mergeInto != nil }, set: { if !$0 { mergeInto = nil } })) {
+        .alert(String(localized: "Merge speakers?", bundle: .module), isPresented: Binding(get: { merge != nil }, set: { if !$0 { merge = nil } })) {
             Button(String(localized: "Merge", bundle: .module)) { commitMerge() }
-            Button(String(localized: "Cancel", bundle: .module), role: .cancel) { mergeInto = nil }
+            Button(String(localized: "Cancel", bundle: .module), role: .cancel) { merge = nil }
         } message: {
-            if let from = renaming, let into = mergeInto {
-                Text(String(localized: "Every line by \(meeting.displayName(for: from)) becomes \(meeting.displayName(for: into)). This can't be undone.", bundle: .module))
+            if let m = merge {
+                Text(String(localized: "Every line by \(meeting.displayName(for: m.from)) becomes \(meeting.displayName(for: m.into)). This can't be undone.", bundle: .module))
             }
         }
     }
@@ -106,16 +107,17 @@ struct TranscriptView: View {
         if transcript.speakerIDs.count > 1 {
             Menu(String(localized: "\(meeting.displayName(for: sp)) is the same person as", bundle: .module)) {
                 ForEach(transcript.speakerIDs.filter { $0 != sp }, id: \.self) { other in
-                    Button(meeting.displayName(for: other)) { renaming = sp; mergeInto = other }
+                    Button(meeting.displayName(for: other)) { merge = (sp, other) }
                 }
             }
         }
     }
 
     func commitMerge() {
-        guard let from = renaming, let into = mergeInto else { return }
-        try? model.library.mergeSpeaker(from, into: into, of: meeting)
-        mergeInto = nil; renaming = nil
+        guard let m = merge else { return }
+        do { try model.library.mergeSpeaker(m.from, into: m.into, of: meeting) }
+        catch { model.alert = AppModel.AlertMessage(title: String(localized: "Couldn't merge the speakers", bundle: .module), message: error.localizedDescription) }
+        merge = nil; renaming = nil
     }
 
     var renamePopover: some View {
@@ -130,7 +132,7 @@ struct TranscriptView: View {
             if let sp = renaming, transcript.speakerIDs.count > 1 {
                 Menu {
                     ForEach(transcript.speakerIDs.filter { $0 != sp }, id: \.self) { other in
-                        Button(meeting.displayName(for: other)) { mergeInto = other }
+                        Button(meeting.displayName(for: other)) { merge = (sp, other); renaming = nil }
                     }
                 } label: {
                     Label(String(localized: "Same person as…", bundle: .module), systemImage: "person.2")
