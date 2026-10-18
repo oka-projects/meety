@@ -58,27 +58,27 @@ public struct RootView: View {
         .toolbar(removing: .title)
     }
 
-    /// "Recordings ▾" / "Projects ▾": troca o que a barra lateral mostra.
+    /// Abas "Recordings | Projects" no topo da barra lateral: a ativa ganha o fundo destacado.
     var modeSwitcher: some View {
-        Menu {
+        HStack(spacing: 2) {
             ForEach(AppModel.SidebarMode.allCases) { mode in
-                Button { model.sidebarMode = mode } label: {
-                    Label(mode.title, systemImage: mode.systemIcon)
-                    if mode == model.sidebarMode { Image(systemName: "checkmark") }
+                let active = mode == model.sidebarMode
+                Button { withAnimation(.easeOut(duration: 0.15)) { model.sidebarMode = mode } } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: mode.systemIcon).font(.system(size: 11, weight: .semibold))
+                        Text(mode.title).font(.system(size: 13, weight: active ? .semibold : .regular))
+                    }
+                    .foregroundStyle(active ? Color.meety.textPrimary : Color.meety.textSecondary)
+                    .frame(maxWidth: .infinity).frame(height: 26)
+                    .background(active ? Color.meety.elevated : .clear, in: RoundedRectangle(cornerRadius: 6, style: .continuous))
+                    .shadow(color: active ? .black.opacity(0.12) : .clear, radius: 1, y: 1)
+                    .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
             }
-        } label: {
-            HStack(spacing: 6) {
-                Image(systemName: model.sidebarMode.systemIcon).font(.system(size: 12, weight: .semibold))
-                Text(model.sidebarMode.title).font(MeetyFont.headline)
-                Image(systemName: "chevron.down").font(.system(size: 9, weight: .bold))
-            }
-            .foregroundStyle(Color.meety.textPrimary)
-            .padding(.horizontal, 10).frame(height: 28)
-            .background(Color.meety.fill, in: RoundedRectangle(cornerRadius: MeetyRadius.control, style: .continuous))
         }
-        .menuStyle(.borderlessButton).menuIndicator(.hidden).fixedSize()
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(2)
+        .background(Color.meety.fill, in: RoundedRectangle(cornerRadius: MeetyRadius.field, style: .continuous))
         .padding(.horizontal, 10).padding(.bottom, 8)
     }
 
