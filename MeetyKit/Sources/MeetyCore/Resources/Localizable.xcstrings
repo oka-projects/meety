@@ -52,6 +52,12 @@
             "state": "new",
             "value": "%1$@ failed (code %2$d). %3$@"
           }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ falhou (código %2$d). %3$@"
+          }
         }
       }
     },
@@ -61,6 +67,12 @@
           "stringUnit": {
             "state": "new",
             "value": "%1$@ is installed but its command line tool wasn't found. Open %2$@ once so it finishes setting up."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O %1$@ está instalado, mas a ferramenta de linha de comando não foi encontrada. Abra o %2$@ uma vez para ele terminar a configuração."
           }
         }
       }
@@ -82,6 +94,12 @@
             "state": "new",
             "value": "%1$@ isn't downloaded yet (%2$@)."
           }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ ainda não foi baixado (%2$@)."
+          }
         }
       }
     },
@@ -101,6 +119,12 @@
           "stringUnit": {
             "state": "new",
             "value": "%1$@ isn't signed in. Open %2$@, sign in and try again."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O %1$@ não está conectado. Abra o %2$@, entre na sua conta e tente de novo."
           }
         }
       }
@@ -272,6 +296,12 @@
           "stringUnit": {
             "state": "new",
             "value": "Download failed (HTTP %1$lld) for %2$@. Check your connection and try again."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O download falhou (HTTP %1$lld) em %2$@. Confira a conexão e tente de novo."
           }
         }
       }
@@ -474,6 +504,12 @@
             "state": "new",
             "value": "Read part %1$lld of %2$lld…"
           }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte %1$lld de %2$lld lida…"
+          }
         }
       }
     },
@@ -675,6 +711,12 @@
             "state": "new",
             "value": "The speech engine stopped unexpectedly (code %1$d). %2$@"
           }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O motor de transcrição parou de repente (código %1$d). %2$@"
+          }
         }
       }
     },
@@ -756,6 +798,12 @@
             "state": "new",
             "value": "Unexpected answer from %1$@ (HTTP %2$lld)."
           }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resposta inesperada da %1$@ (HTTP %2$lld)."
+          }
         }
       }
     },
@@ -776,6 +824,12 @@
           "stringUnit": {
             "state": "new",
             "value": "Uses your %1$@ account. The transcript is sent to %2$@."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa a sua conta do %1$@. A transcrição é enviada à %2$@."
           }
         }
       }

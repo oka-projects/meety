@@ -32,9 +32,11 @@ for xliff in xliffs:
             key = unit.find("x:source", ns).text
             if key is None:
                 continue
-            # O InfoPlist usa a chave do plist (CFBundleName...), não o texto.
-            entry = strings.setdefault(unit.get("id") if catalog.name == "InfoPlist.xcstrings" else key, {})
-            value = translations.get(key)
+            # A entrada do catálogo é o id da unidade: no InfoPlist é a chave do plist (CFBundleName...);
+            # nos outros é o texto, e textos com dois argumentos aparecem duas vezes ("%@ ... %@" e
+            # "%1$@ ... %2$@", este último como source do primeiro). A tradução vale para as duas formas.
+            entry = strings.setdefault(unit.get("id") or key, {})
+            value = translations.get(key) or translations.get(unit.get("id") or "")
             if value is None:
                 missing.add(key)
                 continue
