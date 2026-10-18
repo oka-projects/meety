@@ -14,7 +14,6 @@ export const strings = {
     "hero.lede": "O Meety grava a chamada e a sua voz, transcreve com o chip do próprio computador, separa quem falou e escreve a ata. Nenhuma conversa sai da sua máquina, a não ser que você peça.",
     "hero.download": "Baixar para Mac",
     "hero.github": "Ver no GitHub",
-    "hero.fine": "Grátis e de código aberto. Versão 1.0.0, assinada e notarizada pela Apple.",
 
     "st.tabRec": "Gravações",
     "st.tabProj": "Projetos",
@@ -110,7 +109,6 @@ export const strings = {
     "fp.save": "Salvar…",
 
     "summaries.title": "Escolha quem escreve o resumo.",
-    "summaries.text": "Local por padrão. A nuvem só se você escolher, e com aviso antes. Você pede um resumo curto, uma ata com decisões e próximos passos, uma lista de ações, ou faz a sua própria pergunta sobre a reunião.",
     "th.who": "Quem escreve",
     "th.where": "Onde roda",
     "th.need": "O que você precisa",
@@ -135,8 +133,8 @@ export const strings = {
     "d2": "Abra e dê as duas permissões: Microfone e Gravação de Tela e Áudio do Sistema. O Meety não grava a tela; o macOS só agrupa as duas.",
     "d3": "Clique em Baixar os recomendados. O Meety escolhe os modelos certos para a memória do seu Mac (cerca de 4 GB, uma vez só).",
     "d4": "Aperte Gravar, ou solte um arquivo na janela. Pronto.",
-    "download.btn": "Baixar o Meety 1.0.0",
-    "download.src": "Código fonte e versões",
+    "download.btn": "Baixar o Meety para Mac",
+    "download.dmg": "Instalador para macOS (.dmg)",
     "req.title": "Requisitos mínimos",
     "req.chip": "Chip",
     "req.chipV": "Apple Silicon (M1 ou mais novo)",
@@ -169,7 +167,6 @@ export const strings = {
     "hero.lede": "Meety records the call and your voice, transcribes on your computer's own chip, tells speakers apart and writes the minutes. No conversation leaves your machine unless you ask for it.",
     "hero.download": "Download for Mac",
     "hero.github": "View on GitHub",
-    "hero.fine": "Free and open source. Version 1.0.0, signed and notarized by Apple.",
 
     "st.tabRec": "Recordings",
     "st.tabProj": "Projects",
@@ -265,7 +262,6 @@ export const strings = {
     "fp.save": "Save…",
 
     "summaries.title": "Choose who writes the summary.",
-    "summaries.text": "Local by default. The cloud only if you choose it, with a warning first. Ask for a short recap, minutes with decisions and next steps, an action list, or your own question about the meeting.",
     "th.who": "Who writes it",
     "th.where": "Where it runs",
     "th.need": "What you need",
@@ -290,8 +286,8 @@ export const strings = {
     "d2": "Open it and grant the two permissions: Microphone, and Screen & System Audio Recording. Meety never records your screen; macOS just groups both together.",
     "d3": "Click Download recommended. Meety picks the right models for your Mac's memory (about 4 GB, one time only).",
     "d4": "Press Record, or drop a file in the window. That's it.",
-    "download.btn": "Download Meety 1.0.0",
-    "download.src": "Source code and releases",
+    "download.btn": "Download Meety for Mac",
+    "download.dmg": "macOS installer (.dmg)",
     "req.title": "Minimum requirements",
     "req.chip": "Chip",
     "req.chipV": "Apple Silicon (M1 or later)",

@@ -25,7 +25,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Schibsted+Grotesk:ital,wght@0,400..700;1,400..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500..800&family=Schibsted+Grotesk:ital,wght@0,400..700;1,400..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script type="module" src="main.js"></script>
 </head>
@@ -68,7 +68,6 @@
             </a>
             <a class="btn btn-ghost btn-lg" href="https://github.com/oka-projects/meety" data-i18n="hero.github">Ver no GitHub</a>
           </div>
-          <p class="fine" data-reveal data-i18n="hero.fine">Grátis e de código aberto. Versão 1.0.0, assinada e notarizada pela Apple.</p>
         </div>
 
         <div class="hero-visual" data-reveal>
@@ -77,6 +76,13 @@
 
             <!-- Cena 1: o ícone no Dock -->
             <div class="scene scene-dock" data-scene="dock">
+              <div class="mac">
+                <div class="mac-menubar"><i class="mac-apple"></i><b></b><i></i><i></i><i></i><span class="mac-clock mono">14:32</span></div>
+                <div class="mac-window">
+                  <div class="mw-title"><span></span><span></span><span></span></div>
+                  <div class="mac-window-body"><i class="sk w40"></i><i class="sk w90"></i><i class="sk w75"></i><i class="sk w84"></i><i class="sk w60"></i></div>
+                </div>
+              </div>
               <div class="dock">
                 <i class="dock-app"></i><i class="dock-app"></i><i class="dock-app"></i>
                 <span class="dock-meety" id="dock-meety"><img src="icon.svg" alt=""><em></em></span>
@@ -352,10 +358,9 @@
     <!-- 4. Resumos e requisitos, lado a lado -->
     <section class="section summaries" id="summaries">
       <div class="inner">
+        <h2 data-reveal data-i18n="summaries.title">Escolha quem escreve o resumo.</h2>
         <div class="two">
           <div>
-            <h2 data-reveal data-i18n="summaries.title">Escolha quem escreve o resumo.</h2>
-            <p class="section-text" data-reveal data-i18n="summaries.text">Local por padrão. A nuvem só se você escolher, e com aviso antes. Você pede um resumo curto, uma ata com decisões e próximos passos, uma lista de ações, ou faz a sua própria pergunta sobre a reunião.</p>
             <div class="table-wrap" data-reveal>
               <table class="providers">
                 <thead><tr><th data-i18n="th.who">Quem escreve</th><th data-i18n="th.where">Onde roda</th><th data-i18n="th.need">O que você precisa</th></tr></thead>
@@ -398,11 +403,10 @@
           </div>
           <div class="dl-cta" data-reveal>
             <a class="btn btn-primary btn-xl" href="https://github.com/oka-projects/meety/releases/latest">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-              <span data-i18n="download.btn">Baixar o Meety 1.0.0</span>
+              <svg class="apple" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.7c.02 2.6 2.28 3.47 2.3 3.48-.02.06-.36 1.24-1.19 2.45-.72 1.05-1.46 2.1-2.63 2.12-1.15.02-1.52-.68-2.84-.68-1.31 0-1.72.66-2.81.7-1.13.04-1.99-1.13-2.71-2.18-1.48-2.14-2.61-6.05-1.09-8.69.75-1.31 2.1-2.14 3.56-2.16 1.11-.02 2.16.75 2.84.75.68 0 1.95-.93 3.29-.79.56.02 2.14.23 3.15 1.71-.08.05-1.88 1.1-1.87 3.29zM14.2 6.5c.6-.73 1.01-1.74.9-2.75-.87.04-1.92.58-2.54 1.3-.56.65-1.05 1.68-.92 2.67.97.07 1.96-.49 2.56-1.22z"/></svg>
+              <span data-i18n="download.btn">Baixar o Meety para Mac</span>
             </a>
-            <a class="btn btn-ghost btn-lg" href="https://github.com/oka-projects/meety" data-i18n="download.src">Código fonte e versões</a>
-            <p class="fine" data-i18n="hero.fine">Grátis e de código aberto. Versão 1.0.0, assinada e notarizada pela Apple.</p>
+            <p class="dl-note"><span data-i18n="download.dmg">Instalador para macOS (.dmg)</span></p>
           </div>
         </div>
       </div>

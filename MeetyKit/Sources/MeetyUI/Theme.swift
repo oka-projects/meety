@@ -12,49 +12,49 @@ extension Color {
 
 struct MeetyColors {
     // Destaque (verde petróleo)
-    let accent        = Color(light: 0x146C66, dark: 0x1F7F78)
-    let accentText    = Color(light: 0x146C66, dark: 0x5FC8C0)
-    let accentTint    = Color(light: 0x146C66, lightAlpha: 0.12, dark: 0x5FC8C0, darkAlpha: 0.14)
+    let accent        = Color(light: 0x0B5CAD, dark: 0x5AA0E8)
+    let accentText    = Color(light: 0x0B5CAD, dark: 0x9CC8F2)
+    let accentTint    = Color(light: 0x0B5CAD, lightAlpha: 0.12, dark: 0x5AA0E8, darkAlpha: 0.16)
 
     // Fundos
-    let window        = Color(light: 0xF4F6F6, dark: 0x1E2424)
-    let sidebar       = Color(light: 0xECF0F0, dark: 0x262C2C)
-    let content       = Color(light: 0xFFFFFF, dark: 0x1A1F1F)
-    let elevated      = Color(light: 0xFFFFFF, dark: 0x2A3131)
-    let control       = Color(light: 0xFFFFFF, dark: 0x343B3B)
-    let fill          = Color(light: 0x000000, lightAlpha: 0.05, dark: 0xFFFFFF, darkAlpha: 0.07)
-    let fillStrong    = Color(light: 0x000000, lightAlpha: 0.10, dark: 0xFFFFFF, darkAlpha: 0.14)
-    let hover         = Color(light: 0x000000, lightAlpha: 0.05, dark: 0xFFFFFF, darkAlpha: 0.06)
+    let window        = Color(light: 0xEEF3F8, dark: 0x0E1824)
+    let sidebar       = Color(light: 0xE3EBF3, dark: 0x14202C)
+    let content       = Color(light: 0xFFFFFF, dark: 0x0B141E)
+    let elevated      = Color(light: 0xFFFFFF, dark: 0x1A2633)
+    let control       = Color(light: 0xFFFFFF, dark: 0x223040)
+    let fill          = Color(light: 0x0B2D55, lightAlpha: 0.05, dark: 0xFFFFFF, darkAlpha: 0.07)
+    let fillStrong    = Color(light: 0x0B2D55, lightAlpha: 0.10, dark: 0xFFFFFF, darkAlpha: 0.14)
+    let hover         = Color(light: 0x0B5CAD, lightAlpha: 0.07, dark: 0x5AA0E8, darkAlpha: 0.10)
 
     // Texto
-    let textPrimary   = Color(light: 0x1A2121, dark: 0xECF0F0)
-    let textSecondary = Color(light: 0x5B6868, dark: 0xA6B1B1)
-    let textTertiary  = Color(light: 0x5F6C6C, dark: 0x8B9797)
+    let textPrimary   = Color(light: 0x0D1B2A, dark: 0xE8EEF5)
+    let textSecondary = Color(light: 0x4D5B6B, dark: 0x9AABBD)
+    let textTertiary  = Color(light: 0x5E6D7E, dark: 0x8A9AAD)
 
     // Bordas
-    let separator     = Color(light: 0x000000, lightAlpha: 0.09, dark: 0xFFFFFF, darkAlpha: 0.09)
-    let borderStrong  = Color(light: 0x000000, lightAlpha: 0.14, dark: 0xFFFFFF, darkAlpha: 0.16)
-    let controlBorder = Color(light: 0x000000, lightAlpha: 0.13, dark: 0xFFFFFF, darkAlpha: 0.10)
+    let separator     = Color(light: 0x0D2846, lightAlpha: 0.10, dark: 0xFFFFFF, darkAlpha: 0.08)
+    let borderStrong  = Color(light: 0x0D2846, lightAlpha: 0.16, dark: 0xFFFFFF, darkAlpha: 0.16)
+    let controlBorder = Color(light: 0x0D2846, lightAlpha: 0.14, dark: 0xFFFFFF, darkAlpha: 0.10)
 
     // Estados. O vermelho é só de gravação.
     let recordFill    = Color(light: 0xD43A30, dark: 0xD43A30)
     let recordText    = Color(light: 0xC7342B, dark: 0xFF6259)
     let recordTint    = Color(light: 0xD43A30, lightAlpha: 0.12, dark: 0xFF6259, darkAlpha: 0.16)
-    let success       = Color(light: 0x22743B, dark: 0x5BCB7A)
-    let successTint   = Color(light: 0x22743B, lightAlpha: 0.12, dark: 0x5BCB7A, darkAlpha: 0.14)
+    let success       = Color(light: 0x0D7A68, dark: 0x6FD6C1)
+    let successTint   = Color(light: 0x0D7A68, lightAlpha: 0.12, dark: 0x6FD6C1, darkAlpha: 0.14)
     let warning       = Color(light: 0x9A5A00, dark: 0xF0B458)
     let warningTint   = Color(light: 0x9A5A00, lightAlpha: 0.10, dark: 0xF0B458, darkAlpha: 0.12)
 
     /// Oito cores de falante. A 0 é sempre "Você" e coincide com o destaque.
     let speakers: [Color] = [
-        Color(light: 0x146C66, dark: 0x5FC8C0), // Você
-        Color(light: 0x4453C8, dark: 0x9AA6FF), // índigo
-        Color(light: 0x8F5A00, dark: 0xE3AC3F), // ocre
-        Color(light: 0x8A3C9E, dark: 0xD193E3), // ameixa
-        Color(light: 0xBC3F24, dark: 0xF5907A), // coral
-        Color(light: 0x4A7A1A, dark: 0xA4D25E), // oliva
-        Color(light: 0x2767A3, dark: 0x80BDF0), // azul aço
-        Color(light: 0xB0346A, dark: 0xF094BC), // rosa
+        Color(light: 0x0B5CAD, dark: 0x7DB5EE), // Você (azul-oceano)
+        Color(light: 0x4A42D6, dark: 0xA9A4FF), // índigo
+        Color(light: 0x0B6F8C, dark: 0x6CC9E6), // ciano
+        Color(light: 0x0D7A68, dark: 0x6FD6C1), // verde-mar
+        Color(light: 0xB0246A, dark: 0xF28BC0), // amora
+        Color(light: 0x44597A, dark: 0xA9BDE0), // ardósia
+        Color(light: 0x6D4BC8, dark: 0xB39CF5), // violeta
+        Color(light: 0x2767A3, dark: 0x80BDF0), // azul-aço
     ]
 
     /// Cor por índice: 0 é "Você"; os demais ciclam pelas outras sete.
