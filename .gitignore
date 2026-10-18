@@ -1,0 +1,16 @@
+# Xcode
+*.xcodeproj
+build/
+DerivedData/
+xcuserdata/
+.DS_Store
+# Motor embutido: gerado por scripts/build-engine.sh
+engine/dist/
+engine/.cache/
+# Local
+Config/Local.xcconfig
+*.dmg
+dist/
+.build/
+*.xcloc
+build-engine.log

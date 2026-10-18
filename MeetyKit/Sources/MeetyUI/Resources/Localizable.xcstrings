@@ -1,0 +1,1333 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "": {},
+    "%1$@ / %2$@": {},
+    "%1$@ · %2$@": {},
+    "%1$lld%% · about %2$@ left": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld%% · faltam cerca de %2$@"
+          }
+        }
+      }
+    },
+    "%@ / %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ / %2$@"
+          }
+        }
+      }
+    },
+    "%@ · %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "%@×": {},
+    "%lld%% · about %@ left": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$lld%% · about %2$@ left"
+          }
+        }
+      }
+    },
+    "A text file with the engine log and your settings, without any transcript. Useful when reporting a problem.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um arquivo de texto com o diário do motor e os seus ajustes, sem nenhuma transcrição. Útil para relatar um problema."
+          }
+        }
+      }
+    },
+    "API key": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chave de API"
+          }
+        }
+      }
+    },
+    "About": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sobre"
+          }
+        }
+      }
+    },
+    "Add key": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adicionar chave"
+          }
+        }
+      }
+    },
+    "Allow microphone": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permitir microfone"
+          }
+        }
+      }
+    },
+    "Allowed": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permitido"
+          }
+        }
+      }
+    },
+    "Ask something about this meeting…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pergunte algo sobre esta reunião…"
+          }
+        }
+      }
+    },
+    "Back": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voltar"
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar"
+          }
+        }
+      }
+    },
+    "Choose audio or video files to transcribe": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolha arquivos de áudio ou vídeo para transcrever"
+          }
+        }
+      }
+    },
+    "Claude and ChatGPT on this Mac": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Claude e ChatGPT neste Mac"
+          }
+        }
+      }
+    },
+    "Continue": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continuar"
+          }
+        }
+      }
+    },
+    "Copied": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiado"
+          }
+        }
+      }
+    },
+    "Copy": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiar"
+          }
+        }
+      }
+    },
+    "Couldn't create the meeting folder": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível criar a pasta da reunião"
+          }
+        }
+      }
+    },
+    "Couldn't delete": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível apagar"
+          }
+        }
+      }
+    },
+    "Couldn't import %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível importar %@"
+          }
+        }
+      }
+    },
+    "Couldn't start recording": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível começar a gravar"
+          }
+        }
+      }
+    },
+    "Default": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Padrão"
+          }
+        }
+      }
+    },
+    "Delete this model": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar este modelo"
+          }
+        }
+      }
+    },
+    "Download": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baixar"
+          }
+        }
+      }
+    },
+    "Download a model first": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baixe um modelo primeiro"
+          }
+        }
+      }
+    },
+    "Download recommended (%@)": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baixar os recomendados (%@)"
+          }
+        }
+      }
+    },
+    "Download the models": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Baixe os modelos"
+          }
+        }
+      }
+    },
+    "Drop to transcribe": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Solte para transcrever"
+          }
+        }
+      }
+    },
+    "Export": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar"
+          }
+        }
+      }
+    },
+    "Export diagnostics…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar diagnóstico…"
+          }
+        }
+      }
+    },
+    "Export the transcript": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar a transcrição"
+          }
+        }
+      }
+    },
+    "Export transcript": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportar transcrição"
+          }
+        }
+      }
+    },
+    "Format": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formato"
+          }
+        }
+      }
+    },
+    "Format not supported yet": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Formato ainda não aceito"
+          }
+        }
+      }
+    },
+    "General": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geral"
+          }
+        }
+      }
+    },
+    "Generate": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gerar"
+          }
+        }
+      }
+    },
+    "Get a key": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obter uma chave"
+          }
+        }
+      }
+    },
+    "GitHub": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GitHub"
+          }
+        }
+      }
+    },
+    "Import": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importar"
+          }
+        }
+      }
+    },
+    "Import file…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importar arquivo…"
+          }
+        }
+      }
+    },
+    "Leave on automatic unless the detection gets it wrong.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deixe em automático, a não ser que a detecção erre."
+          }
+        }
+      }
+    },
+    "Library": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Biblioteca"
+          }
+        }
+      }
+    },
+    "Local summaries": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumos locais"
+          }
+        }
+      }
+    },
+    "Location": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Local"
+          }
+        }
+      }
+    },
+    "Meeting %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reunião %@"
+          }
+        }
+      }
+    },
+    "Meeting language": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Idioma da reunião"
+          }
+        }
+      }
+    },
+    "Meety can't open .%@ files yet. Convert the file to MP4, M4A, MP3 or WAV and try again.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Meety ainda não abre arquivos .%@. Converta para MP4, M4A, MP3 ou WAV e tente de novo."
+          }
+        }
+      }
+    },
+    "Meety is free and open source. Made by Oka.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Meety é gratuito e de código aberto. Feito pela Oka."
+          }
+        }
+      }
+    },
+    "Meety picked the right sizes for this Mac (%lld GB of memory). This happens once; after that, everything works offline.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Meety escolheu os tamanhos certos para este Mac (%lld GB de memória). Isso acontece uma vez; depois, tudo funciona sem internet."
+          }
+        }
+      }
+    },
+    "Meety transcribes on your Mac. Your audio never leaves your computer.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Meety transcreve no seu Mac. O áudio nunca sai do seu computador."
+          }
+        }
+      }
+    },
+    "Meety uses the Claude Code or Codex command line tools that come with the Mac apps or that you installed from the terminal. They use your own account.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Meety usa as ferramentas de linha de comando do Claude Code ou do Codex que vêm com os apps do Mac ou que você instalou pelo terminal. Elas usam a sua própria conta."
+          }
+        }
+      }
+    },
+    "Memory": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Memória"
+          }
+        }
+      }
+    },
+    "Microphone": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Microfone"
+          }
+        }
+      }
+    },
+    "Microphone off: recording only the other participants.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Microfone desligado: gravando só os outros participantes."
+          }
+        }
+      }
+    },
+    "Missing": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausente"
+          }
+        }
+      }
+    },
+    "Models": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modelos"
+          }
+        }
+      }
+    },
+    "Move this meeting to the Trash?": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover esta reunião para o Lixo?"
+          }
+        }
+      }
+    },
+    "Move to Trash": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mover para o Lixo"
+          }
+        }
+      }
+    },
+    "Needs %lld GB": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precisa de %lld GB"
+          }
+        }
+      }
+    },
+    "No audio reached Meety. Check the microphone and the system audio permission.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum áudio chegou ao Meety. Confira o microfone e a permissão de áudio do sistema."
+          }
+        }
+      }
+    },
+    "No summary yet. Pick what you need above and press Generate.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ainda não há resumo. Escolha acima o que você precisa e clique em Gerar."
+          }
+        }
+      }
+    },
+    "Not allowed": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não permitido"
+          }
+        }
+      }
+    },
+    "Not found": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não encontrado"
+          }
+        }
+      }
+    },
+    "Not transcribed yet": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ainda não transcrita"
+          }
+        }
+      }
+    },
+    "Nothing was recorded": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada foi gravado"
+          }
+        }
+      }
+    },
+    "Open": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir"
+          }
+        }
+      }
+    },
+    "Open Meety": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir o Meety"
+          }
+        }
+      }
+    },
+    "Open Settings": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir Ajustes"
+          }
+        }
+      }
+    },
+    "Open System Settings": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir Ajustes do Sistema"
+          }
+        }
+      }
+    },
+    "Open app": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrir o app"
+          }
+        }
+      }
+    },
+    "Others": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outros"
+          }
+        }
+      }
+    },
+    "Permissions": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Permissões"
+          }
+        }
+      }
+    },
+    "Provider": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Provedor"
+          }
+        }
+      }
+    },
+    "Quit Meety": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encerrar o Meety"
+          }
+        }
+      }
+    },
+    "Record": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gravar"
+          }
+        }
+      }
+    },
+    "Record a meeting or drop a file here": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grave uma reunião ou solte um arquivo aqui"
+          }
+        }
+      }
+    },
+    "Record your meetings, get a transcript you can search, and a summary you can share. Everything runs on your Mac: your conversations stay with you.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grave as suas reuniões, tenha uma transcrição em que dá para buscar e um resumo para compartilhar. Tudo roda no seu Mac: as suas conversas ficam com você."
+          }
+        }
+      }
+    },
+    "Recording · %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gravando · %@"
+          }
+        }
+      }
+    },
+    "Recording. Press stop when the meeting ends.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gravando. Clique em parar quando a reunião terminar."
+          }
+        }
+      }
+    },
+    "Rename": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renomear"
+          }
+        }
+      }
+    },
+    "Rename this speaker": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Renomear este falante"
+          }
+        }
+      }
+    },
+    "Retry": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tentar de novo"
+          }
+        }
+      }
+    },
+    "Save key": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salvar chave"
+          }
+        }
+      }
+    },
+    "Saved in your Keychain": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salva nas suas Chaves"
+          }
+        }
+      }
+    },
+    "Saved summaries": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumos salvos"
+          }
+        }
+      }
+    },
+    "Save…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salvar…"
+          }
+        }
+      }
+    },
+    "Screen & System Audio Recording": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gravação de Tela e Áudio do Sistema"
+          }
+        }
+      }
+    },
+    "Search meetings": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar reuniões"
+          }
+        }
+      }
+    },
+    "Send": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enviar"
+          }
+        }
+      }
+    },
+    "Send the transcript to the cloud?": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enviar a transcrição para a nuvem?"
+          }
+        }
+      }
+    },
+    "Settings…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajustes…"
+          }
+        }
+      }
+    },
+    "Show in Finder": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar no Finder"
+          }
+        }
+      }
+    },
+    "Size": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tamanho"
+          }
+        }
+      }
+    },
+    "So Meety can hear the other people in the call. macOS groups this under \"Screen & System Audio Recording\". Meety never records your screen, only the sound.\n\nAfter turning it on, macOS may ask you to quit and reopen Meety.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para o Meety ouvir as outras pessoas da chamada. O macOS agrupa isso em \"Gravação de Tela e Áudio do Sistema\". O Meety nunca grava a sua tela, só o som.\n\nDepois de ligar, o macOS pode pedir para encerrar e abrir o Meety de novo."
+          }
+        }
+      }
+    },
+    "So Meety can hear you. Your voice is recorded on its own track, which is how Meety knows which lines are yours.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para o Meety ouvir você. A sua voz é gravada numa trilha própria, e é assim que o Meety sabe quais falas são suas."
+          }
+        }
+      }
+    },
+    "Space used by models": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espaço usado pelos modelos"
+          }
+        }
+      }
+    },
+    "Speakers": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falantes"
+          }
+        }
+      }
+    },
+    "Speech engine": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Motor de transcrição"
+          }
+        }
+      }
+    },
+    "Start recording": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começar a gravar"
+          }
+        }
+      }
+    },
+    "Start using Meety": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Começar a usar o Meety"
+          }
+        }
+      }
+    },
+    "Stop": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parar"
+          }
+        }
+      }
+    },
+    "Stop recording": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parar a gravação"
+          }
+        }
+      }
+    },
+    "Summaries": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumos"
+          }
+        }
+      }
+    },
+    "Summary": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumo"
+          }
+        }
+      }
+    },
+    "Summary language": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Idioma do resumo"
+          }
+        }
+      }
+    },
+    "System audio": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Áudio do sistema"
+          }
+        }
+      }
+    },
+    "Tell speakers apart": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Separar os falantes"
+          }
+        }
+      }
+    },
+    "The audio, the transcript and the summaries go together.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O áudio, a transcrição e os resumos vão juntos."
+          }
+        }
+      }
+    },
+    "The transcription didn't finish": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A transcrição não terminou"
+          }
+        }
+      }
+    },
+    "Thinking…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pensando…"
+          }
+        }
+      }
+    },
+    "This option sends the whole transcript to an outside service to write the summary. Local options keep everything on your Mac.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta opção envia a transcrição inteira a um serviço externo para escrever o resumo. As opções locais mantêm tudo no seu Mac."
+          }
+        }
+      }
+    },
+    "Title": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Título"
+          }
+        }
+      }
+    },
+    "Transcribe": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transcrever"
+          }
+        }
+      }
+    },
+    "Transcribe again": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transcrever de novo"
+          }
+        }
+      }
+    },
+    "Transcribe an audio or video file": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transcrever um arquivo de áudio ou vídeo"
+          }
+        }
+      }
+    },
+    "Transcribe automatically when a recording ends": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transcrever automaticamente quando a gravação terminar"
+          }
+        }
+      }
+    },
+    "Transcribe the meeting first.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transcreva a reunião primeiro."
+          }
+        }
+      }
+    },
+    "Transcript": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transcrição"
+          }
+        }
+      }
+    },
+    "Transcription": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transcrição"
+          }
+        }
+      }
+    },
+    "Two quick permissions and one download, then you're set.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Duas permissões rápidas e um download, e pronto."
+          }
+        }
+      }
+    },
+    "Use": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar"
+          }
+        }
+      }
+    },
+    "Version": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versão"
+          }
+        }
+      }
+    },
+    "Welcome to Meety": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bem-vindo ao Meety"
+          }
+        }
+      }
+    },
+    "What do you need": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O que você precisa"
+          }
+        }
+      }
+    },
+    "Who is this?": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quem é?"
+          }
+        }
+      }
+    },
+    "Writing…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escrevendo…"
+          }
+        }
+      }
+    },
+    "Written by": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escrito por"
+          }
+        }
+      }
+    },
+    "You": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Você"
+          }
+        }
+      }
+    },
+    "You can keep using Meety while this downloads, and change models later in Settings.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Você pode continuar usando o Meety enquanto baixa, e trocar os modelos depois nos Ajustes."
+          }
+        }
+      }
+    },
+    "Your voice and the call audio": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A sua voz e o áudio da chamada"
+          }
+        }
+      }
+    },
+    "not ready": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "não pronto"
+          }
+        }
+      }
+    },
+    "·": {},
+    "· %@": {},
+    "•": {}
+  },
+  "version": "1.0"
+}

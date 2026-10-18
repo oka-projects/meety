@@ -1,0 +1,5 @@
+// Identidade de build. Copie Local.xcconfig.example para Local.xcconfig (ignorado pelo git) e
+// preencha o time da Apple. Sem ele o app compila com assinatura local.
+DEVELOPMENT_TEAM =
+
+#include? "Local.xcconfig"

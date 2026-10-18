@@ -1,0 +1,826 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "%1$@ failed (code %2$d). %3$@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ falhou (código %2$d). %3$@"
+          }
+        }
+      }
+    },
+    "%1$@ is installed but its command line tool wasn't found. Open %2$@ once so it finishes setting up.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O %1$@ está instalado, mas a ferramenta de linha de comando não foi encontrada. Abra o %2$@ uma vez para ele terminar a configuração."
+          }
+        }
+      }
+    },
+    "%1$@ isn't downloaded yet (%2$@).": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ ainda não foi baixado (%2$@)."
+          }
+        }
+      }
+    },
+    "%1$@ isn't signed in. Open %2$@, sign in and try again.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O %1$@ não está conectado. Abra o %2$@, entre na sua conta e tente de novo."
+          }
+        }
+      }
+    },
+    "%@ failed (code %d). %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ failed (code %2$d). %3$@"
+          }
+        }
+      }
+    },
+    "%@ is installed but its command line tool wasn't found. Open %@ once so it finishes setting up.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ is installed but its command line tool wasn't found. Open %2$@ once so it finishes setting up."
+          }
+        }
+      }
+    },
+    "%@ isn't available.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ não está disponível."
+          }
+        }
+      }
+    },
+    "%@ isn't downloaded yet (%@).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ isn't downloaded yet (%2$@)."
+          }
+        }
+      }
+    },
+    "%@ isn't installed on this Mac.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O %@ não está instalado neste Mac."
+          }
+        }
+      }
+    },
+    "%@ isn't signed in. Open %@, sign in and try again.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ isn't signed in. Open %2$@, sign in and try again."
+          }
+        }
+      }
+    },
+    "%@ returned nothing.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ não devolveu nada."
+          }
+        }
+      }
+    },
+    "A few paragraphs with what was discussed.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alguns parágrafos com o que foi discutido."
+          }
+        }
+      }
+    },
+    "API key": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chave de API"
+          }
+        }
+      }
+    },
+    "Action items": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pontos de ação"
+          }
+        }
+      }
+    },
+    "Apple Intelligence is still downloading its model. Try again in a while.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A Apple Intelligence ainda está baixando o modelo. Tente de novo daqui a pouco."
+          }
+        }
+      }
+    },
+    "Apple Intelligence is turned off. Turn it on in System Settings > Apple Intelligence & Siri.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A Apple Intelligence está desligada. Ligue em Ajustes do Sistema > Apple Intelligence e Siri."
+          }
+        }
+      }
+    },
+    "Apple Intelligence isn't available right now.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A Apple Intelligence não está disponível agora."
+          }
+        }
+      }
+    },
+    "Ask anything about this meeting.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pergunte o que quiser sobre esta reunião."
+          }
+        }
+      }
+    },
+    "Cancelled": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelado"
+          }
+        }
+      }
+    },
+    "Cancelled.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelado."
+          }
+        }
+      }
+    },
+    "Couldn't save the recording: %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível salvar a gravação: %@"
+          }
+        }
+      }
+    },
+    "Couldn't start recording: %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível começar a gravar: %@"
+          }
+        }
+      }
+    },
+    "Custom prompt": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pedido próprio"
+          }
+        }
+      }
+    },
+    "Detect automatically": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detectar automaticamente"
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pronto"
+          }
+        }
+      }
+    },
+    "Download failed (HTTP %1$lld) for %2$@. Check your connection and try again.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O download falhou (HTTP %1$lld) em %2$@. Confira a conexão e tente de novo."
+          }
+        }
+      }
+    },
+    "Download failed (HTTP %lld) for %@. Check your connection and try again.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Download failed (HTTP %1$lld) for %2$@. Check your connection and try again."
+          }
+        }
+      }
+    },
+    "Failed": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falhou"
+          }
+        }
+      }
+    },
+    "Light": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leve"
+          }
+        }
+      }
+    },
+    "Loading model…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carregando o modelo…"
+          }
+        }
+      }
+    },
+    "Local model": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modelo local"
+          }
+        }
+      }
+    },
+    "Meeting minutes": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ata da reunião"
+          }
+        }
+      }
+    },
+    "Meety can't read this file. %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Meety não consegue ler este arquivo. %@"
+          }
+        }
+      }
+    },
+    "Meety needs permission to record system audio. Open System Settings > Privacy & Security > Screen & System Audio Recording, turn on Meety and try again.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Meety precisa de permissão para gravar o áudio do sistema. Abra Ajustes do Sistema > Privacidade e Segurança > Gravação de Tela e Áudio do Sistema, ligue o Meety e tente de novo."
+          }
+        }
+      }
+    },
+    "Most accurate": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mais preciso"
+          }
+        }
+      }
+    },
+    "Needs macOS 26 or later.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precisa do macOS 26 ou mais novo."
+          }
+        }
+      }
+    },
+    "No %@ API key saved.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma chave de API da %@ salva."
+          }
+        }
+      }
+    },
+    "No API key saved.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma chave de API salva."
+          }
+        }
+      }
+    },
+    "No audio was captured.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum áudio foi captado."
+          }
+        }
+      }
+    },
+    "No display available to capture audio from.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma tela disponível para captar o áudio."
+          }
+        }
+      }
+    },
+    "No summary model selected.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum modelo de resumo escolhido."
+          }
+        }
+      }
+    },
+    "Only the tasks, with owners and dates when mentioned.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Só as tarefas, com responsáveis e datas quando mencionados."
+          }
+        }
+      }
+    },
+    "Participant %lld": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Participante %lld"
+          }
+        }
+      }
+    },
+    "Plain text": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Texto simples"
+          }
+        }
+      }
+    },
+    "Preparing audio…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparando o áudio…"
+          }
+        }
+      }
+    },
+    "Read part %1$lld of %2$lld…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parte %1$lld de %2$lld lida…"
+          }
+        }
+      }
+    },
+    "Read part %lld of %lld…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Read part %1$lld of %2$lld…"
+          }
+        }
+      }
+    },
+    "Recommended": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recomendado"
+          }
+        }
+      }
+    },
+    "Recording stopped: %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A gravação parou: %@"
+          }
+        }
+      }
+    },
+    "Runs on this Mac. Nothing leaves your computer.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Roda neste Mac. Nada sai do seu computador."
+          }
+        }
+      }
+    },
+    "Same as Meety": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O mesmo do Meety"
+          }
+        }
+      }
+    },
+    "Same as the meeting": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O mesmo da reunião"
+          }
+        }
+      }
+    },
+    "Saving…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salvando…"
+          }
+        }
+      }
+    },
+    "Short summary": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumo curto"
+          }
+        }
+      }
+    },
+    "Speaker %lld": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falante %lld"
+          }
+        }
+      }
+    },
+    "Speakers": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falantes"
+          }
+        }
+      }
+    },
+    "Subtitles (SRT)": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Legendas (SRT)"
+          }
+        }
+      }
+    },
+    "Subtitles (VTT)": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Legendas (VTT)"
+          }
+        }
+      }
+    },
+    "Summaries": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumos"
+          }
+        }
+      }
+    },
+    "Summary, decisions, next steps and who owns them.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumo, decisões, próximos passos e quem é responsável."
+          }
+        }
+      }
+    },
+    "Telling speakers apart…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Separando os falantes…"
+          }
+        }
+      }
+    },
+    "The %@ API key was rejected. Check it in Settings.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A chave de API da %@ foi recusada. Confira nos Ajustes."
+          }
+        }
+      }
+    },
+    "The model built into macOS. Nothing leaves your Mac.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O modelo que vem no macOS. Nada sai do seu Mac."
+          }
+        }
+      }
+    },
+    "The model repository is empty or unavailable.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O repositório do modelo está vazio ou indisponível."
+          }
+        }
+      }
+    },
+    "The speech engine is missing from this copy of Meety. Please download Meety again.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O motor de transcrição não está nesta cópia do Meety. Baixe o Meety de novo."
+          }
+        }
+      }
+    },
+    "The speech engine stopped unexpectedly (code %1$d). %2$@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O motor de transcrição parou de repente (código %1$d). %2$@"
+          }
+        }
+      }
+    },
+    "The speech engine stopped unexpectedly (code %d). %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "The speech engine stopped unexpectedly (code %1$d). %2$@"
+          }
+        }
+      }
+    },
+    "The transcription model isn't downloaded yet. Open Settings > Models to download it.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O modelo de transcrição ainda não foi baixado. Abra Ajustes > Modelos para baixar."
+          }
+        }
+      }
+    },
+    "There is no transcript to summarize yet.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ainda não há transcrição para resumir."
+          }
+        }
+      }
+    },
+    "This Mac doesn't support Apple Intelligence.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este Mac não tem Apple Intelligence."
+          }
+        }
+      }
+    },
+    "This file has no audio track.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este arquivo não tem trilha de áudio."
+          }
+        }
+      }
+    },
+    "Transcribing…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transcrevendo…"
+          }
+        }
+      }
+    },
+    "Transcription": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transcrição"
+          }
+        }
+      }
+    },
+    "Unexpected answer from %1$@ (HTTP %2$lld).": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resposta inesperada da %1$@ (HTTP %2$lld)."
+          }
+        }
+      }
+    },
+    "Unexpected answer from %@ (HTTP %lld).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Unexpected answer from %1$@ (HTTP %2$lld)."
+          }
+        }
+      }
+    },
+    "Uses your %1$@ account. The transcript is sent to %2$@.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa a sua conta do %1$@. A transcrição é enviada à %2$@."
+          }
+        }
+      }
+    },
+    "Uses your %@ account. The transcript is sent to %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "Uses your %1$@ account. The transcript is sent to %2$@."
+          }
+        }
+      }
+    },
+    "Waiting…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aguardando…"
+          }
+        }
+      }
+    },
+    "You": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Você"
+          }
+        }
+      }
+    },
+    "Your own %@ key. The transcript is sent to their servers.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A sua chave da %@. A transcrição é enviada aos servidores deles."
+          }
+        }
+      }
+    },
+    "from the Mac app": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pelo app do Mac"
+          }
+        }
+      }
+    },
+    "from the terminal": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pelo terminal"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

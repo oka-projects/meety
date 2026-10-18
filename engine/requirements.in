@@ -1,0 +1,17 @@
+# Pacotes de topo do motor embutido. O lock (requirements.lock) é gerado daqui pelo
+# scripts/build-engine.sh na primeira vez e depois fica fixo; para atualizar, apague o lock.
+#
+# O mlx-whisper declara torch (550 MB) como dependência, mas só o usa para converter modelos:
+# ele entra com --no-deps e as dependências reais vêm listadas aqui.
+mlx-whisper==0.4.3
+mlx==0.32.4
+numpy
+numba
+scipy
+tiktoken
+tqdm
+more-itertools
+huggingface_hub
+
+# Resumo local (traz transformers, tokenizers, safetensors, jinja2, protobuf, sentencepiece, pyyaml).
+mlx-lm==0.32.2

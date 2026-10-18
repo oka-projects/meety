@@ -1,0 +1,94 @@
+name: Meety
+options:
+  bundleIdPrefix: dev.oka
+  deploymentTarget:
+    macOS: "15.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+  xcodeVersion: "16.0"
+configFiles:
+  Debug: Config/Base.xcconfig
+  Release: Config/Base.xcconfig
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    CODE_SIGN_STYLE: Automatic
+    CURRENT_PROJECT_VERSION: "1"
+    MARKETING_VERSION: "0.1.0"
+    ENABLE_PREVIEWS: YES
+packages:
+  MeetyKit:
+    path: MeetyKit
+  # Atualização automática pelo appcast no GitHub Releases.
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    from: 2.8.0
+targets:
+  Meety:
+    type: application
+    platform: macOS
+    sources:
+      - path: Meety
+        excludes: ["Info.plist", "*.entitlements"]
+      # O motor Python embutido, como pasta (folder reference): vai inteiro para
+      # Contents/Resources/engine, já assinado pelo scripts/build-engine.sh.
+      - path: engine/dist/engine
+        type: folder
+        buildPhase: resources
+        destinationFilters: [macOS]
+    info:
+      path: Meety/Info.plist
+      properties:
+        CFBundleDisplayName: Meety
+        CFBundleName: Meety
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleDevelopmentRegion: en
+        CFBundleLocalizations: [en, pt-BR]
+        LSApplicationCategoryType: public.app-category.productivity
+        LSMinimumSystemVersion: "15.0"
+        NSHumanReadableCopyright: © 2026 Oka. MIT License.
+        NSMicrophoneUsageDescription: Meety records your voice during meetings so it can transcribe what you said.
+        NSAudioCaptureUsageDescription: Meety records the audio of your calls so it can transcribe what the other participants said.
+        ITSAppUsesNonExemptEncryption: false
+        # Arrastar arquivos no ícone do Dock e "Abrir com Meety".
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Audio or video
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes: [public.audio, public.movie]
+        # Atualizações (Sparkle), preenchidas na fase 5.
+        SUFeedURL: https://github.com/oka-projects/meety/releases/latest/download/appcast.xml
+        # Chave pública EdDSA do Sparkle (a privada fica no Keychain de quem publica).
+        SUPublicEDKey: rO75Dm/NnkkXs1EDhzVZOnSJ8YB/fJbggxH+55s7rgw=
+        SUEnableInstallerLauncherService: false
+        SUScheduledCheckInterval: 86400
+    entitlements:
+      path: Meety/Meety.entitlements
+      # Fora do sandbox: grava o áudio do sistema, roda o motor Python embutido e os CLIs do
+      # Claude e do Codex. Runtime reforçado ligado em ENABLE_HARDENED_RUNTIME.
+      properties:
+        com.apple.security.device.audio-input: true
+    dependencies:
+      - package: MeetyKit
+        products: [MeetyCore, MeetyUI]
+      - package: Sparkle
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.oka.meety
+        PRODUCT_NAME: Meety
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_HARDENED_RUNTIME: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+        # O motor tem Mach-O dentro de Resources, já assinados pelo scripts/build-engine.sh; o
+        # Xcode só assina o app (sem --deep) e preserva o que está lá.
+        SWIFT_STRICT_CONCURRENCY: minimal
+schemes:
+  Meety:
+    build:
+      targets: { Meety: all }
+    run:
+      config: Debug
+    test:
+      config: Debug
