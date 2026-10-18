@@ -371,14 +371,14 @@ const panelPlayers = {
     const drop = $("#drop", panel), file = $("#file", panel), row = $("#file-row", panel), fill = $("#file-fill", panel), pct = $("#file-pct", panel);
     const reset = () => { drop.classList.remove("is-over"); drop.style.opacity = "1"; file.style.opacity = "0"; file.style.translate = ""; row.style.opacity = "0"; fill.style.transform = "scaleX(0)"; pct.textContent = "0%"; };
     reset();
-    p.add(animate(file, { opacity: [0, 1], y: [-70, 0] }, { duration: 0.9, delay: 0.5, ease: [0.3, 0, 0.3, 1] }));
-    p.after(0.9, () => drop.classList.add("is-over"));
-    p.after(1.8, () => {
+    p.add(animate(file, { opacity: [0, 1], y: [-70, 0] }, { duration: 0.7, delay: 0.2, ease: [0.3, 0, 0.3, 1] }));
+    p.after(0.5, () => drop.classList.add("is-over"));
+    p.after(1.1, () => {
       p.add(animate(file, { opacity: [1, 0], scale: [1, 0.8] }, { duration: 0.3 }));
       p.add(animate(drop, { opacity: [1, 0] }, { duration: 0.3 }));
       p.add(animate(row, { opacity: [0, 1], y: [8, 0] }, { duration: 0.45, delay: 0.25, ease: EASE }));
-      p.add(animate(fill, { scaleX: [0, 0.42] }, { duration: 2.2, delay: 0.5, ease: "linear" }));
-      p.add(animate(0, 42, { duration: 2.2, delay: 0.5, ease: "linear", onUpdate: (v) => (pct.textContent = `${Math.round(v)}%`) }));
+      p.add(animate(fill, { scaleX: [0, 0.42] }, { duration: 1.6, delay: 0.4, ease: "linear" }));
+      p.add(animate(0, 42, { duration: 1.6, delay: 0.4, ease: "linear", onUpdate: (v) => (pct.textContent = `${Math.round(v)}%`) }));
     });
     return () => { p.stop(); reset(); };
   },
@@ -394,7 +394,7 @@ const panelPlayers = {
 };
 function featuresController(root) {
   const items = $$("#feat-list li", root), panels = $$(".fp", root);
-  const DUR = 5;
+  const DUR = 3.8;
   let idx = 0, elapsed = 0, last = null, raf = null, running = false, paused = false, stopPanel = null, switching = false;
   const prog = (i) => $(".feat-prog", items[i]);
   function paint() { prog(idx).style.setProperty("--p", elapsed / DUR); }
