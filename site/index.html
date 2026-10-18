@@ -39,7 +39,6 @@
       <span class="brand-by" data-i18n="nav.by">by Oka</span>
     </a>
     <nav class="nav-links" aria-label="Seções">
-      <a href="#local" data-i18n="nav.local">Privacidade</a>
       <a href="#how" data-i18n="nav.how">Como funciona</a>
       <a href="#features" data-i18n="nav.features">Recursos</a>
       <a href="#summaries" data-i18n="nav.summaries">Resumos</a>
@@ -55,7 +54,7 @@
 
   <main id="top">
 
-    <!-- 1. Hero -->
+    <!-- 1. Hero: texto e o palco animado -->
     <section class="hero" id="hero">
       <div class="hero-inner">
         <div class="hero-copy">
@@ -72,189 +71,284 @@
         </div>
 
         <div class="hero-visual" data-reveal>
-          <figure class="window window-hero">
-            <div class="titlebar"><span></span><span></span><span></span></div>
-            <img src="img/main.webp" width="1600" height="1018" alt="" data-i18n-attr="alt:hero.caption" loading="eager" fetchpriority="high">
-          </figure>
-          <div class="wave" id="wave" aria-hidden="true"></div>
+          <div class="stage" id="stage" aria-hidden="true">
+            <div class="hole" id="hole"><i></i></div>
+
+            <!-- Cena 1: o ícone no Dock -->
+            <div class="scene scene-dock" data-scene="dock">
+              <div class="dock">
+                <i class="dock-app"></i><i class="dock-app"></i><i class="dock-app"></i>
+                <span class="dock-meety" id="dock-meety"><img src="icon.svg" alt=""><em></em></span>
+                <i class="dock-app"></i><i class="dock-app"></i>
+              </div>
+            </div>
+
+            <!-- Cena 2: a janela do Meety -->
+            <div class="scene scene-app" data-scene="app">
+              <div class="mw">
+                <div class="mw-title"><span></span><span></span><span></span></div>
+                <div class="mw-body">
+                  <aside class="mw-side">
+                    <div class="mw-tabs"><b data-i18n="st.tabRec">Gravações</b><span data-i18n="st.tabProj">Projetos</span></div>
+                    <div class="mw-rec" id="mw-rec">
+                      <span class="mw-recbtn" id="mw-recbtn"><i></i></span>
+                      <div class="mw-rectext" id="mw-rectext"><b data-i18n="st.record">Gravar</b><small data-i18n="st.recordSub">A sua voz e o áudio da chamada</small></div>
+                      <div class="mw-rectime" id="mw-rectime">
+                        <b class="mono" id="mw-time">00:00</b>
+                        <small><i></i><span data-i18n="st.recording">Gravando</span></small>
+                        <div class="mw-meters"><i id="mw-m1"></i><i id="mw-m2"></i></div>
+                      </div>
+                    </div>
+                    <div class="mw-search"><span data-i18n="st.search">Buscar reuniões</span></div>
+                    <div class="mw-row"><i class="sk w60"></i><i class="sk w40"></i></div>
+                    <div class="mw-row"><i class="sk w50"></i><i class="sk w35"></i></div>
+                  </aside>
+                  <div class="mw-main">
+                    <div class="mw-empty" id="mw-empty"><img src="icon.svg" alt=""><p data-i18n="st.empty">Grave uma reunião ou solte um arquivo aqui</p></div>
+                    <div class="mw-live" id="mw-live">
+                      <div class="mw-wave" id="mw-wave"></div>
+                      <b class="mono" id="mw-time2">00:00</b>
+                      <p><span data-i18n="st.recording">Gravando</span>. <span data-i18n="st.live">Aperte parar quando a reunião acabar.</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cena 3: processando -->
+            <div class="scene scene-proc" data-scene="proc">
+              <div class="pc">
+                <div class="pc-head"><h4 data-i18n="st.proc">Transcrevendo</h4><b class="mono" id="pc-pct">0%</b></div>
+                <div class="pc-bar"><i id="pc-fill"></i></div>
+                <ol class="pc-steps" id="pc-steps">
+                  <li><i></i><span data-i18n="st.p1">Preparando o áudio</span></li>
+                  <li><i></i><span data-i18n="st.p2">Carregando o modelo</span></li>
+                  <li><i></i><span data-i18n="st.p3">Transcrevendo</span></li>
+                  <li><i></i><span data-i18n="st.p4">Separando falantes</span></li>
+                  <li><i></i><span data-i18n="st.p5">Salvando</span></li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Cena 4: a ata -->
+            <div class="scene scene-ata" data-scene="ata">
+              <div class="doc">
+                <div class="doc-head" data-ln><h4 data-i18n="st.ata">Ata</h4><span class="doc-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span data-i18n="st.onMac">escrita no seu Mac</span></span></div>
+                <i class="sk ln w40" data-ln></i>
+                <h5 data-ln data-i18n="st.h1">Decisões</h5>
+                <i class="sk ln w92" data-ln></i><i class="sk ln w66" data-ln></i>
+                <h5 data-ln data-i18n="st.h2">Próximos pontos</h5>
+                <i class="sk ln w84" data-ln></i><i class="sk ln w58" data-ln></i><i class="sk ln w76" data-ln></i>
+              </div>
+            </div>
+
+            <div class="cursor" id="cursor">
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8.5-6.2 1.3L16 20l-2.6 1.2-3.2-7.2L5 18z" fill="#1A2121" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              <i class="ripple" id="ripple"></i>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. Nada sai do seu Mac -->
-    <section class="section local" id="local">
-      <div class="inner">
-        <div class="section-head">
-          <h2 data-reveal data-i18n="local.title">Nada sai do seu Mac.</h2>
-          <p class="section-text" data-reveal data-i18n="local.text">A transcrição roda na GPU do chip Apple, a separação de falantes roda no Neural Engine e a sua biblioteca é uma pasta sua. Sem servidor no meio, sem conta, sem fila.</p>
-        </div>
-
-        <div class="flow" data-reveal aria-hidden="true">
-          <div class="node">
-            <div class="node-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 12v1"/><path d="M8 8v8"/><path d="M12 5v14"/><path d="M16 8v8"/><path d="M20 11v2"/></svg>
-            </div>
-            <div class="node-t" data-i18n="flow.audio">Áudio da reunião</div>
-            <div class="node-s" data-i18n="flow.audioSub">sua voz e a chamada</div>
-          </div>
-          <div class="link"><i class="pkt"></i><i class="pkt"></i><i class="pkt"></i></div>
-          <div class="node">
-            <div class="chip"><div class="chip-core"><span>M</span></div></div>
-            <div class="node-t" data-i18n="flow.chip">Chip do seu Mac</div>
-            <div class="node-s" data-i18n="flow.chipSub">GPU e Neural Engine</div>
-          </div>
-          <div class="link"><i class="pkt"></i><i class="pkt"></i><i class="pkt"></i></div>
-          <div class="node">
-            <div class="node-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 4h9l5 5v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/><path d="M14 4v5h5"/><path d="M8 13h8"/><path d="M8 17h5"/></svg>
-            </div>
-            <div class="node-t" data-i18n="flow.out">Transcrição e ata</div>
-            <div class="node-s" data-i18n="flow.outSub">na sua pasta</div>
-          </div>
-          <div class="cloud-line">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 18h10a4 4 0 0 0 .5-8 6 6 0 0 0-11.3 1.5A3.3 3.3 0 0 0 7 18Z"/><path d="m4 4 16 16"/></svg>
-            <span class="node-t" data-i18n="flow.cloud">Internet</span>
-            <span class="node-s mono" data-i18n="flow.cloudSub">0 bytes enviados</span>
-          </div>
-        </div>
-
-        <div class="pillars">
-          <div class="pillar" data-reveal>
-            <h3 data-i18n="pillar1.t">Sem conta</h3>
-            <p data-i18n="pillar1.d">Baixe, arraste para Aplicativos e use. Não existe cadastro, login nem plano.</p>
-          </div>
-          <div class="pillar" data-reveal>
-            <h3 data-i18n="pillar2.t">Sem nuvem</h3>
-            <p data-i18n="pillar2.d">Os modelos são baixados uma vez (cerca de 4 GB) e depois trabalham offline. Desligue o Wi-Fi e o Meety continua igual.</p>
-          </div>
-          <div class="pillar" data-reveal>
-            <h3 data-i18n="pillar3.t">Sem rastreamento</h3>
-            <p data-i18n="pillar3.d">Nenhuma telemetria. A rede só é usada para baixar modelos, checar atualizações e, se você escolher, para um resumo na nuvem.</p>
-          </div>
-        </div>
-        <p class="note" data-reveal data-i18n="local.note">Quer um resumo com o Claude ou o ChatGPT? Pode. Mas é você quem escolhe, e o Meety avisa antes de qualquer coisa sair do Mac.</p>
-      </div>
-    </section>
-
-    <!-- 3. Como funciona -->
+    <!-- 2. Como funciona: um card, três páginas -->
     <section class="section how" id="how">
       <div class="inner">
         <div class="section-head">
           <h2 data-reveal data-i18n="how.title">Três passos, nenhum manual.</h2>
         </div>
 
-        <ol class="steps">
-          <li class="step" data-reveal>
-            <div class="step-text">
-              <span class="step-n mono">1</span>
-              <h3 data-i18n="step1.t">Grave</h3>
-              <p data-i18n="step1.d">Um clique na janela ou na barra de menus. Zoom, Meet, Teams, o que estiver tocando no Mac. O seu microfone e o áudio da reunião são gravados em duas trilhas separadas, e a trilha da reunião é dividida por pessoa pela separação de falantes.</p>
-            </div>
-            <div class="step-visual">
-              <div class="demo demo-record" id="ui-record" aria-hidden="true">
-                <div class="meet">
-                  <div class="meet-top">
-                    <span class="meet-title" data-i18n="ui.meetTitle">Reunião de alinhamento</span>
-                    <span class="meet-rec"><i></i><span data-i18n="ui.recording">Gravando</span><b class="mono" id="rec-time">00:00</b></span>
+        <div class="deck" id="deck" data-reveal>
+          <div class="deck-pages">
+            <article class="page is-active" data-page="0">
+              <div class="page-visual">
+                <div class="demo demo-record" id="ui-record" aria-hidden="true">
+                  <div class="meet">
+                    <div class="meet-top">
+                      <span class="meet-title" data-i18n="ui.meetTitle">Reunião de alinhamento</span>
+                      <span class="meet-rec"><i></i><span data-i18n="ui.recording">Gravando</span><b class="mono" id="rec-time">00:00</b></span>
+                    </div>
+                    <div class="meet-grid">
+                      <div class="tile" data-sp="you"><span class="avatar">V</span><span class="tile-name" data-i18n="ui.you">Você</span><span class="tile-mic"></span></div>
+                      <div class="tile" data-sp="ana"><span class="avatar">A</span><span class="tile-name" data-i18n="ui.ana">Ana</span></div>
+                      <div class="tile" data-sp="bruno"><span class="avatar">B</span><span class="tile-name" data-i18n="ui.bruno">Bruno</span></div>
+                      <div class="tile" data-sp="carla"><span class="avatar">C</span><span class="tile-name" data-i18n="ui.carla">Carla</span></div>
+                    </div>
+                    <div class="meet-bar"><i></i><i></i><i class="end"></i></div>
                   </div>
-                  <div class="meet-grid">
-                    <div class="tile" data-sp="you"><span class="avatar">V</span><span class="tile-name" data-i18n="ui.you">Você</span><span class="tile-mic"></span></div>
-                    <div class="tile" data-sp="ana"><span class="avatar">A</span><span class="tile-name" data-i18n="ui.ana">Ana</span></div>
-                    <div class="tile" data-sp="bruno"><span class="avatar">B</span><span class="tile-name" data-i18n="ui.bruno">Bruno</span></div>
-                    <div class="tile" data-sp="carla"><span class="avatar">C</span><span class="tile-name" data-i18n="ui.carla">Carla</span></div>
+                  <div class="tracks">
+                    <div class="track" data-track="you"><span class="track-name" data-i18n="ui.mic">Seu microfone</span><div class="lane" data-lane="you"></div></div>
+                    <div class="track" data-track="meeting"><span class="track-name" data-i18n="ui.meeting">Áudio da reunião</span><div class="lane" data-lane="meeting"></div></div>
+                    <div class="split"><span class="split-line"></span><span class="split-label" data-i18n="ui.diar">Separação de falantes</span><span class="split-line"></span></div>
+                    <div class="track sub" data-track="ana"><span class="track-name" data-i18n="ui.ana">Ana</span><div class="lane" data-lane="ana"></div></div>
+                    <div class="track sub" data-track="bruno"><span class="track-name" data-i18n="ui.bruno">Bruno</span><div class="lane" data-lane="bruno"></div></div>
+                    <div class="track sub" data-track="carla"><span class="track-name" data-i18n="ui.carla">Carla</span><div class="lane" data-lane="carla"></div></div>
                   </div>
-                  <div class="meet-bar"><i></i><i></i><i class="end"></i></div>
-                </div>
-                <div class="tracks">
-                  <div class="track" data-track="you"><span class="track-name" data-i18n="ui.mic">Seu microfone</span><div class="lane" data-lane="you"></div></div>
-                  <div class="track" data-track="meeting"><span class="track-name" data-i18n="ui.meeting">Áudio da reunião</span><div class="lane" data-lane="meeting"></div></div>
-                  <div class="split"><span class="split-line"></span><span class="split-label" data-i18n="ui.diar">Separação de falantes</span><span class="split-line"></span></div>
-                  <div class="track sub" data-track="ana"><span class="track-name" data-i18n="ui.ana">Ana</span><div class="lane" data-lane="ana"></div></div>
-                  <div class="track sub" data-track="bruno"><span class="track-name" data-i18n="ui.bruno">Bruno</span><div class="lane" data-lane="bruno"></div></div>
-                  <div class="track sub" data-track="carla"><span class="track-name" data-i18n="ui.carla">Carla</span><div class="lane" data-lane="carla"></div></div>
                 </div>
               </div>
-            </div>
-          </li>
+              <div class="page-text">
+                <span class="step-n mono">1</span>
+                <h3 data-i18n="step1.t">Grave</h3>
+                <p data-i18n="step1.d">Um clique na janela ou na barra de menus. Zoom, Meet, Teams, o que estiver tocando no Mac. O seu microfone e o áudio da reunião são gravados em duas trilhas separadas, e a trilha da reunião é dividida por pessoa pela separação de falantes.</p>
+              </div>
+            </article>
 
-          <li class="step" data-reveal>
-            <div class="step-text">
-              <span class="step-n mono">2</span>
-              <h3 data-i18n="step2.t">Transcreva</h3>
-              <p data-i18n="step2.d">Ao parar, o Meety transcreve sozinho. Você é sempre "Você", porque a sua voz tem a própria trilha; os outros ganham nomes que você pode trocar, juntar ou corrigir.</p>
-            </div>
-            <div class="step-visual">
-              <div class="demo demo-transcript" id="ui-transcript" aria-hidden="true">
-                <div class="chips">
-                  <span class="chip-sp s1"><i></i><span data-i18n="ui.you">Você</span></span>
-                  <span class="chip-sp s2"><i></i><span data-i18n="ui.ana">Ana</span></span>
-                  <span class="chip-sp s3"><i></i><span data-i18n="ui.bruno">Bruno</span></span>
-                </div>
-                <div class="lines">
-                  <div class="line" data-line><b class="s1" data-i18n="ui.you">Você</b><span class="mono t">00:12</span><p data-i18n="ui.t1">Então a proposta fica pronta até sexta?</p></div>
-                  <div class="line" data-line><b class="s2" data-i18n="ui.ana">Ana</b><span class="mono t">00:15</span><p data-i18n="ui.t2">Fica. Eu fecho os números amanhã e mando para revisão.</p></div>
-                  <div class="line" data-line><b class="s3" data-i18n="ui.bruno">Bruno</b><span class="mono t">00:21</span><p data-i18n="ui.t3">Só preciso do contrato do ano passado para comparar.</p></div>
-                  <div class="line" data-line><b class="s1" data-i18n="ui.you">Você</b><span class="mono t">00:24</span><p data-i18n="ui.t4">Te mando hoje à noite.</p></div>
+            <article class="page" data-page="1">
+              <div class="page-visual">
+                <div class="demo demo-transcript" id="ui-transcript" aria-hidden="true">
+                  <div class="chips">
+                    <span class="chip-sp s1"><i></i><span data-i18n="ui.you">Você</span></span>
+                    <span class="chip-sp s2"><i></i><span data-i18n="ui.ana">Ana</span></span>
+                    <span class="chip-sp s3"><i></i><span data-i18n="ui.bruno">Bruno</span></span>
+                  </div>
+                  <div class="lines">
+                    <div class="line" data-line><b class="s1" data-i18n="ui.you">Você</b><span class="mono t">00:12</span><p data-i18n="ui.t1">Então a proposta fica pronta até sexta?</p></div>
+                    <div class="line" data-line><b class="s2" data-i18n="ui.ana">Ana</b><span class="mono t">00:15</span><p data-i18n="ui.t2">Fica. Eu fecho os números amanhã e mando para revisão.</p></div>
+                    <div class="line" data-line><b class="s3" data-i18n="ui.bruno">Bruno</b><span class="mono t">00:21</span><p data-i18n="ui.t3">Só preciso do contrato do ano passado para comparar.</p></div>
+                    <div class="line" data-line><b class="s1" data-i18n="ui.you">Você</b><span class="mono t">00:24</span><p data-i18n="ui.t4">Te mando hoje à noite.</p></div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </li>
+              <div class="page-text">
+                <span class="step-n mono">2</span>
+                <h3 data-i18n="step2.t">Transcreva</h3>
+                <p data-i18n="step2.d">Ao parar, o Meety transcreve sozinho. Você é sempre "Você", porque a sua voz tem a própria trilha; os outros ganham nomes que você pode trocar, juntar ou corrigir.</p>
+              </div>
+            </article>
 
-          <li class="step" data-reveal>
-            <div class="step-text">
-              <span class="step-n mono">3</span>
-              <h3 data-i18n="step3.t">Resuma</h3>
-              <p data-i18n="step3.d">Resumo curto, ata com decisões e próximos passos, lista de ações ou a sua própria pergunta. Clique em qualquer frase para ouvir aquele trecho.</p>
-            </div>
-            <div class="step-visual">
-              <div class="demo demo-summary" id="ui-summary" aria-hidden="true">
-                <div class="sum-head">
-                  <span class="sum-title" data-i18n="ui.sumTitle">Ata</span>
-                  <span class="sum-by"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span data-i18n="ui.sumBy">escrita no seu Mac</span></span>
-                </div>
-                <div class="sum-body">
-                  <div class="sum-h" data-line data-i18n="ui.sumH1">Decisões</div>
-                  <div class="sum-l" data-line data-i18n="ui.sumL1">Proposta final até sexta, revisada pela equipe.</div>
-                  <div class="sum-h" data-line data-i18n="ui.sumH2">Próximos passos</div>
-                  <div class="sum-l" data-line data-i18n="ui.sumL2">Ana fecha os números (amanhã).</div>
-                  <div class="sum-l" data-line data-i18n="ui.sumL3">Você envia o contrato anterior para o Bruno (hoje).</div>
+            <article class="page" data-page="2">
+              <div class="page-visual">
+                <div class="demo demo-summary" id="ui-summary" aria-hidden="true">
+                  <div class="sum-head">
+                    <span class="sum-title" data-i18n="ui.sumTitle">Ata</span>
+                    <span class="sum-by"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span data-i18n="ui.sumBy">escrita no seu Mac</span></span>
+                  </div>
+                  <div class="sum-body">
+                    <div class="sum-h" data-line data-i18n="ui.sumH1">Decisões</div>
+                    <div class="sum-l" data-line data-i18n="ui.sumL1">Proposta final até sexta, revisada pela equipe.</div>
+                    <div class="sum-h" data-line data-i18n="ui.sumH2">Próximos passos</div>
+                    <div class="sum-l" data-line data-i18n="ui.sumL2">Ana fecha os números (amanhã).</div>
+                    <div class="sum-l" data-line data-i18n="ui.sumL3">Você envia o contrato anterior para o Bruno (hoje).</div>
+                  </div>
                 </div>
               </div>
+              <div class="page-text">
+                <span class="step-n mono">3</span>
+                <h3 data-i18n="step3.t">Resuma</h3>
+                <p data-i18n="step3.d">Resumo curto, ata com decisões e próximos passos, lista de ações ou a sua própria pergunta. Clique em qualquer frase para ouvir aquele trecho.</p>
+              </div>
+            </article>
+          </div>
+          <div class="deck-bar">
+            <button type="button" class="deck-arrow" id="deck-prev" aria-label="Passo anterior" data-i18n-attr="aria-label:deck.prev">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
+            </button>
+            <div class="deck-progress" id="deck-progress">
+              <button type="button" data-go="0" aria-label="1"><i></i></button>
+              <button type="button" data-go="1" aria-label="2"><i></i></button>
+              <button type="button" data-go="2" aria-label="3"><i></i></button>
             </div>
-          </li>
-        </ol>
+            <button type="button" class="deck-arrow" id="deck-next" aria-label="Próximo passo" data-i18n-attr="aria-label:deck.next">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- 4. Recursos -->
+    <!-- 3. Recursos: um palco à esquerda, seis pontos à direita -->
     <section class="section features" id="features">
       <div class="inner">
         <div class="section-head">
           <h2 data-reveal data-i18n="features.title">Feito para quem vive em reunião.</h2>
         </div>
-        <dl class="features-list">
-          <div data-reveal><dt data-i18n="f1.t">Quem falou</dt><dd data-i18n="f1.d">A sua trilha e a da chamada são gravadas separadas, por isso o Meety sempre sabe quais frases são suas. Os outros são separados no Neural Engine.</dd></div>
-          <div data-reveal><dt data-i18n="f2.t">Falantes sob controle</dt><dd data-i18n="f2.d">Dois "falantes" que são a mesma pessoa? Junte. Uma fala atribuída à pessoa errada? Clique com o botão direito e corrija.</dd></div>
-          <div data-reveal><dt data-i18n="f3.t">Projetos</dt><dd data-i18n="f3.d">Agrupe reuniões por cliente, curso ou equipe. Arraste gravações para um projeto e cada uma ganha a etiqueta.</dd></div>
-          <div data-reveal><dt data-i18n="f4.t">Busca em tudo</dt><dd data-i18n="f4.d">Procure uma palavra em todas as reuniões que você já gravou e abra no momento certo do áudio.</dd></div>
-          <div data-reveal><dt data-i18n="f5.t">Arquivos que você já tem</dt><dd data-i18n="f5.d">Solte memos de voz, entrevistas, aulas e vídeos: m4a, mp3, wav, aiff, mp4, mov e mais.</dd></div>
-          <div data-reveal><dt data-i18n="f6.t">Exporte do seu jeito</dt><dd data-i18n="f6.d">Texto, Markdown, legendas SRT e VTT ou JSON. Ou copie com um clique.</dd></div>
-        </dl>
-        <div class="shots">
-          <figure class="shot" data-reveal>
-            <div class="window"><div class="titlebar"><span></span><span></span><span></span></div><img src="img/projects.webp" width="1600" height="1018" alt="" loading="lazy" data-i18n-attr="alt:features.shot1"></div>
-            <figcaption data-i18n="features.shot1">Projetos: arraste uma gravação e ela ganha a etiqueta.</figcaption>
-          </figure>
-          <figure class="shot" data-reveal>
-            <div class="window"><div class="titlebar"><span></span><span></span><span></span></div><img src="img/summary.webp" width="1600" height="1018" alt="" loading="lazy" data-i18n-attr="alt:features.shot2"></div>
-            <figcaption data-i18n="features.shot2">Resumo: modelo, quem escreve e o texto pronto para editar.</figcaption>
-          </figure>
+        <div class="feat" data-reveal>
+          <div class="feat-stage" id="feat-stage" aria-hidden="true">
+            <div class="mw mw-feat">
+              <div class="mw-title"><span></span><span></span><span></span></div>
+              <div class="mw-body fp-body">
+
+                <div class="fp" data-fp="0">
+                  <div class="track"><span class="track-name" data-i18n="ui.mic">Seu microfone</span><div class="lane" data-lane="f-you"></div></div>
+                  <div class="track"><span class="track-name" data-i18n="ui.meeting">Áudio da reunião</span><div class="lane" data-lane="f-meeting"></div></div>
+                  <div class="fp-lines">
+                    <div class="line" data-fx><b class="s1" data-i18n="ui.you">Você</b><span class="mono t">00:12</span><i class="sk ln w70"></i></div>
+                    <div class="line" data-fx><b class="s2" data-i18n="fp.part1">Participante 1</b><span class="mono t">00:15</span><i class="sk ln w84"></i></div>
+                    <div class="line" data-fx><b class="s3" data-i18n="fp.part2">Participante 2</b><span class="mono t">00:21</span><i class="sk ln w55"></i></div>
+                  </div>
+                </div>
+
+                <div class="fp" data-fp="1">
+                  <div class="chips">
+                    <span class="chip-sp s1"><i></i><span data-i18n="ui.you">Você</span></span>
+                    <span class="chip-sp s3" id="chip-2"><i></i><span data-i18n="fp.sp2">Falante 2</span></span>
+                    <span class="chip-sp s4" id="chip-3"><i></i><span data-i18n="fp.sp3">Falante 3</span></span>
+                    <span class="chip-note" id="chip-note" data-i18n="fp.same">Mesma pessoa</span>
+                  </div>
+                  <div class="fp-lines">
+                    <div class="line"><b class="s3" data-i18n="fp.sp2">Falante 2</b><span class="mono t">00:40</span><i class="sk ln w80"></i></div>
+                    <div class="line"><b class="s4" id="line-3" data-i18n="fp.sp3">Falante 3</b><span class="mono t">00:52</span><i class="sk ln w64"></i></div>
+                    <div class="line"><b class="s1" data-i18n="ui.you">Você</b><span class="mono t">01:03</span><i class="sk ln w48"></i></div>
+                  </div>
+                </div>
+
+                <div class="fp" data-fp="2">
+                  <div class="mw-tabs"><span data-i18n="st.tabRec">Gravações</span><b data-i18n="st.tabProj">Projetos</b></div>
+                  <div class="proj-row" id="proj-1"><i style="--c: var(--s2)"></i><span data-i18n="fp.proj1">Prime Advogados</span></div>
+                  <div class="proj-row"><i style="--c: var(--s3)"></i><span data-i18n="fp.proj2">Curso de direito</span></div>
+                  <div class="rec-card" id="rec-card">
+                    <b data-i18n="fp.rec1">Reunião de alinhamento</b>
+                    <small><span data-i18n="fp.rec1sub">Ontem, 15:10</span><em class="tag" id="rec-tag" data-i18n="fp.proj1">Prime Advogados</em></small>
+                  </div>
+                </div>
+
+                <div class="fp" data-fp="3">
+                  <div class="mw-search is-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><span id="q"></span><i class="caret"></i></div>
+                  <small class="res-count" id="res-count" data-i18n="fp.results">3 reuniões</small>
+                  <div class="res" data-fx><b class="s2" data-i18n="ui.bruno">Bruno</b><span class="mono t">00:21</span><p><span data-i18n="fp.r1a">Só preciso do </span><mark data-i18n="fp.query">contrato</mark><span data-i18n="fp.r1b"> do ano passado para comparar.</span></p></div>
+                  <div class="res" data-fx><b class="s3" data-i18n="ui.ana">Ana</b><span class="mono t">14:08</span><p><span data-i18n="fp.r2a">A cláusula 4 do </span><mark data-i18n="fp.query">contrato</mark><span data-i18n="fp.r2b"> ainda está em aberto.</span></p></div>
+                  <div class="res" data-fx><b class="s1" data-i18n="ui.you">Você</b><span class="mono t">02:35</span><p><span data-i18n="fp.r3a">Mandei o </span><mark data-i18n="fp.query">contrato</mark><span data-i18n="fp.r3b"> revisado para a Ana.</span></p></div>
+                </div>
+
+                <div class="fp" data-fp="4">
+                  <div class="drop" id="drop"><span data-i18n="fp.drop">Solte para transcrever</span></div>
+                  <div class="file" id="file"><i></i><b data-i18n="fp.file">entrevista.mp4</b></div>
+                  <div class="file-row" id="file-row"><b data-i18n="fp.file">entrevista.mp4</b><span><span data-i18n="fp.transcribing">Transcrevendo</span> <b class="mono" id="file-pct">0%</b></span><div class="pc-bar"><i id="file-fill"></i></div></div>
+                </div>
+
+                <div class="fp" data-fp="5">
+                  <div class="exp-head" data-i18n="fp.export">Exportar</div>
+                  <div class="exp-grid">
+                    <ul class="exp-list" id="exp-list">
+                      <li class="is-on"><i></i><span data-i18n="fp.fmt1">Texto simples</span><em class="mono">.txt</em></li>
+                      <li><i></i><span data-i18n="fp.fmt2">Markdown</span><em class="mono">.md</em></li>
+                      <li><i></i><span data-i18n="fp.fmt3">Legendas SRT</span><em class="mono">.srt</em></li>
+                      <li><i></i><span data-i18n="fp.fmt4">Legendas VTT</span><em class="mono">.vtt</em></li>
+                      <li><i></i><span data-i18n="fp.fmt5">JSON</span><em class="mono">.json</em></li>
+                    </ul>
+                    <div class="exp-preview" id="exp-preview"><i class="sk ln w60"></i><i class="sk ln w90"></i><i class="sk ln w75"></i><i class="sk ln w84"></i><i class="sk ln w50"></i></div>
+                  </div>
+                  <div class="exp-actions"><span data-i18n="fp.copy">Copiar</span><b data-i18n="fp.save">Salvar…</b></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <ol class="feat-list" id="feat-list">
+            <li class="is-active"><button type="button" data-fp="0"><b data-i18n="f1.t">Quem falou</b><span data-i18n="f1.d">A sua voz e a chamada são gravadas em trilhas separadas, então as suas frases são sempre suas. Os outros são separados no Neural Engine.</span><i class="feat-prog"></i></button></li>
+            <li><button type="button" data-fp="1"><b data-i18n="f2.t">Falantes sob controle</b><span data-i18n="f2.d">Dois falantes que são a mesma pessoa? Junte. Uma fala atribuída à pessoa errada? Corrija com o botão direito.</span><i class="feat-prog"></i></button></li>
+            <li><button type="button" data-fp="2"><b data-i18n="f3.t">Projetos</b><span data-i18n="f3.d">Agrupe reuniões por cliente, curso ou equipe. Arraste uma gravação para o projeto e ela ganha a etiqueta.</span><i class="feat-prog"></i></button></li>
+            <li><button type="button" data-fp="3"><b data-i18n="f4.t">Busca em tudo</b><span data-i18n="f4.d">Procure uma palavra em todas as reuniões e abra no momento certo do áudio.</span><i class="feat-prog"></i></button></li>
+            <li><button type="button" data-fp="4"><b data-i18n="f5.t">Arquivos que você já tem</b><span data-i18n="f5.d">Solte memos de voz, entrevistas, aulas e vídeos. m4a, mp3, wav, aiff, mp4, mov e mais.</span><i class="feat-prog"></i></button></li>
+            <li><button type="button" data-fp="5"><b data-i18n="f6.t">Exporte do seu jeito</b><span data-i18n="f6.d">Texto, Markdown, legendas SRT e VTT ou JSON. Ou copie com um clique.</span><i class="feat-prog"></i></button></li>
+          </ol>
         </div>
         <p class="note" data-reveal data-i18n="features.langs">Cerca de 100 idiomas, detectados sozinhos. Português e inglês com os melhores resultados. Interface em português e inglês, tema claro e escuro.</p>
       </div>
     </section>
 
-    <!-- 5. Resumos -->
+    <!-- 4. Resumos -->
     <section class="section summaries" id="summaries">
       <div class="inner">
         <div class="section-head">
@@ -276,7 +370,7 @@
       </div>
     </section>
 
-    <!-- 6. Baixar -->
+    <!-- 5. Baixar -->
     <section class="section download" id="download">
       <div class="inner">
         <div class="dl-grid">
