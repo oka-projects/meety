@@ -279,5 +279,7 @@
   "Merge speakers?": "Juntar os falantes?",
   "Merge": "Juntar",
   "Every line by %1$@ becomes %2$@. This can't be undone.": "Todas as falas de %1$@ passam a ser de %2$@. Não dá para desfazer.",
-  "Couldn't merge the speakers": "Não deu para juntar os falantes"
+  "Couldn't merge the speakers": "Não deu para juntar os falantes",
+  "Show formatted": "Ver formatado",
+  "Edit the text": "Editar o texto"
 }

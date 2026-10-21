@@ -19,6 +19,8 @@ struct SummaryView: View {
     @State private var docText = ""
     @State private var task: Task<Void, Never>?
     @State private var showCloudConsent = false
+    /// Resumo salvo aparece formatado; o lápis abre o Markdown cru para editar.
+    @State private var editing = false
 
     struct ProviderRow: Identifiable {
         let provider: any SummaryProvider
@@ -144,20 +146,33 @@ struct SummaryView: View {
                             .foregroundStyle(Color.meety.textSecondary)
                     }
                     .font(MeetyFont.body)
-                    if !partial.isEmpty { MarkdownText(partial) }
+                    if !partial.isEmpty { MarkdownView(partial) }
                 } else if let doc = selectedDoc {
                     HStack(spacing: 12) {
                         Text(verbatim: "\(doc.title) · \(doc.provider) · \(MeetyFormat.dayAndTime(doc.createdAt))")
                             .font(.system(size: 14)).foregroundStyle(Color.meety.textSecondary).lineLimit(1)
                         Spacer()
+                        Button { editing.toggle() } label: {
+                            if editing { Text(String(localized: "Done", bundle: .module)) } else { Image(systemName: "pencil") }
+                        }
+                        .help(editing ? String(localized: "Show formatted", bundle: .module) : String(localized: "Edit the text", bundle: .module))
                         Button { copy(docText) } label: { Image(systemName: "doc.on.doc") }.help(String(localized: "Copy", bundle: .module))
                         Button(role: .destructive) { deleteDoc(doc) } label: { Image(systemName: "trash") }.help(String(localized: "Delete this summary", bundle: .module))
                     }
                     .buttonStyle(.borderless).foregroundStyle(Color.meety.textPrimary)
-                    TextEditor(text: $docText)
-                        .font(.system(size: 14)).lineSpacing(4).scrollContentBackground(.hidden).scrollDisabled(true)
-                        .frame(minHeight: 320)
-                        .onChange(of: docText) { _, t in try? model.library.updateSummary(doc, text: t, of: meeting) }
+                    if editing {
+                        TextEditor(text: $docText)
+                            .font(.system(size: 13, design: .monospaced)).lineSpacing(3).scrollContentBackground(.hidden).scrollDisabled(true)
+                            .padding(10)
+                            .background(Color.meety.control, in: RoundedRectangle(cornerRadius: MeetyRadius.card, style: .continuous))
+                            .overlay(RoundedRectangle(cornerRadius: MeetyRadius.card, style: .continuous).stroke(Color.meety.controlBorder))
+                            .frame(minHeight: 320)
+                            .onChange(of: docText) { _, t in try? model.library.updateSummary(doc, text: t, of: meeting) }
+                    } else {
+                        MarkdownView(docText)
+                            .frame(maxWidth: 720, alignment: .leading)
+                            .onTapGesture(count: 2) { editing = true }
+                    }
                 } else if saved.isEmpty {
                     VStack(spacing: 0) {
                         Spacer(minLength: 60)
@@ -203,7 +218,7 @@ struct SummaryView: View {
             }
         }
         .padding(20)
-        .onChange(of: selectedDoc) { _, d in if let d { docText = model.library.summaryText(d, of: meeting) } }
+        .onChange(of: selectedDoc) { _, d in editing = false; if let d { docText = model.library.summaryText(d, of: meeting) } }
     }
 
     // MARK: - Dados
@@ -295,41 +310,92 @@ struct ProviderCard<Action: View>: View {
     }
 }
 
-/// Markdown simples: títulos, listas e ênfase em linha. Suficiente para atas.
-struct MarkdownText: View {
-    let text: String
-    init(_ text: String) { self.text = text }
+/// Markdown dos resumos, em blocos: títulos, parágrafos, listas (com níveis, numeradas e de
+/// tarefas), citações, código, linhas e tabelas. A ênfase dentro da linha vem do AttributedString.
+struct MarkdownView: View {
+    let blocks: [MarkdownBlock]
+    init(_ text: String) { blocks = MarkdownBlock.parse(text) }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            ForEach(Array(text.components(separatedBy: "\n").enumerated()), id: \.offset) { _, line in
-                lineView(line)
+        VStack(alignment: .leading, spacing: 0) {
+            ForEach(Array(blocks.enumerated()), id: \.offset) { i, block in
+                view(block).padding(.top, i == 0 ? 0 : topSpacing(block, after: blocks[i - 1]))
             }
         }
         .font(.system(size: 14)).lineSpacing(4)
+        .foregroundStyle(Color.meety.textPrimary)
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    func topSpacing(_ b: MarkdownBlock, after prev: MarkdownBlock) -> CGFloat {
+        switch b {
+        case .heading(let level, _): return level <= 2 ? 22 : 14
+        case .item, .ordered: if case .item = prev { return 5 }; if case .ordered = prev { return 5 }; return 10
+        default: return 10
+        }
     }
 
     @ViewBuilder
-    func lineView(_ raw: String) -> some View {
-        let line = raw.trimmingCharacters(in: .whitespaces)
-        if line.hasPrefix("### ") { inline(String(line.dropFirst(4))).font(MeetyFont.headline).padding(.top, 6) }
-        else if line.hasPrefix("## ") { SectionLabel(String(line.dropFirst(3))).padding(.top, 10) }
-        else if line.hasPrefix("# ") { inline(String(line.dropFirst(2))).font(MeetyFont.sectionTitle).padding(.top, 8) }
-        else if line.hasPrefix("- [ ] ") || line.hasPrefix("- [x] ") {
-            HStack(alignment: .firstTextBaseline, spacing: 6) {
-                Image(systemName: line.hasPrefix("- [x] ") ? "checkmark.square" : "square").foregroundStyle(Color.meety.textSecondary)
-                inline(String(line.dropFirst(6)))
+    func view(_ block: MarkdownBlock) -> some View {
+        switch block {
+        case .heading(let level, let text):
+            switch level {
+            case 1: inline(text).font(.system(size: 20, weight: .semibold))
+            case 2:
+                VStack(alignment: .leading, spacing: 6) {
+                    inline(text).font(.system(size: 16, weight: .semibold))
+                    Rectangle().fill(Color.meety.separator).frame(height: 1)
+                }
+            default: inline(text).font(.system(size: 14, weight: .semibold))
             }
+        case .paragraph(let text):
+            inline(text).fixedSize(horizontal: false, vertical: true)
+        case .item(let level, let checked, let text):
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                if let checked {
+                    Image(systemName: checked ? "checkmark.square.fill" : "square")
+                        .foregroundStyle(checked ? Color.meety.accentText : Color.meety.textSecondary)
+                } else {
+                    Circle().fill(level == 0 ? Color.meety.accentText : Color.meety.textTertiary)
+                        .frame(width: 5, height: 5).alignmentGuide(.firstTextBaseline) { d in d[.bottom] + 4 }
+                }
+                inline(text).fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(.leading, 4 + CGFloat(level) * 18)
+        case .ordered(let level, let number, let text):
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                Text(verbatim: "\(number).").monospacedDigit().foregroundStyle(Color.meety.textSecondary)
+                inline(text).fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(.leading, 2 + CGFloat(level) * 18)
+        case .quote(let text):
+            HStack(alignment: .top, spacing: 10) {
+                RoundedRectangle(cornerRadius: 1.5).fill(Color.meety.accent.opacity(0.6)).frame(width: 3)
+                inline(text).foregroundStyle(Color.meety.textSecondary).fixedSize(horizontal: false, vertical: true)
+            }
+        case .code(let text):
+            Text(verbatim: text).font(.system(size: 12.5, design: .monospaced))
+                .padding(12).frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.meety.fill, in: RoundedRectangle(cornerRadius: MeetyRadius.row, style: .continuous))
+        case .rule:
+            Rectangle().fill(Color.meety.separator).frame(height: 1).padding(.vertical, 4)
+        case .table(let header, let rows):
+            Grid(alignment: .leading, horizontalSpacing: 16, verticalSpacing: 0) {
+                GridRow { ForEach(Array(header.enumerated()), id: \.offset) { _, c in inline(c).font(.system(size: 13, weight: .semibold)) } }
+                    .padding(.vertical, 6)
+                ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
+                    Divider().overlay(Color.meety.separator)
+                    GridRow { ForEach(0..<header.count, id: \.self) { j in inline(j < row.count ? row[j] : "").font(.system(size: 13)) } }
+                        .padding(.vertical, 6)
+                }
+            }
+            .padding(.horizontal, 12).padding(.vertical, 4)
+            .background(Color.meety.fill, in: RoundedRectangle(cornerRadius: MeetyRadius.row, style: .continuous))
         }
-        else if line.hasPrefix("- ") || line.hasPrefix("* ") {
-            HStack(alignment: .firstTextBaseline, spacing: 8) { Text(verbatim: "•"); inline(String(line.dropFirst(2))) }.padding(.leading, 8)
-        }
-        else if line.isEmpty { Spacer().frame(height: 2) }
-        else { inline(line) }
     }
 
     func inline(_ s: String) -> Text {
         if let a = try? AttributedString(markdown: s, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace)) { return Text(a) }
-        return Text(s)
+        return Text(verbatim: s)
     }
 }

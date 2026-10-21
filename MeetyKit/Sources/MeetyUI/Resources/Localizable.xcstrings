@@ -477,6 +477,16 @@
         }
       }
     },
+    "Done": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pronto"
+          }
+        }
+      }
+    },
     "Download": {
       "localizations": {
         "pt-BR": {
@@ -523,6 +533,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Solte para transcrever"
+          }
+        }
+      }
+    },
+    "Edit the text": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Editar o texto"
           }
         }
       }
@@ -1494,6 +1514,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ajustes…"
+          }
+        }
+      }
+    },
+    "Show formatted": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver formatado"
           }
         }
       }

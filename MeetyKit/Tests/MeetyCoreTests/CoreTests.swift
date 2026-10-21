@@ -143,3 +143,48 @@ import Testing
         try? FileManager.default.removeItem(at: root)
     }
 }
+
+@Suite struct MarkdownParsing {
+    @Test func summaryBlocks() {
+        let md = """
+        ## Resumo
+        Primeira linha
+        continua aqui.
+
+        ## Próximos passos
+        - **Ana** fecha os números
+          - revisão na sexta
+        - [x] contrato enviado
+        1. Proposta
+        2) Revisão
+        > citação
+        ---
+        | Quem | Quando |
+        |---|:---:|
+        | Ana | sexta |
+        ```
+        código
+        ```
+        """
+        let b = MarkdownBlock.parse(md)
+        #expect(b == [
+            .heading(level: 2, text: "Resumo"),
+            .paragraph("Primeira linha continua aqui."),
+            .heading(level: 2, text: "Próximos passos"),
+            .item(level: 0, checked: nil, text: "**Ana** fecha os números"),
+            .item(level: 1, checked: nil, text: "revisão na sexta"),
+            .item(level: 0, checked: true, text: "contrato enviado"),
+            .ordered(level: 0, number: 1, text: "Proposta"),
+            .ordered(level: 0, number: 2, text: "Revisão"),
+            .quote("citação"),
+            .rule,
+            .table(header: ["Quem", "Quando"], rows: [["Ana", "sexta"]]),
+            .code("código"),
+        ])
+    }
+
+    @Test func boldLineIsNotARule() {
+        #expect(MarkdownBlock.parse("**Decisões**") == [.paragraph("**Decisões**")])
+        #expect(MarkdownBlock.parse("***") == [.rule])
+    }
+}
