@@ -11,6 +11,12 @@ Comandos:
       pelo AVFoundation. Eventos: stage, progress (percent 0..100), result.
   summarize --model <pasta> --prompt-file <txt> [--max-tokens 1500] [--system-file <txt>]
       Eventos: stage, token (texto parcial), result (texto completo).
+  serve [--idle 600]
+      Processo que fica vivo para o ditado, com o Whisper já carregado entre um pedido e outro.
+      Lê um pedido JSON por linha no stdin: {"id":"…","audio":"<pcm.f32>","model":"<pasta>","language":"pt"}
+      (ou {"id":"…","model":"<pasta>","warm":true}, que só carrega o modelo)
+      e responde {"event":"result","id":"…","text":"…"} ou {"event":"error","id":"…","message":"…"}.
+      Sai sozinho depois de --idle segundos sem pedidos (o modelo deixa a memória) ou quando o stdin fecha.
 
 Qualquer falha termina com {"event":"error","message":"..."} e código 1.
 """
@@ -158,6 +164,52 @@ def cmd_summarize(a):
     emit("result", text=text, elapsed=round(time.time() - t0, 1))
 
 
+# ---------------------------------------------------------------- serve
+
+def cmd_serve(a):
+    import select
+    import numpy as np
+    import mlx_whisper  # o mlx_whisper guarda o último modelo carregado (ModelHolder)
+
+    emit("ready")
+    while True:
+        ready, _, _ = select.select([sys.stdin], [], [], a.idle)
+        if not ready:
+            return  # ocioso: sai e devolve a memória
+        line = sys.stdin.readline()
+        if not line:
+            return  # o app fechou o stdin
+        try:
+            req = json.loads(line)
+        except ValueError:
+            continue
+        rid = req.get("id")
+        try:
+            if req.get("warm"):  # carrega o modelo enquanto a pessoa ainda fala
+                import mlx.core as mx
+                from mlx_whisper.transcribe import ModelHolder
+                ModelHolder.get_model(req["model"], mx.float16)
+                emit("result", id=rid, text="")
+                continue
+            audio = np.fromfile(req["audio"], dtype=np.float32)
+            if audio.size == 0:
+                raise ValueError("Áudio vazio.")
+            t0 = time.time()
+            result = mlx_whisper.transcribe(
+                audio,
+                path_or_hf_repo=req["model"],
+                language=req.get("language") or None,
+                task="transcribe",
+                condition_on_previous_text=False,
+                verbose=None,
+            )
+            text = " ".join((s.get("text") or "").strip() for s in result.get("segments", [])).strip()
+            emit("result", id=rid, text=text, language=result.get("language"), elapsed=round(time.time() - t0, 2))
+        except Exception as e:  # noqa: BLE001
+            traceback.print_exc(file=sys.stderr)
+            emit("error", id=rid, message=f"{type(e).__name__}: {e}")
+
+
 # ---------------------------------------------------------------- main
 
 def main():
@@ -174,9 +226,11 @@ def main():
     s.add_argument("--prompt-file", required=True)
     s.add_argument("--system-file", default=None)
     s.add_argument("--max-tokens", type=int, default=1500)
+    v = sub.add_parser("serve")
+    v.add_argument("--idle", type=float, default=600)
     a = ap.parse_args()
     try:
-        {"health": cmd_health, "transcribe": cmd_transcribe, "summarize": cmd_summarize}[a.cmd](a)
+        {"health": cmd_health, "transcribe": cmd_transcribe, "summarize": cmd_summarize, "serve": cmd_serve}[a.cmd](a)
     except SystemExit:
         raise
     except KeyboardInterrupt:

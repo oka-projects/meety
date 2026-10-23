@@ -157,6 +157,16 @@
         }
       }
     },
+    "Accessibility": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acessibilidade"
+          }
+        }
+      }
+    },
     "Add key": {
       "localizations": {
         "pt-BR": {
@@ -217,12 +227,42 @@
         }
       }
     },
+    "Allow the microphone in System Settings > Privacy": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Libere o microfone em Ajustes do Sistema > Privacidade"
+          }
+        }
+      }
+    },
     "Allowed": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Permitido"
+          }
+        }
+      }
+    },
+    "Animation": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Animação"
+          }
+        }
+      }
+    },
+    "Another app is already using this shortcut. Pick a different one.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outro app já usa este atalho. Escolha outro."
           }
         }
       }
@@ -263,6 +303,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cancelar"
+          }
+        }
+      }
+    },
+    "Cancel (Esc)": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar (Esc)"
           }
         }
       }
@@ -347,6 +397,16 @@
         }
       }
     },
+    "Copy last dictation": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiar o último ditado"
+          }
+        }
+      }
+    },
     "Couldn't create the meeting folder": {
       "localizations": {
         "pt-BR": {
@@ -427,12 +487,32 @@
         }
       }
     },
+    "Create a free account at console.groq.com": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crie uma conta gratuita em console.groq.com"
+          }
+        }
+      }
+    },
     "Default": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Padrão"
+          }
+        }
+      }
+    },
+    "Delete": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apagar"
           }
         }
       }
@@ -473,6 +553,46 @@
           "stringUnit": {
             "state": "translated",
             "value": "Apagar este resumo"
+          }
+        }
+      }
+    },
+    "Dictate (%@)": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ditar (%@)"
+          }
+        }
+      }
+    },
+    "Dictate anywhere with a shortcut": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ditar em qualquer lugar com um atalho"
+          }
+        }
+      }
+    },
+    "Dictation": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ditado"
+          }
+        }
+      }
+    },
+    "Dictation history…": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Histórico de ditados…"
           }
         }
       }
@@ -695,12 +815,62 @@
         }
       }
     },
+    "Groq (first option)": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Groq (primeira opção)"
+          }
+        }
+      }
+    },
+    "Groq didn't accept this key": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A Groq não aceitou esta chave"
+          }
+        }
+      }
+    },
+    "Groq didn't respond (%@)": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A Groq não respondeu (%@)"
+          }
+        }
+      }
+    },
+    "Groq transcribes a dictation in about a second, with great accuracy, and its free plan is enough for everyday use.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A Groq transcreve um ditado em cerca de um segundo, com ótima precisão, e o plano gratuito dá conta do uso do dia a dia."
+          }
+        }
+      }
+    },
     "Group your meetings by client, course or team. Drag a recording onto a project to file it.": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Agrupe as reuniões por cliente, curso ou equipe. Arraste uma gravação para um projeto para alocá-la."
+          }
+        }
+      }
+    },
+    "History": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Histórico"
           }
         }
       }
@@ -825,6 +995,16 @@
         }
       }
     },
+    "Meety is recording a meeting": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Meety está gravando uma reunião"
+          }
+        }
+      }
+    },
     "Meety picked the right sizes for this Mac (%lld GB of memory). Everything is stored on this Mac and works offline afterwards.": {
       "localizations": {
         "pt-BR": {
@@ -937,6 +1117,16 @@
         }
       }
     },
+    "Model": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modelo"
+          }
+        }
+      }
+    },
     "Models": {
       "localizations": {
         "pt-BR": {
@@ -997,12 +1187,32 @@
         }
       }
     },
+    "New: dictation in any app": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novo: ditado em qualquer app"
+          }
+        }
+      }
+    },
     "No audio reached Meety. Check the microphone and the system audio permission.": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Nenhum áudio chegou ao Meety. Confira o microfone e a permissão de áudio do sistema."
+          }
+        }
+      }
+    },
+    "No key? Meety transcribes on this Mac with a light or medium model, and also uses it when Groq is unavailable.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem chave? O Meety transcreve no próprio Mac com um modelo leve ou médio, que também entra quando a Groq está fora."
           }
         }
       }
@@ -1088,6 +1298,16 @@
         }
       }
     },
+    "Not now": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agora não"
+          }
+        }
+      }
+    },
     "Not transcribed yet": {
       "localizations": {
         "pt-BR": {
@@ -1118,12 +1338,32 @@
         }
       }
     },
+    "Nothing was heard": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada foi ouvido"
+          }
+        }
+      }
+    },
     "Nothing was recorded": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Nada foi gravado"
+          }
+        }
+      }
+    },
+    "On this Mac": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neste Mac"
           }
         }
       }
@@ -1144,6 +1384,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Abrir"
+          }
+        }
+      }
+    },
+    "Open API Keys and click Create API Key": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abra API Keys e clique em Create API Key"
           }
         }
       }
@@ -1188,12 +1438,52 @@
         }
       }
     },
+    "Opening the microphone": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abrindo o microfone"
+          }
+        }
+      }
+    },
     "Others": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Outros"
+          }
+        }
+      }
+    },
+    "Paste at the cursor": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colar no cursor"
+          }
+        }
+      }
+    },
+    "Paste the key here": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cole a chave aqui"
+          }
+        }
+      }
+    },
+    "Pasted": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colado"
           }
         }
       }
@@ -1214,6 +1504,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Escolha o que precisa à esquerda e clique em Gerar."
+          }
+        }
+      }
+    },
+    "Press %@ anywhere, talk, and the text appears where your cursor is. Tap to start and stop, or hold while you talk.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aperte %@ em qualquer lugar, fale, e o texto aparece onde está o cursor. Toque para começar e parar, ou segure enquanto fala."
           }
         }
       }
@@ -1264,6 +1564,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Encerrar o Meety"
+          }
+        }
+      }
+    },
+    "Recommended: a free Groq key": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recomendado: uma chave gratuita da Groq"
           }
         }
       }
@@ -1334,6 +1644,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gravações"
+          }
+        }
+      }
+    },
+    "Remove": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remover"
           }
         }
       }
@@ -1478,6 +1798,16 @@
         }
       }
     },
+    "Search": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar"
+          }
+        }
+      }
+    },
     "Search meetings": {
       "localizations": {
         "pt-BR": {
@@ -1508,12 +1838,42 @@
         }
       }
     },
+    "Set up": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Configurar"
+          }
+        }
+      }
+    },
     "Settings…": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Ajustes…"
+          }
+        }
+      }
+    },
+    "Shortcut": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atalho"
+          }
+        }
+      }
+    },
+    "Show dictations": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver ditados"
           }
         }
       }
@@ -1659,6 +2019,26 @@
         }
       }
     },
+    "Stop and transcribe (%@)": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parar e transcrever (%@)"
+          }
+        }
+      }
+    },
+    "Stop dictation": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parar o ditado"
+          }
+        }
+      }
+    },
     "Stop recording": {
       "localizations": {
         "pt-BR": {
@@ -1709,12 +2089,32 @@
         }
       }
     },
+    "Tap the shortcut to start and again to stop, or hold it while you talk. The text is pasted where your cursor is and copied.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque no atalho para começar e de novo para parar, ou segure enquanto fala. O texto é colado onde está o cursor e copiado."
+          }
+        }
+      }
+    },
     "Tell speakers apart": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Separar os falantes"
+          }
+        }
+      }
+    },
+    "That didn't work": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não deu certo"
           }
         }
       }
@@ -1850,6 +2250,26 @@
         }
       }
     },
+    "Transcribing": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transcrevendo"
+          }
+        }
+      }
+    },
+    "Transcribing on this Mac": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transcrevendo no Mac"
+          }
+        }
+      }
+    },
     "Transcribing…": {
       "localizations": {
         "pt-BR": {
@@ -1900,12 +2320,32 @@
         }
       }
     },
+    "Try the last dictation again": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tentar de novo o último ditado"
+          }
+        }
+      }
+    },
     "Turn Meety on in the list that opens. macOS may ask you to quit and reopen Meety afterwards.": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Ligue o Meety na lista que abrir. O macOS pode pedir para fechar e reabrir o Meety depois."
+          }
+        }
+      }
+    },
+    "Turn on dictation": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ligar o ditado"
           }
         }
       }
@@ -1926,6 +2366,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Usar"
+          }
+        }
+      }
+    },
+    "Use Groq when there's a key": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar a Groq quando houver chave"
+          }
+        }
+      }
+    },
+    "Used when there's no Groq key, and as a backup when Groq fails. Nothing leaves your Mac.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usado quando não há chave da Groq e como reserva quando a Groq falha. Nada sai do seu Mac."
           }
         }
       }
@@ -1971,12 +2431,42 @@
         }
       }
     },
+    "What's new": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novidade"
+          }
+        }
+      }
+    },
+    "What's new in Meety": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novidades do Meety"
+          }
+        }
+      }
+    },
     "Who is this?": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Quem é?"
+          }
+        }
+      }
+    },
+    "With a key, the dictation audio goes to Groq, which is fast and accurate. Meetings are always transcribed on this Mac.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Com uma chave, o áudio do ditado vai para a Groq, que é rápida e precisa. As reuniões são sempre transcritas neste Mac."
           }
         }
       }
@@ -2032,6 +2522,16 @@
         }
       }
     },
+    "Your dictations will appear here.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seus ditados aparecem aqui."
+          }
+        }
+      }
+    },
     "Your recordings and imported files will show up here.": {
       "localizations": {
         "pt-BR": {
@@ -2062,6 +2562,26 @@
         }
       }
     },
+    "allow Meety in Accessibility to paste automatically": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ligue o Meety em Acessibilidade para colar sozinho"
+          }
+        }
+      }
+    },
+    "and copied · %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "e copiado · %@"
+          }
+        }
+      }
+    },
     "imported from %@": {
       "localizations": {
         "pt-BR": {
@@ -2088,6 +2608,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "sai do seu Mac"
+          }
+        }
+      }
+    },
+    "macOS only lets Meety type into other apps after you turn it on in Accessibility.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O macOS só deixa o Meety digitar em outros apps depois que você o liga em Acessibilidade."
           }
         }
       }
@@ -2123,6 +2653,16 @@
         }
       }
     },
+    "ready to paste": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pronto para colar"
+          }
+        }
+      }
+    },
     "started at %@": {
       "localizations": {
         "pt-BR": {
@@ -2149,6 +2689,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "a transcrição falhou"
+          }
+        }
+      }
+    },
+    "via %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "via %@"
           }
         }
       }

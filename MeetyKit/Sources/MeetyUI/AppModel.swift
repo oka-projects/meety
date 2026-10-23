@@ -13,6 +13,7 @@ public final class AppModel {
     public let queue: TranscriptionQueue
     public let recorder = Recorder()
     public let settings = MeetySettings.shared
+    public let dictation: DictationController
 
     public var selectedMeetingID: String? { didSet { if selectedMeetingID != nil { selectedProjectID = nil } } }
     public var searchText = ""
@@ -40,6 +41,7 @@ public final class AppModel {
     /// Reunião em gravação (pasta já criada).
     public var recordingMeetingID: String?
     public var showWelcome = false
+    public var showWhatsNew = false
     public var alert: AlertMessage?
     public var engineHealth: EngineEvent.EngineHealth?
     public var engineMissing = false
@@ -55,15 +57,18 @@ public final class AppModel {
         library = MeetingLibrary()
         models = ModelManager()
         queue = TranscriptionQueue(library: library, models: models)
+        dictation = DictationController(settings: MeetySettings.shared, models: models)
         sidebarMode = SidebarMode(rawValue: UserDefaults.standard.string(forKey: "sidebarMode") ?? "") ?? .recordings
         showWelcome = !settings.welcomeDone
         engineMissing = EngineRunner.bundled() == nil
+        let recorder = recorder
+        dictation.isBlocked = { recorder.isRecording }
         Task { await checkEngine() }
         applyDebugState()
     }
 
     /// Só no Debug: variáveis de ambiente para abrir o app num estado (prints e testes).
-    /// MEETY_SELECT=<trecho do título>  MEETY_PROJECT=<nome>  MEETY_MODE=recordings|projects  MEETY_SHOW=welcome|settings|export
+    /// MEETY_SELECT=<trecho do título>  MEETY_PROJECT=<nome>  MEETY_MODE=recordings|projects  MEETY_SHOW=welcome|settings|export|whatsnew
     func applyDebugState() {
         #if DEBUG
         let env = ProcessInfo.processInfo.environment
@@ -71,6 +76,7 @@ public final class AppModel {
         if let t = env["MEETY_PROJECT"], let p = library.projects.first(where: { $0.name.localizedCaseInsensitiveContains(t) }) { sidebarMode = .projects; openProject(p) }
         if let t = env["MEETY_SELECT"], let m = library.meetings.first(where: { $0.title.localizedCaseInsensitiveContains(t) }) { selectedMeetingID = m.id }
         if env["MEETY_SHOW"] == "welcome" { showWelcome = true }
+        if env["MEETY_SHOW"] == "whatsnew" { showWhatsNew = true }
         if env["MEETY_SHOW"] == "settings" {
             Task {
                 try? await Task.sleep(for: .seconds(1))

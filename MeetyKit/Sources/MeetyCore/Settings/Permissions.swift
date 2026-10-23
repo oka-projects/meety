@@ -1,10 +1,12 @@
 import AppKit
+import ApplicationServices
 import AVFoundation
 import CoreGraphics
 import Foundation
 import ScreenCaptureKit
 
-/// As duas permissões do Meety: microfone e gravação de tela (que no macOS inclui o áudio do sistema).
+/// As permissões do Meety: microfone e gravação de tela (que no macOS inclui o áudio do sistema),
+/// e Acessibilidade para o ditado colar o texto.
 public enum Permissions {
     public enum State: Equatable, Sendable { case granted, denied, notDetermined }
 
@@ -29,6 +31,16 @@ public enum Permissions {
     public static func probeScreenRecording() async -> Bool {
         do { _ = try await SCShareableContent.excludingDesktopWindows(false, onScreenWindowsOnly: true); return true }
         catch { return false }
+    }
+
+    /// Acessibilidade: só o ditado usa, para colar o texto no cursor.
+    public static var accessibility: State { AXIsProcessTrusted() ? .granted : .notDetermined }
+
+    /// Põe o Meety na lista de Acessibilidade e abre a tela dos Ajustes onde se liga a chave.
+    public static func requestAccessibility() {
+        let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
+        AXIsProcessTrustedWithOptions(options)
+        open("x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")
     }
 
     public static func openMicrophoneSettings() {

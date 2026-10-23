@@ -20,6 +20,19 @@ public final class MeetySettings {
     public var cloudConsent: Bool { didSet { d.set(cloudConsent, forKey: "cloudConsent") } }
     public var apiProvider: String { didSet { d.set(apiProvider, forKey: "apiProvider") } }
 
+    // Ditado
+    public var dictationEnabled: Bool { didSet { d.set(dictationEnabled, forKey: "dictationEnabled") } }
+    public var dictationShortcut: DictationShortcut { didSet { d.set(dictationShortcut.rawValue, forKey: "dictationShortcut") } }
+    /// Groq primeiro quando há chave; desligado, o ditado usa só o modelo do Mac.
+    public var dictationUseGroq: Bool { didSet { d.set(dictationUseGroq, forKey: "dictationUseGroq") } }
+    /// Modelo local do ditado (e da reserva quando a Groq falha): o leve ou o médio.
+    public var dictationModelID: String { didSet { d.set(dictationModelID, forKey: "dictationModelID") } }
+    public var dictationWaveStyle: DictationWaveStyle { didSet { d.set(dictationWaveStyle.rawValue, forKey: "dictationWaveStyle") } }
+    /// Cola o texto no cursor (precisa de Acessibilidade); desligado, só copia.
+    public var dictationPaste: Bool { didSet { d.set(dictationPaste, forKey: "dictationPaste") } }
+    /// Última novidade que a pessoa já abriu (o selo do botão some depois disso).
+    public var whatsNewSeen: String { didSet { d.set(whatsNewSeen, forKey: "whatsNewSeen") } }
+
     public enum SummaryLanguage: String, CaseIterable, Identifiable, Sendable {
         case app, meeting
         public var id: String { rawValue }
@@ -43,10 +56,52 @@ public final class MeetySettings {
         welcomeDone = d.bool(forKey: "welcomeDone")
         cloudConsent = d.bool(forKey: "cloudConsent")
         apiProvider = d.string(forKey: "apiProvider") ?? "anthropic"
+        dictationEnabled = d.bool(forKey: "dictationEnabled")
+        dictationShortcut = DictationShortcut(rawValue: d.string(forKey: "dictationShortcut") ?? "") ?? .optionSpace
+        dictationUseGroq = d.object(forKey: "dictationUseGroq") as? Bool ?? true
+        dictationModelID = d.string(forKey: "dictationModelID") ?? (ModelCatalog.physicalMemoryGB >= 8 ? DictationModels.medium : DictationModels.light)
+        dictationWaveStyle = DictationWaveStyle(rawValue: d.string(forKey: "dictationWaveStyle") ?? "") ?? .fluid
+        dictationPaste = d.object(forKey: "dictationPaste") as? Bool ?? true
+        whatsNewSeen = d.string(forKey: "whatsNewSeen") ?? ""
     }
 
     public var transcriptionOptions: TranscriptionOptions {
         TranscriptionOptions(modelID: transcriptionModelID, language: language, separateSpeakers: separateSpeakers)
+    }
+}
+
+/// Os dois modelos locais oferecidos para o ditado.
+public enum DictationModels {
+    public static let light = "whisper-small"
+    public static let medium = "whisper-large-v3-turbo"
+    public static let all = [light, medium]
+    public static func title(_ id: String) -> String {
+        id == light ? String(localized: "Light", bundle: .module) : String(localized: "Medium", bundle: .module)
+    }
+}
+
+/// Atalho global do ditado. Tocar liga e desliga; segurar grava até soltar.
+public enum DictationShortcut: String, CaseIterable, Identifiable, Sendable {
+    case optionSpace, controlOptionSpace, commandShiftSpace, optionCommandD
+    public var id: String { rawValue }
+    public var title: String {
+        switch self {
+        case .optionSpace: return "⌥ Space"
+        case .controlOptionSpace: return "⌃⌥ Space"
+        case .commandShiftSpace: return "⇧⌘ Space"
+        case .optionCommandD: return "⌥⌘ D"
+        }
+    }
+}
+
+public enum DictationWaveStyle: String, CaseIterable, Identifiable, Sendable {
+    case fluid, spectrum
+    public var id: String { rawValue }
+    public var title: String {
+        switch self {
+        case .fluid: return String(localized: "Fluid wave", bundle: .module)
+        case .spectrum: return String(localized: "Spectrum", bundle: .module)
+        }
     }
 }
 

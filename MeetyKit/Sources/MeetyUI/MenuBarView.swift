@@ -17,6 +17,26 @@ public struct MenuBarView: View {
                 .keyboardShortcut("r", modifiers: [.command, .shift])
                 .disabled(model.recorder.phase != .idle)
         }
+        if model.settings.dictationEnabled {
+            Divider()
+            Button {
+                model.dictation.toggle()
+            } label: {
+                Label(model.dictation.state == .recording ? String(localized: "Stop dictation", bundle: .module) : String(localized: "Dictate (\(model.settings.dictationShortcut.title))", bundle: .module),
+                      systemImage: "mic")
+            }
+            .disabled(model.dictation.state == .transcribing || model.recorder.isRecording)
+            if model.dictation.failedRecording != nil {
+                Button(String(localized: "Try the last dictation again", bundle: .module)) { model.dictation.retryFailed() }
+            }
+            if let last = model.dictation.history.items.first {
+                Button(String(localized: "Copy last dictation", bundle: .module)) { model.dictation.copy(last) }
+            }
+            Button(String(localized: "Dictation history…", bundle: .module)) {
+                openWindow(id: "dictations")
+                NSApp.activate(ignoringOtherApps: true)
+            }
+        }
         Divider()
         Button(String(localized: "Open Meety", bundle: .module)) {
             openWindow(id: "main")

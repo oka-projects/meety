@@ -11,6 +11,7 @@ public struct SettingsView: View {
         TabView(selection: $tab) {
             GeneralSettings(model: model).tag("general").tabItem { Label(String(localized: "General", bundle: .module), systemImage: "gearshape") }
             ModelsSettings(model: model).tag("models").tabItem { Label(String(localized: "Models", bundle: .module), systemImage: "shippingbox") }
+            DictationSettings(model: model).tag("dictation").tabItem { Label(String(localized: "Dictation", bundle: .module), systemImage: "mic") }
             SummarySettings(model: model).tag("summaries").tabItem { Label(String(localized: "Summaries", bundle: .module), systemImage: "text.alignleft") }
             AboutSettings(model: model).tag("about").tabItem { Label(String(localized: "About", bundle: .module), systemImage: "info.circle") }
         }
@@ -92,6 +93,89 @@ struct ModelsSettings: View {
             }
         }
         .formStyle(.grouped)
+    }
+}
+
+struct DictationSettings: View {
+    @Bindable var model: AppModel
+    var settings: Bindable<MeetySettings> { Bindable(model.settings) }
+    @Environment(\.openWindow) private var openWindow
+    @State private var key = ""
+    @State private var keyState: KeyState = .idle
+    @State private var axState = Permissions.accessibility
+    private let axTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    enum KeyState { case idle, checking, valid, invalid }
+
+    var dictationModels: [ModelInfo] { DictationModels.all.compactMap { model.models.catalog.model(id: $0) } }
+
+    var body: some View {
+        Form {
+            Section {
+                Toggle(String(localized: "Dictate anywhere with a shortcut", bundle: .module), isOn: settings.dictationEnabled)
+                Picker(String(localized: "Shortcut", bundle: .module), selection: settings.dictationShortcut) {
+                    ForEach(DictationShortcut.allCases) { s in Text(verbatim: s.title).tag(s) }
+                }
+                .disabled(!model.settings.dictationEnabled)
+                if !model.dictation.shortcutAvailable {
+                    Label(String(localized: "Another app is already using this shortcut. Pick a different one.", bundle: .module), systemImage: "exclamationmark.triangle")
+                        .foregroundStyle(Color.meety.warning).font(MeetyFont.callout)
+                }
+                Text(String(localized: "Tap the shortcut to start and again to stop, or hold it while you talk. The text is pasted where your cursor is and copied.", bundle: .module))
+                    .font(MeetyFont.callout).foregroundStyle(Color.meety.textSecondary)
+                Picker(String(localized: "Animation", bundle: .module), selection: settings.dictationWaveStyle) {
+                    ForEach(DictationWaveStyle.allCases) { s in Text(s.title).tag(s) }
+                }
+                Toggle(String(localized: "Paste at the cursor", bundle: .module), isOn: settings.dictationPaste)
+                if model.settings.dictationPaste {
+                    PermissionRow(title: String(localized: "Accessibility", bundle: .module), state: axState) { Permissions.requestAccessibility() }
+                        .onReceive(axTimer) { _ in axState = Permissions.accessibility }
+                }
+                LabeledContent(String(localized: "History", bundle: .module)) {
+                    Button(String(localized: "Show dictations", bundle: .module)) { openWindow(id: "dictations"); NSApp.activate(ignoringOtherApps: true) }
+                }
+            }
+            Section(String(localized: "Groq (first option)", bundle: .module)) {
+                Toggle(String(localized: "Use Groq when there's a key", bundle: .module), isOn: settings.dictationUseGroq)
+                SecureField(String("gsk_…"), text: $key)
+                HStack {
+                    Button(String(localized: "Save key", bundle: .module)) { saveKey() }.disabled(key.isEmpty || keyState == .checking)
+                    switch keyState {
+                    case .checking: ProgressView().controlSize(.small)
+                    case .valid: Label(String(localized: "Saved in your Keychain", bundle: .module), systemImage: "checkmark").foregroundStyle(Color.meety.success).font(MeetyFont.callout)
+                    case .invalid: Label(String(localized: "Groq didn't accept this key", bundle: .module), systemImage: "xmark").foregroundStyle(Color.meety.warning).font(MeetyFont.callout)
+                    case .idle: EmptyView()
+                    }
+                    Spacer()
+                    if Groq.apiKey != nil {
+                        Button(String(localized: "Remove", bundle: .module)) { Groq.apiKey = nil; key = ""; keyState = .idle }
+                    }
+                    Link(String(localized: "Get a key", bundle: .module), destination: Groq.consoleURL).font(MeetyFont.callout)
+                }
+                Text(String(localized: "With a key, the dictation audio goes to Groq, which is fast and accurate. Meetings are always transcribed on this Mac.", bundle: .module))
+                    .font(MeetyFont.callout).foregroundStyle(Color.meety.textSecondary)
+            }
+            Section(String(localized: "On this Mac", bundle: .module)) {
+                Picker(String(localized: "Model", bundle: .module), selection: settings.dictationModelID) {
+                    ForEach(dictationModels) { m in Text(verbatim: "\(DictationModels.title(m.id)) · \(m.displayName)").tag(m.id) }
+                }
+                ModelsListView(model: model, modelsToShow: dictationModels)
+                Text(String(localized: "Used when there's no Groq key, and as a backup when Groq fails. Nothing leaves your Mac.", bundle: .module))
+                    .font(MeetyFont.callout).foregroundStyle(Color.meety.textSecondary)
+            }
+        }
+        .formStyle(.grouped)
+        .onAppear { key = Groq.apiKey ?? ""; if !key.isEmpty { keyState = .valid } }
+        .onChange(of: model.settings.dictationEnabled) { model.dictation.applySettings() }
+        .onChange(of: model.settings.dictationShortcut) { model.dictation.applySettings() }
+        .onChange(of: model.settings.dictationWaveStyle) { model.dictation.applySettings() }
+    }
+
+    func saveKey() {
+        let k = key.trimmingCharacters(in: .whitespacesAndNewlines)
+        keyState = .checking
+        Task {
+            if await Groq.check(key: k) { Groq.apiKey = k; keyState = .valid } else { keyState = .invalid }
+        }
     }
 }
 

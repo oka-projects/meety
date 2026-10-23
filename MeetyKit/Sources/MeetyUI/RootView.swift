@@ -37,6 +37,7 @@ public struct RootView: View {
         .overlay { if isDropTargeted { DropOverlay() } }
         .sheet(isPresented: $model.showWelcome) { WelcomeView(model: model) }
         .sheet(isPresented: $showNewProject) { NewProjectSheet(model: model) }
+        .sheet(isPresented: $model.showWhatsNew) { WhatsNewView(model: model) }
         .alert(item: $model.alert) { a in Alert(title: Text(a.title), message: Text(a.message)) }
         .frame(minWidth: 820, minHeight: 520)
     }
@@ -172,6 +173,7 @@ public struct RootView: View {
 
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .primaryAction) { WhatsNewButton(model: model) }
         ToolbarItem(placement: .primaryAction) {
             Button { model.chooseFilesToImport() } label: {
                 Label(String(localized: "Import", bundle: .module), systemImage: "square.and.arrow.down").labelStyle(.titleAndIcon)

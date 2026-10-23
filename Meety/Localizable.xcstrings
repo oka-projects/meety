@@ -11,6 +11,16 @@
         }
       }
     },
+    "Dictations": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ditados"
+          }
+        }
+      }
+    },
     "Import Audio or Video…": {
       "localizations": {
         "pt-BR": {

@@ -169,6 +169,16 @@
         }
       }
     },
+    "Add a Groq key or download a dictation model in Settings > Dictation.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adicione uma chave da Groq ou baixe um modelo de ditado em Configurações > Ditado."
+          }
+        }
+      }
+    },
     "Apple Intelligence is still downloading its model. Try again in a while.": {
       "localizations": {
         "pt-BR": {
@@ -316,6 +326,46 @@
         }
       }
     },
+    "Fluid wave": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Onda fluida"
+          }
+        }
+      }
+    },
+    "Groq didn't accept the API key.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A Groq não aceitou a chave de API."
+          }
+        }
+      }
+    },
+    "Groq's usage limit was reached.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O limite de uso da Groq acabou."
+          }
+        }
+      }
+    },
+    "Groq: %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Groq: %@"
+          }
+        }
+      }
+    },
     "Light": {
       "localizations": {
         "pt-BR": {
@@ -342,6 +392,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Modelo local"
+          }
+        }
+      }
+    },
+    "Medium": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Médio"
           }
         }
       }
@@ -432,6 +492,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nenhuma tela disponível para captar o áudio."
+          }
+        }
+      }
+    },
+    "No microphone found.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum microfone encontrado."
           }
         }
       }
@@ -603,6 +673,16 @@
         }
       }
     },
+    "Spectrum": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espectro"
+          }
+        }
+      }
+    },
     "Subtitles (SRT)": {
       "localizations": {
         "pt-BR": {
@@ -659,6 +739,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "A chave de API da %@ foi recusada. Confira nos Ajustes."
+          }
+        }
+      }
+    },
+    "The microphone is unavailable.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O microfone está indisponível."
           }
         }
       }
@@ -736,6 +826,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ainda não há transcrição para resumir."
+          }
+        }
+      }
+    },
+    "This Mac": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este Mac"
           }
         }
       }

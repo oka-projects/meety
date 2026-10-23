@@ -30,6 +30,11 @@ struct MeetyApp: App {
             }
         }
 
+        Window(String(localized: "Dictations"), id: "dictations") {
+            DictationHistoryView(dictation: model.dictation)
+        }
+        .defaultSize(width: 560, height: 620)
+
         MenuBarExtra { MenuBarView(model: model) } label: { MenuBarView.label(model: model) }
 
         Settings { SettingsView(model: model) }

@@ -93,6 +93,19 @@ public final class EngineRunner: @unchecked Sendable {
         self.scriptURL = scriptURL
     }
 
+    /// Ambiente do Python embutido: sem rede, sem pacotes do usuário, cache do Hugging Face no app.
+    static func environment() -> [String: String] {
+        var env = ProcessInfo.processInfo.environment
+        env["PYTHONUNBUFFERED"] = "1"
+        env["PYTHONDONTWRITEBYTECODE"] = "1"
+        env["PYTHONNOUSERSITE"] = "1"
+        env["HF_HUB_OFFLINE"] = "1"
+        env["TRANSFORMERS_OFFLINE"] = "1"
+        env["HF_HOME"] = AppPaths.applicationSupport.appendingPathComponent("hf-cache").path
+        env["MPLBACKEND"] = "Agg"
+        return env
+    }
+
     /// Executa um comando do motor. O stream termina quando o processo sai; sai com erro se o
     /// código não for zero ou se o motor emitiu `error`.
     public func run(_ command: String, args: [String]) -> AsyncThrowingStream<EngineEvent, Error> {
@@ -101,15 +114,7 @@ public final class EngineRunner: @unchecked Sendable {
             proc.executableURL = pythonURL
             proc.arguments = [scriptURL.path, command] + args
             proc.currentDirectoryURL = AppPaths.temporary
-            var env = ProcessInfo.processInfo.environment
-            env["PYTHONUNBUFFERED"] = "1"
-            env["PYTHONDONTWRITEBYTECODE"] = "1"
-            env["PYTHONNOUSERSITE"] = "1"
-            env["HF_HUB_OFFLINE"] = "1"
-            env["TRANSFORMERS_OFFLINE"] = "1"
-            env["HF_HOME"] = AppPaths.applicationSupport.appendingPathComponent("hf-cache").path
-            env["MPLBACKEND"] = "Agg"
-            proc.environment = env
+            proc.environment = Self.environment()
 
             let out = Pipe(), err = Pipe()
             proc.standardOutput = out
