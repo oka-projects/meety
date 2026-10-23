@@ -385,6 +385,77 @@ html.js.reduced [data-reveal] { opacity: 1; }
 .feat-prog { position: absolute; left: -2px; top: 0; bottom: 0; width: 3px; background: var(--accent); transform-origin: 50% 0; transform: scaleY(var(--p, 0)); }
 .feat-list li:not(.is-active) .feat-prog { display: none; }
 
+/* 3b. Ditado */
+.dict { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(28px, 4vw, 56px); margin-top: 44px; align-items: center; }
+.dict-stage { border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-glass); border: 1px solid var(--glass-border); }
+.dict-screen { position: relative; aspect-ratio: 16 / 10; background: linear-gradient(135deg, #0d2e61 0%, #2a6bad 50%, #8c6b9e 100%); padding: 7% 12% 0; }
+.dict-doc { height: 100%; border-radius: 10px 10px 0 0; border-bottom: 0; background: rgba(255, 255, 255, 0.94); }
+.dict-doc-body { padding: 14px 18px; display: grid; gap: 10px; align-content: start; font-size: 13.5px; }
+.dict-field { display: flex; gap: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--hair); }
+.dict-field small { color: var(--dim); width: 54px; }
+.dict-field b { font-weight: 600; }
+.dict-text { min-height: 2.9em; line-height: 1.45; color: var(--ink); margin-top: 4px; }
+.dict-text .caret { display: inline-block; width: 1.5px; height: 1.05em; background: var(--accent); vertical-align: -0.15em; margin-left: 1px; animation: dict-blink 1.06s steps(1) infinite; }
+@keyframes dict-blink { 50% { opacity: 0; } }
+
+/* o painel de vidro do app, escuro, embaixo e no centro da tela */
+.dict-panel {
+  position: absolute; left: 50%; bottom: 7%; width: 132px; height: 132px; margin-left: -66px;
+  border-radius: 30px; padding: 12px 11px 10px; display: grid; grid-template-rows: 60px 1fr; color: #fff;
+  background: rgba(22, 32, 52, 0.62); -webkit-backdrop-filter: blur(22px) saturate(150%); backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.22); box-shadow: 0 18px 40px -16px rgba(5, 15, 35, 0.6);
+  opacity: 0; transform: scale(0.84) translateY(10px); filter: blur(8px);
+  transition: opacity 0.35s var(--ease), transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1), filter 0.35s var(--ease);
+}
+.dict-panel.is-shown { opacity: 1; transform: none; filter: none; }
+.dp-top { position: relative; display: grid; place-items: center; }
+.dp-top > * { position: absolute; opacity: 0; transition: opacity 0.25s; }
+.dp-wave { width: 100%; height: 100%; }
+.dp-dots { display: flex; gap: 5px; }
+.dp-dots i { width: 5px; height: 5px; border-radius: 50%; background: #fff; animation: dict-dot 1.2s ease-in-out infinite; }
+.dp-dots i:nth-child(2) { animation-delay: 0.1s; } .dp-dots i:nth-child(3) { animation-delay: 0.2s; } .dp-dots i:nth-child(4) { animation-delay: 0.3s; }
+.dp-dots i:nth-child(5) { animation-delay: 0.4s; } .dp-dots i:nth-child(6) { animation-delay: 0.5s; } .dp-dots i:nth-child(7) { animation-delay: 0.6s; }
+@keyframes dict-dot { 0%, 100% { opacity: 0.2; } 40% { opacity: 1; } }
+.dp-ring, .dp-check { width: 44px; height: 44px; }
+.dp-ring circle { fill: none; stroke-width: 3.5; }
+.dp-track { stroke: rgba(255, 255, 255, 0.15); }
+.dp-spin { stroke: #fff; stroke-linecap: round; stroke-dasharray: 70 101; transform-origin: 50% 50%; animation: dict-spin 0.9s linear infinite; }
+@keyframes dict-spin { to { transform: rotate(360deg); } }
+.dp-check circle { fill: #22a35a; stroke: rgba(255, 255, 255, 0.4); stroke-width: 1; }
+.dp-check path { fill: none; stroke: #fff; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 26; stroke-dashoffset: 26; }
+.dict-panel.is-done .dp-check { transform: scale(1); animation: dict-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.dict-panel.is-done .dp-check path { stroke-dashoffset: 0; transition: stroke-dashoffset 0.35s 0.2s ease-out; }
+@keyframes dict-pop { from { transform: scale(0.3); } to { transform: scale(1); } }
+.dp-foot { position: relative; display: grid; place-items: center; }
+.dp-foot > * { position: absolute; opacity: 0; transition: opacity 0.25s; text-align: center; }
+.dp-rec { left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; }
+.dp-x { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; background: rgba(255, 255, 255, 0.14); }
+.dp-rec b { font-size: 12px; font-weight: 600; }
+.dp-stop { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, 0.92); }
+.dp-stop i { width: 9px; height: 9px; border-radius: 2px; background: #e5352b; }
+.dp-cap { font-size: 11.5px; font-weight: 600; line-height: 1.25; }
+.dp-cap small { display: block; font-size: 9.5px; font-weight: 400; color: rgba(255, 255, 255, 0.7); }
+.dict-panel.is-opening .dp-dots, .dict-panel.is-opening .dp-cap-open,
+.dict-panel.is-recording .dp-wave, .dict-panel.is-recording .dp-rec,
+.dict-panel.is-transcribing .dp-ring, .dict-panel.is-transcribing .dp-cap-tr,
+.dict-panel.is-done .dp-check, .dict-panel.is-done .dp-cap-done { opacity: 1; }
+
+/* as teclas do Mac embaixo da tela */
+.dict-keys { display: flex; gap: 7px; padding: 14px 16px 16px; background: linear-gradient(#e6e9ed, #d6dbe1); }
+.dict-keys .key {
+  position: relative; flex: 0 0 52px; height: 46px; border-radius: 8px; background: linear-gradient(#fff, #f1f3f5);
+  box-shadow: 0 3px 0 #b6bec8, 0 4px 6px -2px rgba(13, 40, 70, 0.25); color: #59636e; transition: transform 0.12s, box-shadow 0.12s, background 0.18s, color 0.18s;
+}
+.dict-keys .key small { position: absolute; left: 7px; bottom: 5px; font-size: 9.5px; }
+.dict-keys .key em { position: absolute; right: 7px; top: 4px; font-style: normal; font-size: 11px; }
+.dict-keys .key-space { flex: 1 1 auto; }
+.dict-keys .key.is-lit { background: linear-gradient(#5cc4ee, #2394d6); color: #fff; transform: translateY(3px); box-shadow: 0 0 0 #b6bec8, 0 0 14px rgba(77, 194, 237, 0.55); }
+
+.dict-points { display: grid; gap: 4px; }
+.dict-points li { display: grid; gap: 4px; padding: 16px 18px; border-left: 2px solid var(--hair); }
+.dict-points b { font-family: var(--display); font-weight: 600; font-size: 1.05rem; }
+.dict-points span { color: var(--muted); font-size: 15px; line-height: 1.5; }
+
 /* 4. Provedores */
 .two { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: clamp(32px, 4vw, 56px); align-items: start; margin-top: 36px; }
 .table-wrap { margin-top: 0; border-radius: 14px; overflow: hidden; }
@@ -435,6 +506,7 @@ html.js.reduced [data-reveal] { opacity: 1; }
   .feat { grid-template-columns: 1fr; }
   .feat-stage { position: static; }
   .feat-list li button span { display: block; }
+  .dict { grid-template-columns: 1fr; }
   .dl-grid { grid-template-columns: 1fr; }
   .two { grid-template-columns: 1fr; }
   .providers thead { display: none; }
@@ -454,6 +526,10 @@ html.js.reduced [data-reveal] { opacity: 1; }
   .footer .inner { flex-direction: column; align-items: flex-start; }
   .foot-made { margin-left: 0; }
   .scene-ata > .doc, .scene-proc > .pc { width: 92%; padding: 18px; }
+  .dict-screen { padding: 6% 5% 0; }
+  .dict-keys .key { flex-basis: 40px; }
+  .dict-keys .key:first-child { display: none; }
+  .dict-panel { zoom: 0.74; }
 }
 
 @media (prefers-reduced-motion: reduce) {

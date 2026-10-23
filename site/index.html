@@ -42,6 +42,7 @@
     <nav class="nav-links" aria-label="Seções">
       <a href="#how" data-i18n="nav.how">Como funciona</a>
       <a href="#features" data-i18n="nav.features">Recursos</a>
+      <a href="#dictation" data-i18n="nav.dictation">Ditado</a>
       <a href="#summaries" data-i18n="nav.summaries">Resumos</a>
     </nav>
     <div class="nav-right">
@@ -354,6 +355,59 @@
       </div>
     </section>
 
+    <!-- 3b. Ditado: a tela com o painel à esquerda, quatro pontos à direita -->
+    <section class="section dictation" id="dictation">
+      <div class="inner">
+        <div class="section-head">
+          <h2 data-reveal data-i18n="dict.title">Dite em qualquer app.</h2>
+          <p class="section-text" data-reveal data-i18n="dict.lede">Aperte ⌥ Space, fale, e o texto aparece onde está o cursor. No e-mail, no navegador, no editor, em qualquer campo de texto.</p>
+        </div>
+        <div class="dict" data-reveal>
+          <div class="dict-stage" id="dict-stage" aria-hidden="true">
+            <div class="dict-screen">
+              <div class="mw dict-doc">
+                <div class="mw-title"><span></span><span></span><span></span></div>
+                <div class="dict-doc-body">
+                  <div class="dict-field"><small data-i18n="dict.to">Para</small><b data-i18n="ui.ana">Ana</b></div>
+                  <div class="dict-field"><small data-i18n="dict.subject">Assunto</small><b data-i18n="dict.subjectV">Contrato revisado</b></div>
+                  <p class="dict-text"><span id="dict-typed"></span><i class="caret"></i></p>
+                  <i class="sk ln w84"></i><i class="sk ln w60"></i>
+                </div>
+              </div>
+              <div class="dict-panel" id="dict-panel">
+                <div class="dp-top">
+                  <div class="dp-dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                  <canvas class="dp-wave" id="dp-wave"></canvas>
+                  <svg class="dp-ring" viewBox="0 0 40 40"><circle class="dp-track" cx="20" cy="20" r="16"/><circle class="dp-spin" cx="20" cy="20" r="16"/></svg>
+                  <svg class="dp-check" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17"/><path d="M12.5 20.5l5 5 10-11"/></svg>
+                </div>
+                <div class="dp-foot">
+                  <div class="dp-rec"><span class="dp-x">✕</span><b class="mono" id="dp-time">0:00</b><span class="dp-stop"><i></i></span></div>
+                  <div class="dp-cap dp-cap-open" data-i18n="dict.opening">Abrindo o microfone</div>
+                  <div class="dp-cap dp-cap-tr" data-i18n="dict.transcribing">Transcrevendo</div>
+                  <div class="dp-cap dp-cap-done"><b data-i18n="dict.pasted">Colado</b><small data-i18n="dict.via">e copiado · via Groq</small></div>
+                </div>
+              </div>
+            </div>
+            <div class="dict-keys">
+              <span class="key"><small>fn</small></span>
+              <span class="key"><em>⌃</em><small>control</small></span>
+              <span class="key" id="key-opt"><em>⌥</em><small>option</small></span>
+              <span class="key"><em>⌘</em><small>command</small></span>
+              <span class="key key-space" id="key-space"></span>
+            </div>
+          </div>
+
+          <ul class="dict-points">
+            <li data-reveal><b data-i18n="dict.p1.t">⌥ Space em qualquer lugar</b><span data-i18n="dict.p1.d">Toque para começar e de novo para parar, ou segure enquanto fala. O atalho pode ser trocado nas Configurações.</span></li>
+            <li data-reveal><b data-i18n="dict.p2.t">Cola onde está o cursor</b><span data-i18n="dict.p2.d">O texto entra onde você estava digitando e fica copiado. Todos os ditados ficam num histórico com busca.</span></li>
+            <li data-reveal><b data-i18n="dict.p3.t">Rápido e de graça com a Groq</b><span data-i18n="dict.p3.d">Com uma chave gratuita da Groq, o ditado volta em cerca de um segundo. O Meety mostra o passo a passo para criar a sua.</span></li>
+            <li data-reveal><b data-i18n="dict.p4.t">Sem chave, no seu Mac</b><span data-i18n="dict.p4.d">Sem chave, ou se a Groq estiver fora, o Meety transcreve no próprio Mac com um modelo leve ou médio. As reuniões são sempre transcritas no Mac.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <!-- 4. Resumos e requisitos, lado a lado -->
     <section class="section summaries" id="summaries">
       <div class="inner">
@@ -380,7 +434,7 @@
               <div><dt data-i18n="req.os">Sistema</dt><dd data-i18n="req.osV">macOS 15 Sequoia ou mais novo</dd></div>
               <div><dt data-i18n="req.disk">Espaço em disco</dt><dd data-i18n="req.diskV">Cerca de 8 GB livres, 4 GB deles para os modelos</dd></div>
               <div><dt data-i18n="req.perm">Permissões</dt><dd data-i18n="req.permV">Microfone e Gravação de Tela e Áudio do Sistema</dd></div>
-              <div><dt data-i18n="req.net">Internet</dt><dd data-i18n="req.netV">Só para baixar os modelos e checar atualizações</dd></div>
+              <div><dt data-i18n="req.net">Internet</dt><dd data-i18n="req.netV">Para baixar os modelos, checar atualizações e, se você quiser, ditar pela Groq</dd></div>
             </dl>
           </aside>
         </div>

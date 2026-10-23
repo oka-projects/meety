@@ -430,11 +430,72 @@ function featuresController(root) {
 }
 
 /* =====================================================================
+   Ditado: ⌥ Space acende, o painel grava, transcreve, cola no e-mail.
+   ===================================================================== */
+function dictationController(root) {
+  const panel = $("#dict-panel", root), typed = $("#dict-typed", root), time = $("#dp-time", root);
+  const keys = [$("#key-opt", root), $("#key-space", root)];
+  const canvas = $("#dp-wave", root), ctx = canvas.getContext("2d");
+  // As três ondas do painel do app: cor (null = branco), ciclos, velocidade, ganho, espessura.
+  const WAVES = [[null, 1.6, 3.2, 1, 3], ["rgba(89,184,255,0.9)", 2.2, -2.3, 0.75, 2.5], ["rgba(255,148,107,0.9)", 1.2, 1.7, 0.6, 2.5]];
+  let p = null, raf = null, recStart = 0, recording = false;
+
+  const setState = (st) => { panel.className = "dict-panel" + (st ? ` is-shown is-${st}` : ""); };
+  const press = () => { keys.forEach((k) => k.classList.add("is-lit")); p.after(0.32, () => keys.forEach((k) => k.classList.remove("is-lit"))); };
+
+  function draw(now) {
+    if (recording) {
+      const x = (now - recStart) / 1000, tt = now / 1000;
+      time.textContent = `0:${String(Math.floor(x)).padStart(2, "0")}`;
+      // sílabas dentro de frases, com respiros: parece fala
+      const level = Math.min(1, Math.max(0, Math.sin(x * 1.6) + 0.6)) * (0.3 + 0.7 * Math.abs(Math.sin(tt * 5.3)) * Math.abs(Math.sin(tt * 2.1 + 1)));
+      const dpr = devicePixelRatio || 1, W = canvas.clientWidth, H = canvas.clientHeight;
+      if (canvas.width !== W * dpr) { canvas.width = W * dpr; canvas.height = H * dpr; }
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      const mid = H / 2, amp = (0.06 + 0.94 * level) * (H / 2 - 4);
+      [...WAVES].reverse().forEach(([color, cycles, speed, gain, width]) => {
+        ctx.beginPath();
+        for (let i = 0; i <= 80; i++) {
+          const u = i / 80, env = Math.sin(Math.PI * u) ** 2;
+          const y = mid + amp * gain * env * Math.sin(2 * Math.PI * cycles * u + tt * speed);
+          i ? ctx.lineTo(u * W, y) : ctx.moveTo(u * W, y);
+        }
+        ctx.strokeStyle = color || "#fff"; ctx.lineWidth = width; ctx.lineCap = "round"; ctx.lineJoin = "round";
+        ctx.stroke();
+      });
+    }
+    raf = requestAnimationFrame(draw);
+  }
+
+  function cycle() {
+    typed.textContent = ""; time.textContent = "0:00"; setState(null);
+    p.after(0.7, press);
+    p.after(0.85, () => setState("opening"));
+    p.after(1.4, () => { setState("recording"); recStart = performance.now(); recording = true; });
+    p.after(4.6, press);
+    p.after(4.75, () => { recording = false; setState("transcribing"); });
+    p.after(5.9, () => setState("done"));
+    // colar: o texto entra de uma vez, como no app
+    p.after(6.05, () => { typed.textContent = t("dict.sample"); p.add(animate(typed, { opacity: [0, 1] }, { duration: 0.3 })); });
+    p.after(7.8, () => setState(null));
+    p.after(10.4, cycle);
+  }
+
+  return {
+    start: () => { p = player(); raf = requestAnimationFrame(draw); cycle(); },
+    stop: () => { p?.stop(); cancelAnimationFrame(raf); recording = false; setState(null); keys.forEach((k) => k.classList.remove("is-lit")); },
+    staticEnd: () => { typed.textContent = t("dict.sample"); },
+  };
+}
+
+/* =====================================================================
    Liga tudo
    ===================================================================== */
 const stage = stageController($("#stage"));
 const deck = deckController($("#deck"));
 const feats = featuresController($(".feat"));
+const dict = dictationController($("#dict-stage"));
 
 if (reduced) {
   scroll((p) => { $("#progress").style.transform = `scaleX(${p})`; nav.classList.toggle("is-solid", p > 0.01); });
@@ -446,6 +507,7 @@ if (reduced) {
   $$(".lane", fp0).forEach((lane) => buildLane(lane, SCENE2, lane.dataset.lane === "f-you" ? "you" : "meeting"));
   $$(".lane i", fp0).forEach((b) => { b.style.opacity = 1; b.style.background = SPEAKER_COLOR[b.dataset.sp]; });
   fp0.classList.add("is-active");
+  dict.staticEnd();
 } else {
   reveal($("#hero"), { delay: 0.1, step: 0.11, y: 28, duration: 1.1 });
   scroll(animate("#progress", { scaleX: [0, 1] }, { ease: "linear" }));
@@ -470,4 +532,5 @@ if (reduced) {
   inView("#stage", () => { stage.start(); return () => stage.stop(); }, { amount: 0.3 });
   inView("#deck", () => { deck.start(); return () => deck.stop(); }, { amount: 0.3 });
   inView(".feat", () => { feats.start(); return () => feats.stop(); }, { amount: 0.3 });
+  inView("#dict-stage", () => { dict.start(); return () => dict.stop(); }, { amount: 0.3 });
 }
