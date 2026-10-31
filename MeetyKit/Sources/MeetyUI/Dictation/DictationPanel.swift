@@ -157,9 +157,7 @@ private struct PanelView: View {
                     .font(.system(size: 14, weight: .semibold).monospacedDigit())
                 Spacer()
                 Button(action: onStop) {
-                    RoundedRectangle(cornerRadius: 4).fill(Color.red).frame(width: 14, height: 14)
-                        .frame(width: 44, height: 44)
-                        .background(Circle().fill(.white.opacity(0.92)))
+                    PanelButtonIcon(systemName: "checkmark")
                 }
                 .buttonStyle(.plain)
                 .help(String(localized: "Stop and transcribe (\(model.shortcut))", bundle: .module))
@@ -184,9 +182,7 @@ private struct PanelView: View {
 
     private var cancelButton: some View {
         Button(action: onCancel) {
-            Image(systemName: "xmark").font(.system(size: 15, weight: .bold))
-                .frame(width: 44, height: 44)
-                .background(Circle().fill(.primary.opacity(0.12)))
+            PanelButtonIcon(systemName: "xmark")
         }
         .buttonStyle(.plain)
         .help(String(localized: "Cancel (Esc)", bundle: .module))
@@ -197,6 +193,24 @@ private struct PanelView: View {
             Text(title).font(.system(size: 14, weight: .semibold))
             Text(detail).font(.system(size: 12)).foregroundStyle(.secondary).lineLimit(2)
                 .multilineTextAlignment(.center)
+        }
+    }
+}
+
+/// O desenho único dos botões do painel: ícone num círculo de vidro, com o círculo liso antes do macOS 26.
+struct PanelButtonIcon: View {
+    let systemName: String
+    var iconSize: CGFloat = 15
+    var diameter: CGFloat = 44
+
+    var body: some View {
+        let icon = Image(systemName: systemName).font(.system(size: iconSize, weight: .bold))
+            .frame(width: diameter, height: diameter)
+            .contentShape(Circle())  // o clique vale no círculo todo, não só no desenho do ícone
+        if #available(macOS 26, *) {
+            icon.glassEffect(.regular.interactive(), in: .circle)
+        } else {
+            icon.background(Circle().fill(.primary.opacity(0.12)))
         }
     }
 }
@@ -286,10 +300,8 @@ struct StatusRing: View {
     @State private var filled = false
     @State private var mark: CGFloat = 0
 
-    private var tint: (top: Color, bottom: Color) {
-        phase == .failure
-            ? (Color(red: 1, green: 0.72, blue: 0.3), Color(red: 0.93, green: 0.45, blue: 0.1))
-            : (Color(red: 0.36, green: 0.89, blue: 0.55), Color(red: 0.06, green: 0.62, blue: 0.33))
+    private var tint: Color {
+        phase == .failure ? Color(red: 1, green: 0.58, blue: 0) : Color(red: 0.2, green: 0.78, blue: 0.35)
     }
 
     var body: some View {
@@ -304,15 +316,7 @@ struct StatusRing: View {
                             style: StrokeStyle(lineWidth: 4, lineCap: .round))
                     .rotationEffect(.degrees(angle - 90))
                 Circle()
-                    .fill(LinearGradient(colors: [tint.top, tint.bottom], startPoint: .top, endPoint: .bottom))
-                    .overlay(  // brilho em cima, dá volume
-                        Ellipse()
-                            .fill(LinearGradient(colors: [.white.opacity(0.55), .clear], startPoint: .top, endPoint: .bottom))
-                            .frame(width: 40, height: 24)
-                            .offset(y: -13)
-                    )
-                    .overlay(Circle().strokeBorder(.white.opacity(0.4), lineWidth: 1))
-                    .shadow(color: tint.bottom.opacity(0.55), radius: 10, y: 4)
+                    .fill(tint)
                     .padding(-2)
                     .scaleEffect(filled ? 1 : 0.3)
                     .opacity(filled ? 1 : 0)
@@ -320,7 +324,6 @@ struct StatusRing: View {
                 .trim(from: 0, to: mark)
                 .stroke(.white, style: StrokeStyle(lineWidth: 4.5, lineCap: .round, lineJoin: .round))
                 .frame(width: 24, height: 24)
-                .shadow(color: .black.opacity(0.18), radius: 1.5, y: 1)
             }
             .frame(width: 58, height: 58)
         }

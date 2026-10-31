@@ -108,13 +108,11 @@ private struct DemoPanel: View {
                     caption(String(localized: "Opening the microphone", bundle: .module), nil)
                 case .recording:
                     HStack {
-                        Image(systemName: "xmark").font(.system(size: 11, weight: .bold))
-                            .frame(width: 30, height: 30).background(Circle().fill(.primary.opacity(0.12)))
+                        PanelButtonIcon(systemName: "xmark", iconSize: 11, diameter: 30)
                         Spacer()
                         Text(String(format: "%d:%02d", s.seconds / 60, s.seconds % 60)).font(.system(size: 12, weight: .semibold).monospacedDigit())
                         Spacer()
-                        RoundedRectangle(cornerRadius: 3).fill(Color.red).frame(width: 10, height: 10)
-                            .frame(width: 30, height: 30).background(Circle().fill(.white.opacity(0.92)))
+                        PanelButtonIcon(systemName: "checkmark", iconSize: 11, diameter: 30)
                     }
                 case .transcribing:
                     caption(String(localized: "Transcribing", bundle: .module), nil)
