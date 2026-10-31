@@ -3,7 +3,7 @@ import SwiftUI
 
 /// A novidade do ditado: aberta pelo botão com selo na barra de ferramentas.
 struct WhatsNewView: View {
-    /// Muda a cada novidade; o selo do botão aparece até a pessoa abrir esta versão.
+    /// Muda a cada novidade; o selo e o brilho do botão aparecem até a pessoa abrir esta versão.
     static let id = "dictation-1"
 
     @Bindable var model: AppModel
@@ -140,20 +140,46 @@ struct WhatsNewView: View {
     }
 }
 
-/// Botão da barra de ferramentas com o selo de novidade.
+/// Botão da barra de ferramentas com o selo e o brilho de novidade, até a pessoa abrir esta versão.
 struct WhatsNewButton: View {
     @Bindable var model: AppModel
+
+    private var unseen: Bool { model.settings.whatsNewSeen != WhatsNewView.id }
 
     var body: some View {
         Button { model.showWhatsNew = true } label: {
             Image(systemName: "sparkles")
                 .overlay(alignment: .topTrailing) {
-                    if model.settings.whatsNewSeen != WhatsNewView.id {
+                    if unseen {
                         Circle().fill(Color.meety.accent).frame(width: 7, height: 7).offset(x: 4, y: -3)
                     }
                 }
+                .background { if unseen { WhatsNewGlow() } }
         }
         .help(String(localized: "What's new in Meety", bundle: .module))
+    }
+}
+
+/// Halo na cor de destaque atrás do ícone: pulsa devagar, ou fica parado com Reduzir Movimento.
+private struct WhatsNewGlow: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private func halo(_ opacity: Double) -> some View {
+        Circle()
+            .fill(RadialGradient(colors: [Color.meety.accent, .clear], center: .center, startRadius: 2, endRadius: 15))
+            .frame(width: 30, height: 30)
+            .opacity(opacity)
+    }
+
+    var body: some View {
+        if reduceMotion {
+            halo(0.5)
+        } else {
+            TimelineView(.animation(minimumInterval: 1.0 / 30)) { context in
+                let t = context.date.timeIntervalSinceReferenceDate
+                halo(0.42 + 0.28 * sin(2 * .pi * t / 3.2))  // uma ida e volta a cada 3,2 s
+            }
+        }
     }
 }
 
