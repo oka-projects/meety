@@ -118,6 +118,10 @@ struct MeetingDetailView: View {
         } else {
             if let d = meeting.duration { parts.append(MeetyFormat.duration(d)) }
             if let lang = meeting.language, let name = Locale.current.localizedString(forLanguageCode: lang) { parts.append(name.capitalized) }
+            if meeting.status == .transcribed, let used = meeting.modelID {
+                parts.append(used == Groq.transcriptModelID ? String(localized: "transcribed by Groq", bundle: .module)
+                                                            : String(localized: "transcribed on this Mac", bundle: .module))
+            }
             if meeting.source == .imported, let f = meeting.originalFileName { parts.append(String(localized: "imported from \(f)", bundle: .module)) }
         }
         return parts.joined(separator: " · ")
@@ -239,7 +243,11 @@ struct RecordingWave: View {
 
 struct TranscribingView: View {
     let job: TranscriptionJob
-    let steps: [TranscriptionJob.Stage] = [.preparing, .loadingModel, .transcribing, .speakers, .saving]
+    var onGroq: Bool { job.backend == Groq.backendID }
+    /// Na Groq não há modelo para carregar.
+    var steps: [TranscriptionJob.Stage] {
+        onGroq ? [.preparing, .transcribing, .speakers, .saving] : [.preparing, .loadingModel, .transcribing, .speakers, .saving]
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -282,7 +290,15 @@ struct TranscribingView: View {
             }
             .padding(.top, 24)
             Button(String(localized: "Cancel", bundle: .module)) { job.cancel() }.controlSize(.large).padding(.top, 24)
-            PrivacyLine(text: String(localized: "Running on this Mac's chip. You can keep using Meety meanwhile.", bundle: .module)).padding(.top, 24)
+            if let reason = job.fallbackReason {
+                Label(String(localized: "The primary option failed, so the backup took over. \(reason)", bundle: .module), systemImage: "arrow.triangle.branch")
+                    .font(MeetyFont.callout).foregroundStyle(Color.meety.warning).multilineTextAlignment(.center).frame(maxWidth: 440).padding(.top, 24)
+            }
+            if onGroq {
+                PrivacyLine(cloud: true, text: String(localized: "Leaves your Mac: Groq is transcribing this audio.", bundle: .module)).padding(.top, job.fallbackReason == nil ? 24 : 10)
+            } else {
+                PrivacyLine(text: String(localized: "Running on this Mac's chip. You can keep using Meety meanwhile.", bundle: .module)).padding(.top, job.fallbackReason == nil ? 24 : 10)
+            }
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

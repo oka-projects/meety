@@ -350,7 +350,7 @@ struct EmptyLibraryView: View {
             }
             .controlSize(.large)
             .padding(.top, 22)
-            Text(String(localized: "Audio or video: m4a, mp3, wav, mp4, mov and more.", bundle: .module))
+            Text(String(localized: "Audio or video: m4a, mp3, wav, opus, mp4, mov and more.", bundle: .module))
                 .font(MeetyFont.callout).foregroundStyle(Color.meety.textTertiary).padding(.top, 18)
             if model.engineMissing {
                 Label(EngineError.notBundled.localizedDescription, systemImage: "exclamationmark.triangle")

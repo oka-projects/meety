@@ -11,7 +11,10 @@ public enum AudioPrep {
         "m4a", "mp3", "wav", "aiff", "aif", "caf", "flac", "aac", "mp4", "m4v", "mov", "mpeg", "mpg", "ogg", "opus", "webm", "mkv"
     ]
     /// Dessas, as que o AVFoundation normalmente não abre. A UI avisa antes de tentar.
-    public static let unsupportedByAVFoundation: Set<String> = ["ogg", "opus", "webm", "mkv"]
+    public static let unsupportedByAVFoundation: Set<String> = ["webm", "mkv"]
+    /// Ogg (o .opus do WhatsApp): o sistema decodifica, mas só reconhece o arquivo pela extensão.
+    /// Por isso entra na biblioteca convertido para m4a, em vez de copiado.
+    public static let needsConversion: Set<String> = ["ogg", "opus"]
 
     public enum PrepError: LocalizedError {
         case noAudioTrack
@@ -63,6 +66,22 @@ public enum AudioPrep {
         }
         if reader.status == .failed { throw PrepError.cannotRead(reader.error?.localizedDescription ?? "") }
         return samples
+    }
+
+    /// Converte um áudio que o sistema lê para AAC em m4a. Falha em versões do macOS que não abrem o formato.
+    public static func convertToM4A(from source: URL, to output: URL) async throws {
+        let asset = AVURLAsset(url: source)
+        let tracks: [AVAssetTrack]
+        do { tracks = try await asset.loadTracks(withMediaType: .audio) } catch { throw PrepError.cannotRead(error.localizedDescription) }
+        guard !tracks.isEmpty else { throw PrepError.noAudioTrack }
+        guard let session = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetAppleM4A) else {
+            throw PrepError.cannotRead("export session")
+        }
+        try? FileManager.default.removeItem(at: output)
+        do { try await session.export(to: output, as: .m4a) } catch {
+            try? FileManager.default.removeItem(at: output)
+            throw PrepError.cannotRead(error.localizedDescription)
+        }
     }
 
     /// Grava amostras como `.f32` cru (o que o motor lê com `np.fromfile`).

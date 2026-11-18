@@ -76,7 +76,8 @@ recording onto a project, or use the project menu on any meeting. Each recording
 Press **⌥ Space** anywhere, talk, and the text is pasted where your cursor is (and copied). Tap to
 start and stop, or hold the shortcut while you talk. With a free [Groq](https://console.groq.com/keys)
 key, a dictation comes back in about a second; without one, or when Groq is unavailable, Meety
-transcribes on your Mac with a light or medium model. Meetings are always transcribed on your Mac.
+transcribes on your Mac with a light or medium model. Meetings are transcribed on your Mac unless you
+pick Groq as a transcription model in **Settings > Models**.
 Turn it on with the What's New button next to Import, or in **Settings > Dictation**. Pasting needs the
 Accessibility permission; without it the text is only copied.
 
@@ -133,8 +134,8 @@ desligadas até você escolher, e o Meety avisa antes de enviar qualquer coisa.
 **Ditado**: aperte **⌥ Space** em qualquer lugar, fale, e o texto é colado onde está o cursor (e fica
 copiado). Toque para começar e parar, ou segure o atalho enquanto fala. Com uma chave gratuita da
 [Groq](https://console.groq.com/keys), o ditado volta em cerca de um segundo; sem chave, ou quando a Groq
-está fora, o Meety transcreve no próprio Mac com um modelo leve ou médio. As reuniões são sempre
-transcritas no Mac. Ligue pelo botão de novidade ao lado de Importar ou em **Configurações > Ditado**.
+está fora, o Meety transcreve no próprio Mac com um modelo leve ou médio. As reuniões são transcritas no
+Mac, a não ser que você escolha a Groq como modelo de transcrição em **Configurações > Modelos**. Ligue pelo botão de novidade ao lado de Importar ou em **Configurações > Ditado**.
 Para colar sozinho, o Meety precisa da permissão de Acessibilidade; sem ela, o texto só é copiado.
 
 **Perguntas frequentes**: funciona com qualquer app de chamada, porque grava o que o Mac toca (avise os
@@ -182,7 +183,8 @@ Uma hora de áudio leva poucos minutos num Mac com chip M. Os arquivos ficam num
   and `summary-*.md`. Projects live in `Library/projects.json`; each meeting's `meta.json` carries its
   `projectID`. No database.
 - **Privacy**: no analytics. The network is used only for model downloads, update checks, the
-  cloud summary options you explicitly enable and, if you add a Groq key, dictation audio.
+  cloud summary options you explicitly enable and, if you add a Groq key, dictation audio and the
+  recordings and imported files you choose to transcribe with Groq.
 - **Design**: the identity, the palette (light and dark, eight speaker colors) and every screen were
   made in Claude Design; the tokens are in [`docs/design/tokens.json`](docs/design/tokens.json) and
   applied in `MeetyKit/Sources/MeetyUI/Theme.swift`. The boards are in `docs/design/boards/`.

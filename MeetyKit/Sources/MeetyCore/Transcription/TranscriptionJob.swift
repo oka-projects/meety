@@ -13,12 +13,23 @@ public enum TranscriptionLanguage: String, CaseIterable, Codable, Sendable, Iden
 }
 
 public struct TranscriptionOptions: Sendable {
+    /// Modelo principal: o id de um modelo local ou `Groq.backendID`.
     public var modelID: String
+    /// Modelo secundário, que assume quando o principal falha; nil = sem reserva.
+    public var fallbackID: String?
     public var language: TranscriptionLanguage
     public var separateSpeakers: Bool
     public var expectedSpeakers: Int?
-    public init(modelID: String, language: TranscriptionLanguage = .auto, separateSpeakers: Bool = true, expectedSpeakers: Int? = nil) {
-        self.modelID = modelID; self.language = language; self.separateSpeakers = separateSpeakers; self.expectedSpeakers = expectedSpeakers
+    public init(modelID: String, fallbackID: String? = nil, language: TranscriptionLanguage = .auto, separateSpeakers: Bool = true, expectedSpeakers: Int? = nil) {
+        self.modelID = modelID; self.fallbackID = fallbackID
+        self.language = language; self.separateSpeakers = separateSpeakers; self.expectedSpeakers = expectedSpeakers
+    }
+
+    /// O principal e, se houver e for outro, o secundário, na ordem em que são tentados.
+    public var candidates: [String] {
+        var out: [String] = []
+        for id in [modelID, fallbackID ?? ""] where !id.isEmpty && !out.contains(id) { out.append(id) }
+        return out
     }
 }
 
@@ -52,6 +63,10 @@ public final class TranscriptionJob: Identifiable {
     /// 0...1 do passo de transcrição; nil quando não se sabe.
     public private(set) var progress: Double?
     public private(set) var estimatedRemaining: TimeInterval?
+    /// Quem está transcrevendo agora: o id de um modelo local ou `Groq.backendID`.
+    public private(set) var backend: String?
+    /// Por que o principal falhou, quando o secundário assumiu.
+    public private(set) var fallbackReason: String?
     @ObservationIgnored private var startedTranscribing: Date?
     @ObservationIgnored var task: Task<Void, Never>?
     @ObservationIgnored var engine: EngineRunner?
@@ -64,6 +79,11 @@ public final class TranscriptionJob: Identifiable {
     }
 
     func set(stage: Stage) { self.stage = stage; MeetyLog.transcription.info("\(self.meetingID): \(String(describing: stage))") }
+    func set(backend: String) {
+        self.backend = backend
+        progress = nil; estimatedRemaining = nil; startedTranscribing = nil
+    }
+    func set(fallbackReason: String) { self.fallbackReason = fallbackReason }
     func set(progress p: Double) {
         progress = p
         if startedTranscribing == nil { startedTranscribing = Date() }
@@ -82,10 +102,19 @@ public final class TranscriptionQueue {
     private let library: MeetingLibrary
     private let models: ModelManager
     private let engineFactory: () -> EngineRunner?
+    private let groq: GroqClient
     @ObservationIgnored private var running = false
 
-    public init(library: MeetingLibrary, models: ModelManager, engineFactory: @escaping () -> EngineRunner? = { EngineRunner.bundled() }) {
-        self.library = library; self.models = models; self.engineFactory = engineFactory
+    public init(library: MeetingLibrary, models: ModelManager, engineFactory: @escaping () -> EngineRunner? = { EngineRunner.bundled() },
+                groq: GroqClient = .live) {
+        self.library = library; self.models = models; self.engineFactory = engineFactory; self.groq = groq
+    }
+
+    /// Dá para transcrever com esta opção agora: a Groq com chave salva, ou um modelo local baixado.
+    public func isUsable(_ id: String) -> Bool {
+        if id == Groq.backendID { return groq.key() != nil }
+        guard let model = models.catalog.model(id: id) else { return false }
+        return models.isInstalled(model)
     }
 
     public func job(for meetingID: String) -> TranscriptionJob? {
@@ -116,12 +145,6 @@ public final class TranscriptionQueue {
     private func run(_ job: TranscriptionJob, meeting: Meeting, options: TranscriptionOptions) async {
         let folder = library.folder(for: meeting)
         do {
-            guard let engine = engineFactory() else { throw EngineError.notBundled }
-            guard let model = models.catalog.model(id: options.modelID), models.isInstalled(model) else {
-                throw TranscriptionError.modelNotInstalled
-            }
-            job.engine = engine
-
             // 1. Áudio em PCM 16 kHz. Nas gravações, as duas trilhas separadas também.
             job.set(stage: .preparing)
             let mixed = try await AudioPrep.samples(from: folder.audio)
@@ -130,27 +153,31 @@ public final class TranscriptionQueue {
                 micSamples = try? await AudioPrep.samples(from: folder.micTrack)
                 systemSamples = try? await AudioPrep.samples(from: folder.systemTrack)
             }
-            let pcm = AppPaths.temporary.appendingPathComponent("\(meeting.id).f32")
-            try AudioPrep.write(mixed, to: pcm)
-            defer { try? FileManager.default.removeItem(at: pcm) }
             try Task.checkCancellation()
 
-            // 2. Whisper, no motor.
-            job.set(stage: .loadingModel)
-            var args = ["--audio", pcm.path, "--model", model.folder.path]
-            if let code = options.language.code { args += ["--language", code] }
-            var segments: [TranscriptSegment] = []
-            var language: String?
-            for try await ev in engine.run("transcribe", args: args) {
-                switch ev {
-                case .stage(let s): if s == "transcribing" { job.set(stage: .transcribing) }
-                case .progress(let p, _): job.set(progress: p / 100)
-                case .transcript(let lang, let segs, _):
-                    language = lang
-                    segments = segs.enumerated().map { i, s in TranscriptSegment(id: i, start: s.start, end: s.end, text: s.text) }
-                default: break
+            // 2. Whisper: no modelo principal e, se ele falhar, no secundário.
+            let candidates = options.candidates
+            var result: (language: String?, segments: [TranscriptSegment], modelID: String)?
+            var lastError: Error = TranscriptionError.modelNotInstalled
+            for (i, id) in candidates.enumerated() {
+                do {
+                    job.set(backend: id)
+                    result = id == Groq.backendID
+                        ? try await transcribeOnGroq(job, samples: mixed, options: options)
+                        : try await transcribeLocally(job, meetingID: meeting.id, samples: mixed, modelID: id, options: options)
+                    break
+                } catch {
+                    if Task.isCancelled || error is CancellationError { throw CancellationError() }
+                    if case EngineError.cancelled = error { throw error }
+                    lastError = error
+                    guard i + 1 < candidates.count else { break }
+                    MeetyLog.transcription.info("\(meeting.id): \(id) failed, trying \(candidates[i + 1]): \(error.localizedDescription)")
+                    job.set(fallbackReason: error.localizedDescription)
                 }
             }
+            guard let result else { throw lastError }
+            var segments = result.segments
+            let language = result.language
             try Task.checkCancellation()
 
             // 3. Quem falou.
@@ -177,11 +204,11 @@ public final class TranscriptionQueue {
 
             // 4. Salvar.
             job.set(stage: .saving)
-            let transcript = Transcript(language: language, segments: segments, model: model.id)
+            let transcript = Transcript(language: language, segments: segments, model: result.modelID)
             try library.save(transcript: transcript, for: meeting)
             let duration = Double(mixed.count) / AudioPrep.sampleRate
             library.update(meeting.id) {
-                $0.status = .transcribed; $0.language = language; $0.modelID = model.id
+                $0.status = .transcribed; $0.language = language; $0.modelID = result.modelID
                 $0.duration = duration; $0.hasSpeakers = hasSpeakers; $0.error = nil
             }
             job.set(stage: .done)
@@ -196,13 +223,57 @@ public final class TranscriptionQueue {
             library.update(meeting.id) { $0.status = .failed; $0.error = error.localizedDescription }
         }
     }
+
+    /// Whisper no motor embutido, com um modelo baixado.
+    private func transcribeLocally(_ job: TranscriptionJob, meetingID: String, samples: [Float], modelID: String,
+                                   options: TranscriptionOptions) async throws -> (language: String?, segments: [TranscriptSegment], modelID: String) {
+        guard let model = models.catalog.model(id: modelID), models.isInstalled(model) else { throw TranscriptionError.modelNotInstalled }
+        guard let engine = engineFactory() else { throw EngineError.notBundled }
+        job.engine = engine
+        defer { job.engine = nil }
+        let pcm = AppPaths.temporary.appendingPathComponent("\(meetingID).f32")
+        try AudioPrep.write(samples, to: pcm)
+        defer { try? FileManager.default.removeItem(at: pcm) }
+
+        job.set(stage: .loadingModel)
+        var args = ["--audio", pcm.path, "--model", model.folder.path]
+        if let code = options.language.code { args += ["--language", code] }
+        var segments: [TranscriptSegment] = []
+        var language: String?
+        for try await ev in engine.run("transcribe", args: args) {
+            switch ev {
+            case .stage(let s): if s == "transcribing" { job.set(stage: .transcribing) }
+            case .progress(let p, _): job.set(progress: p / 100)
+            case .transcript(let lang, let segs, _):
+                language = lang
+                segments = segs.enumerated().map { i, s in TranscriptSegment(id: i, start: s.start, end: s.end, text: s.text) }
+            default: break
+            }
+        }
+        return (language, segments, model.id)
+    }
+
+    /// Whisper na Groq: o áudio sai do Mac, em partes.
+    private func transcribeOnGroq(_ job: TranscriptionJob, samples: [Float],
+                                  options: TranscriptionOptions) async throws -> (language: String?, segments: [TranscriptSegment], modelID: String) {
+        guard let key = groq.key() else { throw GroqError.noKey }
+        job.set(stage: .transcribing)
+        job.set(progress: 0)
+        let detailed = try await groq.transcribe(samples, options.language.code, key) { p in
+            Task { @MainActor in job.set(progress: p) }
+        }
+        let segments = detailed.segments.enumerated().map { i, s in TranscriptSegment(id: i, start: s.start, end: s.end, text: s.text) }
+        return (detailed.language, segments, Groq.transcriptModelID)
+    }
 }
 
 public enum TranscriptionError: LocalizedError {
     case modelNotInstalled
+    case nothingUsable
     public var errorDescription: String? {
         switch self {
         case .modelNotInstalled: return String(localized: "The transcription model isn't downloaded yet. Open Settings > Models to download it.", bundle: .module)
+        case .nothingUsable: return String(localized: "Neither transcription option is ready. Open Settings > Models to add a Groq key or download a model.", bundle: .module)
         }
     }
 }

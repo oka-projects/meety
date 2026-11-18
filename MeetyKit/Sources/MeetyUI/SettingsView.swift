@@ -65,13 +65,42 @@ struct PermissionRow: View {
 struct ModelsSettings: View {
     @Bindable var model: AppModel
     var settings: Bindable<MeetySettings> { Bindable(model.settings) }
+    /// Muda quando a chave da Groq é salva ou removida, para o aviso de "sem chave" se atualizar.
+    @State private var groqKeyVersion = 0
+
+    var localModels: [ModelInfo] { model.models.catalog.models(of: .transcription) }
+    var groqTitle: String { String(localized: "Groq (online)", bundle: .module) }
+    var usesGroq: Bool { model.settings.transcriptionModelID == Groq.backendID || model.settings.transcriptionFallbackID == Groq.backendID }
+
     var body: some View {
         Form {
             Section(String(localized: "Transcription", bundle: .module)) {
-                Picker(String(localized: "Use", bundle: .module), selection: settings.transcriptionModelID) {
-                    ForEach(model.models.catalog.models(of: .transcription)) { m in Text(m.displayName).tag(m.id) }
+                Picker(String(localized: "Primary", bundle: .module), selection: settings.transcriptionModelID) {
+                    Text(groqTitle).tag(Groq.backendID)
+                    ForEach(localModels) { m in Text(m.displayName).tag(m.id) }
                 }
-                ModelsListView(model: model, modelsToShow: model.models.catalog.models(of: .transcription))
+                Picker(String(localized: "Backup", bundle: .module), selection: settings.transcriptionFallbackID) {
+                    Text(String(localized: "None", bundle: .module)).tag("")
+                    if model.settings.transcriptionModelID != Groq.backendID { Text(groqTitle).tag(Groq.backendID) }
+                    ForEach(localModels.filter { $0.id != model.settings.transcriptionModelID }) { m in Text(m.displayName).tag(m.id) }
+                }
+                Text(String(localized: "Used for recordings and imported files. The backup takes over when the primary fails: no connection, Groq's limit reached, or a model that isn't downloaded.", bundle: .module))
+                    .font(MeetyFont.callout).foregroundStyle(Color.meety.textSecondary)
+                if usesGroq {
+                    PrivacyLine(cloud: true, text: String(localized: "Leaves your Mac: with Groq, the audio is sent to Groq to be transcribed.", bundle: .module))
+                    GroqKeyField { groqKeyVersion += 1 }
+                    if groqKeyVersion >= 0, Groq.apiKey == nil {
+                        Label(String(localized: "Without a key, Groq is skipped and the other option is used.", bundle: .module), systemImage: "exclamationmark.triangle")
+                            .foregroundStyle(Color.meety.warning).font(MeetyFont.callout)
+                    }
+                }
+                ModelsListView(model: model, modelsToShow: localModels)
+            }
+            .onChange(of: model.settings.transcriptionModelID) { old, new in
+                // O principal e o secundário não podem ser o mesmo. Ao escolher a Groq como principal
+                // sem reserva definida, o modelo que estava em uso vira a reserva.
+                let fallback = model.settings.transcriptionFallbackID
+                if fallback == new || (new == Groq.backendID && fallback.isEmpty) { model.settings.transcriptionFallbackID = old }
             }
             Section(String(localized: "Local summaries", bundle: .module)) {
                 Picker(String(localized: "Use", bundle: .module), selection: settings.summaryModelID) {
@@ -100,11 +129,8 @@ struct DictationSettings: View {
     @Bindable var model: AppModel
     var settings: Bindable<MeetySettings> { Bindable(model.settings) }
     @Environment(\.openWindow) private var openWindow
-    @State private var key = ""
-    @State private var keyState: KeyState = .idle
     @State private var axState = Permissions.accessibility
     private let axTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    enum KeyState { case idle, checking, valid, invalid }
 
     var dictationModels: [ModelInfo] { DictationModels.all.compactMap { model.models.catalog.model(id: $0) } }
 
@@ -136,22 +162,8 @@ struct DictationSettings: View {
             }
             Section(String(localized: "Groq (first option)", bundle: .module)) {
                 Toggle(String(localized: "Use Groq when there's a key", bundle: .module), isOn: settings.dictationUseGroq)
-                SecureField(String("gsk_…"), text: $key)
-                HStack {
-                    Button(String(localized: "Save key", bundle: .module)) { saveKey() }.disabled(key.isEmpty || keyState == .checking)
-                    switch keyState {
-                    case .checking: ProgressView().controlSize(.small)
-                    case .valid: Label(String(localized: "Saved in your Keychain", bundle: .module), systemImage: "checkmark").foregroundStyle(Color.meety.success).font(MeetyFont.callout)
-                    case .invalid: Label(String(localized: "Groq didn't accept this key", bundle: .module), systemImage: "xmark").foregroundStyle(Color.meety.warning).font(MeetyFont.callout)
-                    case .idle: EmptyView()
-                    }
-                    Spacer()
-                    if Groq.apiKey != nil {
-                        Button(String(localized: "Remove", bundle: .module)) { Groq.apiKey = nil; key = ""; keyState = .idle }
-                    }
-                    Link(String(localized: "Get a key", bundle: .module), destination: Groq.consoleURL).font(MeetyFont.callout)
-                }
-                Text(String(localized: "With a key, the dictation audio goes to Groq, which is fast and accurate. Meetings are always transcribed on this Mac.", bundle: .module))
+                GroqKeyField()
+                Text(String(localized: "With a key, the dictation audio goes to Groq, which is fast and accurate. Meetings are transcribed on this Mac unless you pick Groq in the Models tab.", bundle: .module))
                     .font(MeetyFont.callout).foregroundStyle(Color.meety.textSecondary)
             }
             Section(String(localized: "On this Mac", bundle: .module)) {
@@ -164,17 +176,44 @@ struct DictationSettings: View {
             }
         }
         .formStyle(.grouped)
-        .onAppear { key = Groq.apiKey ?? ""; if !key.isEmpty { keyState = .valid } }
         .onChange(of: model.settings.dictationEnabled) { model.dictation.applySettings() }
         .onChange(of: model.settings.dictationShortcut) { model.dictation.applySettings() }
         .onChange(of: model.settings.dictationWaveStyle) { model.dictation.applySettings() }
+    }
+}
+
+/// Campo da chave da Groq (uma só, no Keychain), usado pelo ditado e pela transcrição.
+struct GroqKeyField: View {
+    /// Chamado quando a chave é salva ou removida.
+    var onChange: () -> Void = {}
+    @State private var key = ""
+    @State private var keyState: KeyState = .idle
+    enum KeyState { case idle, checking, valid, invalid }
+
+    var body: some View {
+        SecureField(String("gsk_…"), text: $key)
+            .onAppear { key = Groq.apiKey ?? ""; if !key.isEmpty { keyState = .valid } }
+        HStack {
+            Button(String(localized: "Save key", bundle: .module)) { saveKey() }.disabled(key.isEmpty || keyState == .checking)
+            switch keyState {
+            case .checking: ProgressView().controlSize(.small)
+            case .valid: Label(String(localized: "Saved in your Keychain", bundle: .module), systemImage: "checkmark").foregroundStyle(Color.meety.success).font(MeetyFont.callout)
+            case .invalid: Label(String(localized: "Groq didn't accept this key", bundle: .module), systemImage: "xmark").foregroundStyle(Color.meety.warning).font(MeetyFont.callout)
+            case .idle: EmptyView()
+            }
+            Spacer()
+            if keyState == .valid {
+                Button(String(localized: "Remove", bundle: .module)) { Groq.apiKey = nil; key = ""; keyState = .idle; onChange() }
+            }
+            Link(String(localized: "Get a key", bundle: .module), destination: Groq.consoleURL).font(MeetyFont.callout)
+        }
     }
 
     func saveKey() {
         let k = key.trimmingCharacters(in: .whitespacesAndNewlines)
         keyState = .checking
         Task {
-            if await Groq.check(key: k) { Groq.apiKey = k; keyState = .valid } else { keyState = .invalid }
+            if await Groq.check(key: k) { Groq.apiKey = k; keyState = .valid; onChange() } else { keyState = .invalid }
         }
     }
 }
@@ -281,7 +320,7 @@ struct AboutSettings: View {
         var text = "Meety \(version)\nmacOS \(ProcessInfo.processInfo.operatingSystemVersionString)\nMemory \(ModelCatalog.physicalMemoryGB) GB\n"
         text += "Engine: \(model.engineHealth.map { "Python \($0.python) MLX \($0.mlx ?? "?") metal=\($0.metal) \($0.device ?? "")" } ?? "missing")\n"
         text += "Installed models: \(model.models.installed.sorted().joined(separator: ", "))\n"
-        text += "Settings: model=\(model.settings.transcriptionModelID) language=\(model.settings.language.rawValue) speakers=\(model.settings.separateSpeakers)\n\n--- engine.log ---\n"
+        text += "Settings: model=\(model.settings.transcriptionModelID) backup=\(model.settings.transcriptionFallbackID.isEmpty ? "none" : model.settings.transcriptionFallbackID) language=\(model.settings.language.rawValue) speakers=\(model.settings.separateSpeakers)\n\n--- engine.log ---\n"
         text += EngineLog.contents()
         let panel = NSSavePanel()
         panel.nameFieldStringValue = "meety-diagnostics.txt"

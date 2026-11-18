@@ -3,6 +3,7 @@ import Foundation
 import MeetyCore
 import Observation
 import SwiftUI
+import UniformTypeIdentifiers
 
 /// O estado do app inteiro, compartilhado pelas janelas e pela barra de menus.
 @MainActor
@@ -69,12 +70,14 @@ public final class AppModel {
 
     /// Só no Debug: variáveis de ambiente para abrir o app num estado (prints e testes).
     /// MEETY_SELECT=<trecho do título>  MEETY_PROJECT=<nome>  MEETY_MODE=recordings|projects  MEETY_SHOW=welcome|settings|export|whatsnew
+    /// MEETY_IMPORT=<arquivo>: importa (e transcreve) o arquivo ao abrir, como se tivesse sido arrastado.
     func applyDebugState() {
         #if DEBUG
         let env = ProcessInfo.processInfo.environment
         if let m = env["MEETY_MODE"].flatMap(SidebarMode.init(rawValue:)) { sidebarMode = m }
         if let t = env["MEETY_PROJECT"], let p = library.projects.first(where: { $0.name.localizedCaseInsensitiveContains(t) }) { sidebarMode = .projects; openProject(p) }
         if let t = env["MEETY_SELECT"], let m = library.meetings.first(where: { $0.title.localizedCaseInsensitiveContains(t) }) { selectedMeetingID = m.id }
+        if let path = env["MEETY_IMPORT"] { importFiles([URL(fileURLWithPath: (path as NSString).expandingTildeInPath)]) }
         if env["MEETY_SHOW"] == "welcome" { showWelcome = true }
         if env["MEETY_SHOW"] == "whatsnew" { showWhatsNew = true }
         if env["MEETY_SHOW"] == "settings" {
@@ -190,11 +193,25 @@ public final class AppModel {
     func importOne(_ url: URL) async {
         let title = url.deletingPathExtension().lastPathComponent
         let date = (try? url.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate) ?? Date()
+        // Ogg/Opus (áudio do WhatsApp) entra convertido para m4a; se este macOS não abrir o formato, avisa e não cria a reunião.
+        var converted: URL?
+        let ext = url.pathExtension.lowercased()
+        if AudioPrep.needsConversion.contains(ext) {
+            let temp = AppPaths.temporary.appendingPathComponent("import-\(UUID().uuidString).m4a")
+            do { try await AudioPrep.convertToM4A(from: url, to: temp) } catch {
+                MeetyLog.transcription.info("import: couldn't convert .\(ext): \(error.localizedDescription)")
+                alert = AlertMessage(title: String(localized: "Format not supported yet", bundle: .module),
+                                     message: String(localized: "Meety can't open .\(ext) files yet. Convert the file to MP4, M4A, MP3 or WAV and try again.", bundle: .module))
+                return
+            }
+            converted = temp
+        }
+        defer { if let converted { try? FileManager.default.removeItem(at: converted) } }
         do {
             let meeting = try library.create(title: title, source: .imported, date: date, originalFileName: url.lastPathComponent)
             let folder = library.folder(for: meeting)
             // Cópia para dentro da biblioteca: a reunião não depende do arquivo original.
-            try FileManager.default.copyItem(at: url, to: folder.audio)
+            try FileManager.default.copyItem(at: converted ?? url, to: folder.audio)
             let duration = await AudioPrep.duration(of: folder.audio)
             library.update(meeting.id) { $0.duration = duration }
             selectedMeetingID = meeting.id
@@ -209,6 +226,7 @@ public final class AppModel {
         panel.allowsMultipleSelection = true
         panel.canChooseDirectories = false
         panel.allowedContentTypes = [.audio, .movie, .mpeg4Movie, .mp3, .wav, .aiff, .quickTimeMovie]
+            + AudioPrep.needsConversion.compactMap { UTType(filenameExtension: $0) }
         panel.message = String(localized: "Choose audio or video files to transcribe", bundle: .module)
         if panel.runModal() == .OK { importFiles(panel.urls) }
     }
@@ -217,14 +235,19 @@ public final class AppModel {
 
     public func transcribe(_ meeting: Meeting) {
         guard queue.job(for: meeting.id) == nil else { return }
-        let model = models.catalog.model(id: settings.transcriptionModelID)
-        guard let model, models.isInstalled(model) else {
-            alert = AlertMessage(title: String(localized: "Download a model first", bundle: .module),
-                                 message: TranscriptionError.modelNotInstalled.localizedDescription)
+        let options = settings.transcriptionOptions
+        // Basta uma das duas opções estar pronta: a outra é tentada e, se falhar, a pronta assume.
+        guard options.candidates.contains(where: queue.isUsable) else {
+            let usesGroq = options.candidates.contains(Groq.backendID)
+            alert = usesGroq
+                ? AlertMessage(title: String(localized: "Transcription isn't set up yet", bundle: .module),
+                               message: TranscriptionError.nothingUsable.localizedDescription)
+                : AlertMessage(title: String(localized: "Download a model first", bundle: .module),
+                               message: TranscriptionError.modelNotInstalled.localizedDescription)
             library.update(meeting.id) { $0.status = .recorded }
             return
         }
-        queue.enqueue(meeting, options: settings.transcriptionOptions)
+        queue.enqueue(meeting, options: options)
     }
 
     public func delete(_ meeting: Meeting) {

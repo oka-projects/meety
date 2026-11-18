@@ -456,6 +456,16 @@
         }
       }
     },
+    "Neither transcription option is ready. Open Settings > Models to add a Groq key or download a model.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma das opções de transcrição está pronta. Abra Ajustes > Modelos para adicionar uma chave da Groq ou baixar um modelo."
+          }
+        }
+      }
+    },
     "No %@ API key saved.": {
       "localizations": {
         "pt-BR": {
@@ -826,6 +836,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ainda não há transcrição para resumir."
+          }
+        }
+      }
+    },
+    "There's no Groq key saved. Add one in Settings > Models.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não há chave da Groq salva. Adicione uma em Ajustes > Modelos."
           }
         }
       }

@@ -8,7 +8,10 @@ public final class MeetySettings {
     public static let shared = MeetySettings()
     private let d = UserDefaults.standard
 
+    /// Modelo principal da transcrição: o id de um modelo local ou `Groq.backendID`.
     public var transcriptionModelID: String { didSet { d.set(transcriptionModelID, forKey: "transcriptionModelID") } }
+    /// Modelo secundário, que assume quando o principal falha; vazio = sem reserva.
+    public var transcriptionFallbackID: String { didSet { d.set(transcriptionFallbackID, forKey: "transcriptionFallbackID") } }
     public var summaryModelID: String { didSet { d.set(summaryModelID, forKey: "summaryModelID") } }
     public var language: TranscriptionLanguage { didSet { d.set(language.rawValue, forKey: "language") } }
     public var separateSpeakers: Bool { didSet { d.set(separateSpeakers, forKey: "separateSpeakers") } }
@@ -46,6 +49,7 @@ public final class MeetySettings {
 
     private init() {
         transcriptionModelID = d.string(forKey: "transcriptionModelID") ?? "whisper-large-v3-turbo"
+        transcriptionFallbackID = d.string(forKey: "transcriptionFallbackID") ?? ""
         summaryModelID = d.string(forKey: "summaryModelID") ?? (ModelCatalog.physicalMemoryGB >= 24 ? "qwen3-8b" : "qwen3-4b")
         language = TranscriptionLanguage(rawValue: d.string(forKey: "language") ?? "") ?? .auto
         separateSpeakers = d.object(forKey: "separateSpeakers") as? Bool ?? true
@@ -66,7 +70,8 @@ public final class MeetySettings {
     }
 
     public var transcriptionOptions: TranscriptionOptions {
-        TranscriptionOptions(modelID: transcriptionModelID, language: language, separateSpeakers: separateSpeakers)
+        TranscriptionOptions(modelID: transcriptionModelID, fallbackID: transcriptionFallbackID.isEmpty ? nil : transcriptionFallbackID,
+                             language: language, separateSpeakers: separateSpeakers)
     }
 }
 

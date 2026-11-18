@@ -9,7 +9,7 @@ struct WhatsNewView: View {
     @Bindable var model: AppModel
     @Environment(\.dismiss) private var dismiss
     @State private var key = ""
-    @State private var keyState: DictationSettings.KeyState = .idle
+    @State private var keyState: GroqKeyField.KeyState = .idle
     @State private var axGranted = Permissions.accessibility == .granted
     @State private var tab = ProcessInfo.processInfo.environment["MEETY_WHATSNEW_TAB"] == "setup" ? 1 : 0
     /// Confere a Acessibilidade enquanto a pessoa vai e volta dos Ajustes.

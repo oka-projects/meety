@@ -277,12 +277,12 @@
         }
       }
     },
-    "Audio or video: m4a, mp3, wav, mp4, mov and more.": {
+    "Audio or video: m4a, mp3, wav, opus, mp4, mov and more.": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Áudio ou vídeo: m4a, mp3, wav, mp4, mov e outros."
+            "value": "Áudio ou vídeo: m4a, mp3, wav, opus, mp4, mov e outros."
           }
         }
       }
@@ -293,6 +293,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Voltar"
+          }
+        }
+      }
+    },
+    "Backup": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Secundário"
           }
         }
       }
@@ -825,6 +835,16 @@
         }
       }
     },
+    "Groq (online)": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Groq (online)"
+          }
+        }
+      }
+    },
     "Groq didn't accept this key": {
       "localizations": {
         "pt-BR": {
@@ -911,6 +931,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sai do seu Mac"
+          }
+        }
+      }
+    },
+    "Leaves your Mac: Groq is transcribing this audio.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sai do seu Mac: a Groq está transcrevendo este áudio."
+          }
+        }
+      }
+    },
+    "Leaves your Mac: with Groq, the audio is sent to Groq to be transcribed.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sai do seu Mac: com a Groq, o áudio é enviado para a Groq transcrever."
           }
         }
       }
@@ -1278,6 +1318,16 @@
         }
       }
     },
+    "None": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum"
+          }
+        }
+      }
+    },
     "Not allowed": {
       "localizations": {
         "pt-BR": {
@@ -1514,6 +1564,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aperte %@ em qualquer lugar, fale, e o texto aparece onde está o cursor. Toque para começar e parar, ou segure enquanto fala."
+          }
+        }
+      }
+    },
+    "Primary": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Principal"
           }
         }
       }
@@ -2149,6 +2209,16 @@
         }
       }
     },
+    "The primary option failed, so the backup took over. %@": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A opção principal falhou e a secundária assumiu. %@"
+          }
+        }
+      }
+    },
     "The transcription didn't finish": {
       "extractionState": "stale",
       "localizations": {
@@ -2310,6 +2380,16 @@
         }
       }
     },
+    "Transcription isn't set up yet": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A transcrição ainda não está configurada"
+          }
+        }
+      }
+    },
     "Try another word. The search looks at titles and transcripts.": {
       "localizations": {
         "pt-BR": {
@@ -2376,6 +2456,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Usar a Groq quando houver chave"
+          }
+        }
+      }
+    },
+    "Used for recordings and imported files. The backup takes over when the primary fails: no connection, Groq's limit reached, or a model that isn't downloaded.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vale para gravações e arquivos importados. O secundário assume quando o principal falha: sem conexão, limite da Groq atingido ou modelo que não foi baixado."
           }
         }
       }
@@ -2461,12 +2551,22 @@
         }
       }
     },
-    "With a key, the dictation audio goes to Groq, which is fast and accurate. Meetings are always transcribed on this Mac.": {
+    "With a key, the dictation audio goes to Groq, which is fast and accurate. Meetings are transcribed on this Mac unless you pick Groq in the Models tab.": {
       "localizations": {
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Com uma chave, o áudio do ditado vai para a Groq, que é rápida e precisa. As reuniões são sempre transcritas neste Mac."
+            "value": "Com uma chave, o áudio do ditado vai para a Groq, que é rápida e precisa. As reuniões são transcritas neste Mac, a não ser que você escolha a Groq na aba Modelos."
+          }
+        }
+      }
+    },
+    "Without a key, Groq is skipped and the other option is used.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem chave, a Groq é pulada e a outra opção é usada."
           }
         }
       }
@@ -2669,6 +2769,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "começou às %@"
+          }
+        }
+      }
+    },
+    "transcribed by Groq": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "transcrito pela Groq"
+          }
+        }
+      }
+    },
+    "transcribed on this Mac": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "transcrito neste Mac"
           }
         }
       }
