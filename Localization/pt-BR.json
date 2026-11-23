@@ -361,5 +361,8 @@
   "transcribed on this Mac": "transcrito neste Mac",
   "The primary option failed, so the backup took over. %@": "A opção principal falhou e a secundária assumiu. %@",
   "Leaves your Mac: Groq is transcribing this audio.": "Sai do seu Mac: a Groq está transcrevendo este áudio.",
-  "Transcription isn't set up yet": "A transcrição ainda não está configurada"
+  "Transcription isn't set up yet": "A transcrição ainda não está configurada",
+  "Recording stopped": "Gravação parada",
+  "Your Mac went to sleep, so Meety stopped the recording. Everything recorded up to that point was saved.": "O Mac entrou em repouso e o Meety parou a gravação. Tudo o que foi gravado até ali foi salvo.",
+  "macOS interrupted the recording (%@). Everything recorded up to that point was saved.": "O macOS interrompeu a gravação (%@). Tudo o que foi gravado até ali foi salvo."
 }

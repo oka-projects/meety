@@ -1678,6 +1678,16 @@
         }
       }
     },
+    "Recording stopped": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gravação parada"
+          }
+        }
+      }
+    },
     "Recording · %@": {
       "localizations": {
         "pt-BR": {
@@ -2622,6 +2632,16 @@
         }
       }
     },
+    "Your Mac went to sleep, so Meety stopped the recording. Everything recorded up to that point was saved.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Mac entrou em repouso e o Meety parou a gravação. Tudo o que foi gravado até ali foi salvo."
+          }
+        }
+      }
+    },
     "Your dictations will appear here.": {
       "localizations": {
         "pt-BR": {
@@ -2708,6 +2728,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "sai do seu Mac"
+          }
+        }
+      }
+    },
+    "macOS interrupted the recording (%@). Everything recorded up to that point was saved.": {
+      "localizations": {
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O macOS interrompeu a gravação (%@). Tudo o que foi gravado até ali foi salvo."
           }
         }
       }

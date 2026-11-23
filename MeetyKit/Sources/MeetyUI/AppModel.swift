@@ -64,6 +64,10 @@ public final class AppModel {
         engineMissing = EngineRunner.bundled() == nil
         let recorder = recorder
         dictation.isBlocked = { recorder.isRecording }
+        recorder.onInterrupted = { [weak self] result, why in
+            guard let self, let id = self.recordingMeetingID else { return }
+            Task { await self.finishRecording(id: id, result: result, interruption: why) }
+        }
         Task { await checkEngine() }
         applyDebugState()
     }
@@ -147,27 +151,46 @@ public final class AppModel {
     }
 
     public func stopRecording() {
-        guard let id = recordingMeetingID, let meeting = library.meetings.first(where: { $0.id == id }) else { return }
+        // Só com a gravação de pé: se ela já está parando sozinha (Mac dormindo), o `stop` devolveria
+        // nil e a reunião seria apagada aqui por engano.
+        guard recorder.isRecording, let id = recordingMeetingID else { return }
         Task {
             let result = await recorder.stop()
-            recordingMeetingID = nil
-            guard let result else {
-                try? library.delete(meeting)
-                if selectedMeetingID == id { selectedMeetingID = nil }
-                alert = AlertMessage(title: String(localized: "Nothing was recorded", bundle: .module),
-                                     message: String(localized: "No audio reached Meety. Check the microphone and the system audio permission.", bundle: .module))
-                return
+            await finishRecording(id: id, result: result, interruption: nil)
+        }
+    }
+
+    /// Mixa as trilhas na reunião e segue para a transcrição. Serve à parada pelo botão e à parada
+    /// automática (`interruption`), que avisa o usuário de que a gravação parou e foi salva.
+    private func finishRecording(id: String, result: Recorder.Result?, interruption: Recorder.Interruption?) async {
+        recordingMeetingID = nil
+        guard let meeting = library.meetings.first(where: { $0.id == id }) else { return }
+        guard let result else {
+            try? library.delete(meeting)
+            if selectedMeetingID == id { selectedMeetingID = nil }
+            alert = AlertMessage(title: String(localized: "Nothing was recorded", bundle: .module),
+                                 message: String(localized: "No audio reached Meety. Check the microphone and the system audio permission.", bundle: .module))
+            return
+        }
+        let folder = library.folder(for: meeting)
+        do {
+            try await AudioMixer.mix(tracks: [result.micTrack, result.systemTrack].compactMap { $0 }, output: folder.audio)
+            library.update(id) { $0.duration = result.duration; $0.createdAt = result.startedAt; $0.status = .recorded }
+            if settings.transcribeAfterRecording, let m = library.meetings.first(where: { $0.id == id }) {
+                transcribe(m)
             }
-            let folder = library.folder(for: meeting)
-            do {
-                try await AudioMixer.mix(tracks: [result.micTrack, result.systemTrack].compactMap { $0 }, output: folder.audio)
-                library.update(id) { $0.duration = result.duration; $0.createdAt = result.startedAt; $0.status = .recorded }
-                if settings.transcribeAfterRecording, let m = library.meetings.first(where: { $0.id == id }) {
-                    transcribe(m)
-                }
-            } catch {
-                library.update(id) { $0.status = .failed; $0.error = error.localizedDescription }
-            }
+        } catch {
+            library.update(id) { $0.status = .failed; $0.error = error.localizedDescription }
+        }
+        switch interruption {
+        case .sleep?:
+            alert = AlertMessage(title: String(localized: "Recording stopped", bundle: .module),
+                                 message: String(localized: "Your Mac went to sleep, so Meety stopped the recording. Everything recorded up to that point was saved.", bundle: .module))
+        case .streamError(let why)?:
+            alert = AlertMessage(title: String(localized: "Recording stopped", bundle: .module),
+                                 message: String(localized: "macOS interrupted the recording (\(why)). Everything recorded up to that point was saved.", bundle: .module))
+        case nil:
+            break
         }
     }
 

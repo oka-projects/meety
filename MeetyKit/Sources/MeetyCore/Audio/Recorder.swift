@@ -39,6 +39,40 @@ public final class Recorder: NSObject {
     @ObservationIgnored private var startDate: Date?
     @ObservationIgnored private var outputFolder: URL?
     @ObservationIgnored private var levelTick = 0
+    @ObservationIgnored private var sleepWatcher: SleepWatcher?
+    /// Segura o repouso por inatividade e o App Nap enquanto grava (a tampa fechada não dá para segurar).
+    @ObservationIgnored private var activity: NSObjectProtocol?
+
+    /// Por que a gravação parou sozinha.
+    public enum Interruption: Sendable, Equatable {
+        /// O Mac foi dormir (tampa fechada, menu Repouso). Os arquivos foram fechados antes do repouso.
+        case sleep
+        /// O sistema derrubou a captura (o ScreenCaptureKit avisou erro).
+        case streamError(String)
+    }
+
+    /// Chamado quando a gravação para sem o usuário pedir, já com as trilhas fechadas e salvas
+    /// (o `Result` é `nil` se nada chegou a ser gravado). Quem usa decide o que fazer com elas.
+    @ObservationIgnored public var onInterrupted: (@MainActor (Result?, Interruption) -> Void)?
+
+    public override init() {
+        super.init()
+        // Ao fechar a tampa: para a gravação e só então deixa o Mac dormir. Sem isso o SCK cai no
+        // repouso, a captura dava erro e o `fail` cancelava os escritores, perdendo tudo.
+        sleepWatcher = SleepWatcher { [weak self] done in
+            Task { @MainActor in
+                await self?.interrupt(.sleep)
+                done()
+            }
+        }
+    }
+
+    /// Para a gravação em curso por um motivo que não é o botão, salvando o que já foi gravado.
+    private func interrupt(_ reason: Interruption) async {
+        guard phase == .recording else { return }
+        let result = await stop()
+        onInterrupted?(result, reason)
+    }
 
     /// Estado dos escritores, acessado SÓ na writerQueue.
     private final class Writers: @unchecked Sendable {
@@ -102,6 +136,7 @@ public final class Recorder: NSObject {
 
             startDate = Date()
             phase = .recording
+            activity = ProcessInfo.processInfo.beginActivity(options: .userInitiated, reason: "Recording a meeting")
             timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { [weak self] _ in
                 Task { @MainActor in self?.tick() }
             }
@@ -162,7 +197,10 @@ public final class Recorder: NSObject {
         guard phase == .recording else { return nil }
         phase = .finishing
         timer?.invalidate(); timer = nil
-        if let stream { try? await stream.stopCapture() }
+        endActivity()
+        // Não esperamos o stopCapture: perto do repouso (ou com a captura já caída) ele pode demorar,
+        // e os escritores já ignoram o que chegar depois de `stopping`. O que importa é fechar os arquivos.
+        if let stream { Task { try? await stream.stopCapture() } }
         stream = nil
         let started = startDate ?? Date()
         let duration = Date().timeIntervalSince(started)
@@ -207,8 +245,14 @@ public final class Recorder: NSObject {
         return url
     }
 
+    private func endActivity() {
+        if let activity { ProcessInfo.processInfo.endActivity(activity) }
+        activity = nil
+    }
+
     private func fail(_ message: String) {
         timer?.invalidate(); timer = nil
+        endActivity()
         stream = nil
         writerQueue.async { [writers] in
             writers.stopping = true
@@ -231,8 +275,11 @@ public final class Recorder: NSObject {
 // MARK: - SCStreamDelegate / SCStreamOutput (na writerQueue)
 
 extension Recorder: SCStreamDelegate, SCStreamOutput {
+    /// A captura caiu no meio (o sistema derrubou o stream). Antes isto chamava `fail`, que cancelava
+    /// os escritores e jogava a gravação fora; agora fecha os arquivos e entrega o que foi gravado.
     nonisolated public func stream(_ stream: SCStream, didStopWithError error: Error) {
-        Task { @MainActor in self.fail(String(localized: "Recording stopped: \(error.localizedDescription)", bundle: .module)) }
+        let message = error.localizedDescription
+        Task { @MainActor in await self.interrupt(.streamError(message)) }
     }
 
     nonisolated public func stream(_ stream: SCStream, didOutputSampleBuffer sb: CMSampleBuffer, of type: SCStreamOutputType) {
